@@ -1,0 +1,11 @@
+digiID/.bundle/
+digiID/.rspec
+digiID/.ruby-version
+digiID/coverage/
+digiID/db/*.sqlite3
+digiID/db/schema.rb
+digiID/lib/tasks/
+digiID/log/
+digiID/tmp/
+digiID/vendor/bundle
+.DS_Store
