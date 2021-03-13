@@ -1,0 +1,13 @@
+<!--  app/views/users/show.html.erb -->
+<h2>Details about <em><%= @user.username %></em></h2>
+
+<ul id="details">
+  <li>
+    Username:
+    <%= @user.username %>
+  </li>
+</ul>
+
+<div class="row">
+  <%= link_to 'Back to user list', users_path, :class => 'btn btn-primary col-2' %>
+</div>
