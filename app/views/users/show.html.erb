@@ -11,3 +11,14 @@
 <div class="row">
   <%= link_to 'Back to user list', users_path, :class => 'btn btn-primary col-2' %>
 </div>
+
+
+<tbody>
+    <% @collectibles.each do |collectible| %>
+      <tr>
+        <td>
+          <%= collectible.name %>
+        </td>
+      </tr>
+    <% end %>
+</tbody>
