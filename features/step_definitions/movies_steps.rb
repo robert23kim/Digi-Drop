@@ -1,7 +1,7 @@
 
-Given /the following movies exist/ do |movies_table|
-  movies_table.hashes.each do |movie|
-    Movie.create movie
+Given /the following users exist/ do |users_table|
+  users_table.hashes.each do |user|
+    User.create user
   end
 end
 
@@ -17,13 +17,17 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
   end
 end
 
-Then /I should see all the movies/ do
+Then /I should see all the users/ do
   # Make sure that all the movies in the app are visible in the table
-  Movie.all.each do |movie|
-    step %{I should see "#{movie.title}"}
+  User.all.each do |user|
+    step %{I should see "#{user.title}"}
   end
 end
 
 Then /^the director of "(.*?)" should be "(.*?)"$/ do |mov, dir|
   Movie.find_by_title(mov).director.should == dir
+end
+
+Then /(.*) seed users should exist/ do | n_seeds |
+  User.count.should be n_seeds.to_i
 end

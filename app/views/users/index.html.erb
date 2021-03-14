@@ -8,17 +8,15 @@
   <thead>
     <tr>
       <th>Users</th>
-      <th>Links</th>
+      <th>Colletibles/th>
+      <th>Value</th>
     </tr>
   </thead>
   <tbody>
     <% @users.each do |user| %>
       <tr>
         <td>
-          <%= user.username %>
-        </td>
-        <td>
-          <%= link_to 'View collectibles', user_path(user) %>
+          <%= link_to '#{user.username}', user_path(user) %>
         </td>
       </tr>
     <% end %>
