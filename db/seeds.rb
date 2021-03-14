@@ -33,7 +33,8 @@ collectibles.each do |collectible|
   Collectible.create!(collectible)
 end
 
-assets = [{:user_id => "1", :collectible_id => "2"},
+assets = [{:user_id => "1", :collectible_id => "1"},
+		  {:user_id => "1", :collectible_id => "3"},
     	  {:user_id => "2", :collectible_id => "4"},
     	  {:user_id => "3", :collectible_id => "6"},
   	 ]
