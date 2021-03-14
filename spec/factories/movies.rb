@@ -5,6 +5,7 @@ I18n.reload!
 FactoryGirl.define do
   factory :user do
     username "john123"
+    password_digest "12345"
   end
 
   factory :invalid_movie, parent: :movie do
