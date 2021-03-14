@@ -15,7 +15,6 @@ group :development, :test do
   gem 'rspec-rails', '3.7.2'
   gem 'ZenTest', '4.11.2'
   gem 'factory_girl_rails'
-  gem 'pg'
 end
 
 group :test do
@@ -26,7 +25,8 @@ group :test do
   gem 'guard-rspec'
 end
 group :production do
-  gem 'pg'
+    gem 'pg', '~> 0.20'
+    gem 'rails_12factor'
 end
 
 # Gems used only for assets and not required
