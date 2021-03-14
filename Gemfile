@@ -16,6 +16,7 @@ group :development, :test do
   gem 'rspec-rails', '3.7.2'
   gem 'ZenTest', '4.11.2'
   gem 'factory_girl_rails'
+  gem 'rerun'
 end
 
 group :test do
