@@ -21,12 +21,19 @@ class UsersController < ApplicationController
 
   def new
     # default: render 'new' template
+    @user = User.new
   end
 
   def create
-    @user = User.create!(movie_params)
-    flash[:notice] = "#{@user.title} was successfully created."
-    redirect_to users_path
+    @user = User.new(user_params)
+    if !!User.find_by(username: user_params[:username])
+      redirect_to '/users/new', notice: "Username alreay exists"
+    elsif @user.save
+      session[:user_id] = @user.id
+      redirect_to users_path
+    else
+      render :new
+    end
   end
 
   def edit
@@ -75,6 +82,6 @@ class UsersController < ApplicationController
   # Making "internal" methods private is not required, but is a common practice.
   # This helps make clear which methods respond to requests, and which ones do not.
   def user_params
-    params.require(:user).permit(:username)
+    params.require(:user).permit(:username, :password)
   end
 end
