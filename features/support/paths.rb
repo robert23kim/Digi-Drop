@@ -24,8 +24,8 @@ module NavigationHelpers
     #when /^the edit page for "(.+)"$/
     #  edit_movie_path(Movie.find_by_title($1))
 
-    #when /^the details page for "(.+)"$/
-    #  movie_path(Movie.find_by_title($1))
+    when /^the collectibles page for "(.+)"$/
+      user_path(User.find_by_username($1))
       
     #when /^the Similar Movies page for "(.+)"$/
     #  same_dir_path(Movie.find_by_title($1))
