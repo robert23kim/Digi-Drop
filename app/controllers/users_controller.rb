@@ -1,10 +1,14 @@
 class UsersController < ApplicationController
 
+  @@added_asset = nil
+    
   def show
     id = params[:id] # retrieve movie ID from URI route
     @user = User.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
-    @collectibles = Collectible.select('*').joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id" INNER JOIN "users" ON "users"."id" = "assets"."user_id"').where("users.username = ?", @user.username)
+    @collectibles = Collectible.select('*')
+        .joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id" INNER JOIN "users" ON "users"."id" = "assets"."user_id"')
+        .where("users.username = ?", @user.username)
   end
 
   def index
@@ -27,12 +31,26 @@ class UsersController < ApplicationController
     
   def open_case
     @user = User.find params[:id]
+      
+    # map the asset to the corresponding collectible for display
+    if !@@added_asset.nil?
+        @added_collectible = Collectible.select('*')
+            .joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id"')
+            .where("assets.collectible_id = ?", @@added_asset.collectible_id)
+    end
+    
+    # reset back to nil
+    @@added_asset = nil  
   end
     
-  def add_collectible
-    @user = User.find params[:id]
-    Asset.create(:user_id=>'1', :collectible_id=>'4') 
-    redirect_to user_path(@user)
+  def add_asset
+    @user = User.find params[:id]  
+    
+    # note: completely random, does not take rarity into account yet
+    @collectible_ids = Collectible.select('collectible_id')
+    @@added_asset = Asset.create(:user_id => @user.id, :collectible_id => rand(@collectible_ids.size) + 1) 
+    flash[:notice] = "Added collectible #{@@added_asset.collectible_id} to user #{@@added_asset.user_id}"
+    redirect_to open_case_user_path(@user)
   end
 
   def update

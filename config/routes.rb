@@ -1,7 +1,7 @@
 Rottenpotatoes::Application.routes.draw do
   resources :users do
       get 'open_case', :on => :member
-      get 'add_collectible', :on => :member
+      post 'add_asset', :on => :member
   end
     
   # map '/' to be a redirect to '/users'
