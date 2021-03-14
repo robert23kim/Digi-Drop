@@ -6,9 +6,16 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-users = [{:username => 'john123'},
-    	  {:username => 'jim345'},
-    	  {:username => 'mike987'},
+# Returns the hash digest of the given string.
+def password_digest(string)
+  cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                BCrypt::Engine.cost
+  BCrypt::Password.create(string, cost: cost)
+end
+
+users = [{:username => 'john123', :password_digest => "#{password_digest('123456')}"},
+    	  {:username => 'jim345', :password_digest => "#{password_digest('123456')}"},
+    	  {:username => 'mike987', :password_digest => "#{password_digest('123456')}"},
   	 ]
 
 users.each do |user|
