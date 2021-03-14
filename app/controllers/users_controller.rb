@@ -16,9 +16,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    @movie = User.create!(movie_params)
-    flash[:notice] = "#{@movie.title} was successfully created."
-    redirect_to movies_path
+    @user = User.create!(movie_params)
+    flash[:notice] = "#{@user.title} was successfully created."
+    redirect_to users_path
   end
 
   def edit
@@ -37,19 +37,6 @@ class UsersController < ApplicationController
     @movie.destroy
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
-  end
-  
-  def others_by_same_director
-    id = params[:id] # retrieve movie ID from URI route
-    movie = User.find(id)
-    director_selected = movie.director
-#     if director_selected == nil
-    if  director_selected.blank? or director_selected.nil?
-      flash[:notice] = "'#{movie.title}' has no director info"
-      redirect_to root_path
-    else
-      @movies = User.with_director(director_selected)
-    end
   end
 
   private
