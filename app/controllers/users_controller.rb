@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     assets = Assets.where(user_id:id) # retrieve {:user_id => 1, :collectible_id => 2}
     #collectible_id_from_assets = assets.collectible_id # extracts collectible_id from assets
     #@collectibles = Colletibles.where(id:assets.collectible_id)
+    @collectibles = Collectible.all
   end
 
   def index
