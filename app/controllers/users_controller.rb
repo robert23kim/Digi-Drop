@@ -16,13 +16,23 @@ class UsersController < ApplicationController
   end
 
   def create
-    @movie = User.create!(movie_params)
-    flash[:notice] = "#{@movie.title} was successfully created."
-    redirect_to movies_path
+    @user = User.create!(movie_params)
+    flash[:notice] = "#{@user.title} was successfully created."
+    redirect_to users_path
   end
 
   def edit
-    @movie = User.find params[:id]
+    @user = User.find params[:id]
+  end
+    
+  def open_case
+    @user = User.find params[:id]
+  end
+    
+  def add_collectible
+    @user = User.find params[:id]
+    Asset.create(:user_id=>'1', :collectible_id=>'4') 
+    redirect_to user_path(@user)
   end
 
   def update
@@ -55,7 +65,7 @@ class UsersController < ApplicationController
   private
   # Making "internal" methods private is not required, but is a common practice.
   # This helps make clear which methods respond to requests, and which ones do not.
-  def movie_params
-    params.require(:movie).permit(:title, :rating, :description, :release_date, :director)
+  def user_params
+    params.require(:user).permit(:username)
   end
 end
