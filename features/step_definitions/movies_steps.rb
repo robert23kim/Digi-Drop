@@ -5,6 +5,18 @@ Given /the following users exist/ do |users_table|
   end
 end
 
+Given /the following collectibles exist/ do |users_table|
+  users_table.hashes.each do |user|
+    Collectible.create user
+  end
+end
+
+Given /the following assets exist/ do |users_table|
+  users_table.hashes.each do |user|
+    Asset.create user
+  end
+end
+
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.
@@ -23,6 +35,19 @@ Then /I should see all the users/ do
     step %{I should see "#{user.title}"}
   end
 end
+
+Then /I should see all of the collectibles of "(.*)"/ do |username|
+  # Make sure that all the movies in the app are visible in the table
+  #byebug
+  user = User.where(username: username)[0]
+  collection = Collectible.usersCollection(user)
+  collection.each do |c|
+    step %{I should see "#{c.name}"}
+  end
+end
+
+#Then(/^I should see (\d+) collectibles for "([^"]*)"$/) do |arg1, arg2|
+#  user = User.where(username: arg2)[0]
 
 Then /^the director of "(.*?)" should be "(.*?)"$/ do |mov, dir|
   Movie.find_by_title(mov).director.should == dir

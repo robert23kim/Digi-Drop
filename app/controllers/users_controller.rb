@@ -4,11 +4,17 @@ class UsersController < ApplicationController
     id = params[:id] # retrieve movie ID from URI route
     @user = User.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
-    @collectibles = Collectible.select('*').joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id" INNER JOIN "users" ON "users"."id" = "assets"."user_id"').where("users.username = ?", @user.username)
+    @collectibles = Collectible.usersCollection(@user)
   end
 
   def index
     @users = User.all
+    @countItemsHash = Hash.new
+    @sumValueHash = Hash.new
+    @users.each do |user|
+      @countItemsHash[user.id] = Collectible.joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id" INNER JOIN "users" ON "users"."id" = "assets"."user_id"').where("users.username = ?", user.username).count
+      @sumValueHash[user.id] = Collectible.joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id" INNER JOIN "users" ON "users"."id" = "assets"."user_id"').where("users.username = ?", user.username).sum(:value)
+    end
   end
 
   def new
@@ -44,19 +50,6 @@ class UsersController < ApplicationController
     @movie.destroy
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
-  end
-  
-  def others_by_same_director
-    id = params[:id] # retrieve movie ID from URI route
-    movie = User.find(id)
-    director_selected = movie.director
-#     if director_selected == nil
-    if  director_selected.blank? or director_selected.nil?
-      flash[:notice] = "'#{movie.title}' has no director info"
-      redirect_to root_path
-    else
-      @movies = User.with_director(director_selected)
-    end
   end
 
   private
