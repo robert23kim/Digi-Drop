@@ -4,11 +4,7 @@ class UsersController < ApplicationController
     id = params[:id] # retrieve movie ID from URI route
     @user = User.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
-  
-    assets = Assets.where(user_id:id) # retrieve {:user_id => 1, :collectible_id => 2}
-    #collectible_id_from_assets = assets.collectible_id # extracts collectible_id from assets
-    #@collectibles = Colletibles.where(id:assets.collectible_id)
-    @collectibles = Collectible.all
+    @collectibles = Collectible.select('*').joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id" INNER JOIN "users" ON "users"."id" = "assets"."user_id"').where("users.username = ?", @user.username)
   end
 
   def index

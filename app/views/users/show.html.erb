@@ -12,7 +12,7 @@
   <%= link_to 'Back to user list', users_path, :class => 'btn btn-primary col-2' %>
 </div>
 
-
+<table class="table table-striped col-md-12" id="users">
 <tbody>
     <% @collectibles.each do |collectible| %>
       <tr>
@@ -22,3 +22,4 @@
       </tr>
     <% end %>
 </tbody>
+</table>
