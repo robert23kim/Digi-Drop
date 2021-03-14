@@ -7,8 +7,8 @@
 <table class="table table-striped col-md-12" id="users">
   <thead>
     <tr>
-      <th>"Users"</th>
-      <th>"Links"</th>
+      <th>Users</th>
+      <th>Links</th>
     </tr>
   </thead>
   <tbody>
@@ -16,7 +16,9 @@
       <tr>
         <td>
           <%= user.username %>
-          <%= link_to "View collectibles", user_path(user) %>
+        </td>
+        <td>
+          <%= link_to 'View collectibles', user_path(user) %>
         </td>
       </tr>
     <% end %>
