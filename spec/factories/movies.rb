@@ -3,11 +3,8 @@ require 'faker'
 I18n.reload!
 
 FactoryGirl.define do
-  factory :movie do
-    title "Star Wars"
-    rating "PG"
-    director "George Lucas"
-    release_date "1977-05-25"
+  factory :user do
+    username "john123"
   end
 
   factory :invalid_movie, parent: :movie do
