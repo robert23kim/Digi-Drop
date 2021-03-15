@@ -2,7 +2,7 @@ Feature: sign up and log in
 
   As a NFT lover
   So that I can collect my own NFTs
-  I want to sign up or log in for DigiID
+  I want to sign up or log in for My Collectibles
 
 Background: users have been added to database
 
