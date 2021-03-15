@@ -14,7 +14,8 @@ Background: users have been added to database
 
 Scenario: sign up for a new account
   Given I am on the homepage
-  When I follow "Sign Up"
+  When I follow "Not logged in"
+  Then I follow "Sign up"
   Then I should be on the signup page
   And I should see "Username"
   And I should see "Password"
@@ -25,18 +26,20 @@ Scenario: sign up for a new account
 
 Scenario: sign up using an existent user
   Given I am on the homepage
-  When I follow "Sign Up"
+  When I follow "Not logged in"
+  Then I follow "Sign up"
   Then I should be on the signup page
   And I should see "Username"
   And I should see "Password"
   When I fill in "Username" with "john123"
   When I fill in "Password" with "123456"
   And I press "Create Account"
-  And I should see "Username alreay exists"
+  And I should see "Username already exists"
 
 Scenario: log in successfully
   Given I am on the homepage
-  When I follow "Log In"
+  When I follow "Not logged in"
+  Then I follow "Log in"
   Then I should be on the login page
   And I should see "Username"
   And I should see "Password"
@@ -49,7 +52,8 @@ Scenario: log in successfully
 
 Scenario: log in with wrong password
   Given I am on the homepage
-  When I follow "Log In"
+  When I follow "Not logged in"
+  Then I follow "Log in"
   Then I should be on the login page
   And I should see "Username"
   And I should see "Password"
@@ -61,5 +65,6 @@ Scenario: log in with wrong password
 Scenario: log out
   Given I am on the homepage
   Given I am logged_in as "john123"
-  When I follow "Log Out"
+  When I follow first "john123"
+  When I follow "Log out"
   And I should see "Logged out!"

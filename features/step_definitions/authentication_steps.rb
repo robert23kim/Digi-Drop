@@ -3,6 +3,10 @@ When /I fill in "Username" with a nonexistent user/ do
   fill_in("Username", :with => @new_username)
 end  
 
+When /^(?:|I )follow first "([^"]*)"$/ do |link|
+  click_link(link, match: :first)
+end
+
 Given /the following users registered/ do |users_table|
   #byebug
   users_table.hashes.each do |user|
