@@ -97,10 +97,13 @@ describe UsersController do
         
         @user = FactoryGirl.create(:user)
         @prize = FactoryGirl.create(:collectible)
-        post :add_asset, :id => @user.id
-        #get :open_case, :id => @user.id
+        @asset = FactoryGirl.create(:asset, :user_id => @user.id, :collectible_id => @prize.id)
+        #post :add_asset, :id => @user.id
+        UsersController.class_variable_set :@@added_asset, @asset
+        get :open_case, :id => @user.id
+        
         assigns(:user).should_not be_nil
-        assigns(:added_collectible).should_not be_nil
+        assigns(:added_collectible).should eq([@prize])
       end
     end
   end
