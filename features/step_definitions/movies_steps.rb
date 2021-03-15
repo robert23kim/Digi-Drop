@@ -1,17 +1,20 @@
 
 Given /the following users exist/ do |users_table|
+  #byebug
   users_table.hashes.each do |user|
     User.create user
   end
 end
 
 Given /the following collectibles exist/ do |users_table|
+  #byebug
   users_table.hashes.each do |user|
     Collectible.create user
   end
 end
 
 Given /the following assets exist/ do |users_table|
+  #byebug
   users_table.hashes.each do |user|
     Asset.create user
   end
