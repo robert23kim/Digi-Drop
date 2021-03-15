@@ -70,7 +70,7 @@ describe UsersController do
         @prize = FactoryGirl.create(:collectible)
         post :add_asset, :id => @user.id
         assigns(:collectible_ids).should_not be_nil
-        assigns(:added_asset).should_not be_nil
+        assigns(:@@added_asset).should_not be_nil
       end
       it "redirects to the open_case page" do
       #  post :create, movie: FactoryGirl.attributes_for(:movie)
@@ -90,11 +90,7 @@ describe UsersController do
         assigns(:user).should_not be_nil
         response.should render_template :open_case
       end
-      it "displays prize" do
-        #byebug
-        #post :create, movie: FactoryGirl.attributes_for(:movie)
-        #response.should redirect_to movies_path
-        
+      it "displays prize" do     
         @user = FactoryGirl.create(:user)
         @prize = FactoryGirl.create(:collectible)
         @asset = FactoryGirl.create(:asset, :user_id => @user.id, :collectible_id => @prize.id)
