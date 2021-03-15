@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if !!User.find_by(username: user_params[:username])
-      redirect_to '/users/new', notice: "Username alreay exists"
+      redirect_to '/users/new', notice: "Username already exists"
     elsif @user.save
       session[:user_id] = @user.id
       redirect_to users_path
@@ -57,7 +57,6 @@ class UsersController < ApplicationController
     # note: completely random, does not take rarity into account yet
     @collectible_ids = Collectible.select('collectible_id')
     @@added_asset = Asset.create(:user_id => @user.id, :collectible_id => rand(@collectible_ids.size) + 1) 
-    flash[:notice] = "Added collectible #{@@added_asset.collectible_id} to user #{@@added_asset.user_id}"
     redirect_to open_case_user_path(@user)
   end
 
