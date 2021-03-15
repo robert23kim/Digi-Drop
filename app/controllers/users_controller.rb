@@ -20,14 +20,12 @@ class UsersController < ApplicationController
   end
 
   def new
-    # default: render 'new' template
-    @user = User.new
   end
 
   def create
     @user = User.new(user_params)
     if !!User.find_by(username: user_params[:username])
-      redirect_to '/users/new', notice: "Username alreay exists"
+      redirect_to '/users/new', notice: "Username already exists"
     elsif @user.save
       session[:user_id] = @user.id
       redirect_to users_path
@@ -37,7 +35,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find params[:id]
   end
     
   def open_case
@@ -60,22 +57,13 @@ class UsersController < ApplicationController
     # note: completely random, does not take rarity into account yet
     @collectible_ids = Collectible.select('collectible_id')
     @@added_asset = Asset.create(:user_id => @user.id, :collectible_id => rand(@collectible_ids.size) + 1) 
-    flash[:notice] = "Added collectible #{@@added_asset.collectible_id} to user #{@@added_asset.user_id}"
     redirect_to open_case_user_path(@user)
   end
 
   def update
-    @movie = User.find params[:id]
-    @movie.update_attributes!(movie_params)
-    flash[:notice] = "#{@movie.title} was successfully updated."
-    redirect_to movie_path(@movie)
   end
 
   def destroy
-    @movie = User.find(params[:id])
-    @movie.destroy
-    flash[:notice] = "Movie '#{@movie.title}' deleted."
-    redirect_to movies_path
   end
 
   private
