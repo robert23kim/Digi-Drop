@@ -1,36 +1,72 @@
 <!--  This file is app/views/users/index.html.erb -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <a class="navbar-brand" href=<%= users_path %>>DigiId</a>
+   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+         <li class="nav-item active">
+            <a class="nav-link" href=<%= users_path %>>Home <span class="sr-only">(current)</span></a>
+         </li>
+         <% if logged_in? %>
+         <li class="nav-item">
+            <a class="nav-link" href=<%= user_path(current_user)%>>My Collectibles</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" href=<%= open_case_user_path(current_user)%>>Cases</a>
+         </li>
+         <% end %>
+      </ul>
+   </div>
+   <ul class="navbar-nav mr-auto">
+      <% if logged_in? %> 
+      <li class="nav-item dropdown">
+         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <%= current_user.username %>
+         </a>
+         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href=<%= logout_path %>>Log out</a>
+         </div>
+      </li>
+      <% else %>
+      <li class="nav-item dropdown">
+         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Not logged in
+         </a>
+         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href=<%= login_path %>>Log in</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href='users/new'>Sign up</a>
+         </div>
+      </li>
+      <% end %> 
+   </ul>
+</nav>
 
-<% if current_user %>
-  Logged in as <%= current_user.username %>.
-  <%= link_to 'Log Out', logout_path %>
-<% else %>
-  <%= link_to 'Sign Up', 'users/new' %> or 
-  <%= link_to 'Log In', login_path %>
-<% end %>
-
-<h2>All Users</h2>
-
-<table class="table table-striped col-md-12" id="users">
-  <thead>
-    <tr>
-      <th>Users</th>
-      <th>Collectibles</th>
-      <th>Value</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td>
-          <%= link_to "#{user.username}", user_path(user) %>
-        </td>
-        <td>
-          <%= @countItemsHash[user.id] %>
-        </td>
-        <td>
-          <%= @sumValueHash[user.id] %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container">
+    <div class="row mt-3">
+        <h2>Top Users</h2>
+        <table class="table table-striped col-md-12" id="users">
+          <thead>
+            <tr>
+              <th>Users</th>
+              <th>Collectibles</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td>
+                  <%= link_to "#{user.username}", user_path(user) %>
+                </td>
+                <td>
+                  <%= @countItemsHash[user.id] %>
+                </td>
+                <td>
+                  <%= @sumValueHash[user.id] %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+    </div>
+</div>
