@@ -61,29 +61,29 @@ describe UsersController do
 
   describe "POST #open_case" do
     context "with valid attributes" do
-      it "saves the new movie in the database" do
-        expect{
-          post :create, movie: FactoryGirl.attributes_for(:movie)
-        }.to change(Movie,:count).by(1)
-      end
-      it "redirects to the home page" do
-        post :create, movie: FactoryGirl.attributes_for(:movie)
-        response.should redirect_to movies_path
-      end
+      #it "saves the new movie in the database" do
+      #  expect{
+      #    post :create, movie: FactoryGirl.attributes_for(:movie)
+      #  }.to change(Movie,:count).by(1)
+      #end
+      #it "redirects to the home page" do
+      #  post :create, movie: FactoryGirl.attributes_for(:movie)
+      #  response.should redirect_to movies_path
+      #end
     end
   end
 
   describe "POST #add_asset" do
     context "with valid attributes" do
-      it "saves the new movie in the database" do
-        expect{
-          post :create, movie: FactoryGirl.attributes_for(:movie)
-        }.to change(Movie,:count).by(1)
-      end
-      it "redirects to the home page" do
-        post :create, movie: FactoryGirl.attributes_for(:movie)
-        response.should redirect_to movies_path
-      end
+      #it "saves the new movie in the database" do
+      #  expect{
+      #    post :create, movie: FactoryGirl.attributes_for(:movie)
+      #  }.to change(Movie,:count).by(1)
+      #end
+      #it "redirects to the home page" do
+      #  post :create, movie: FactoryGirl.attributes_for(:movie)
+      #  response.should redirect_to movies_path
+      #end
     end
   end
 end
@@ -92,30 +92,31 @@ end
 describe SessionsController do
   describe "POST #create" do
     context "with valid attributes" do
-      before :each do
-        @user = FactoryGirl.create(:user)
-post :create, user: FactoryGirl.attributes_for(:user)
-      end
-      it "saves the new user in the session" do
-        controller.session[:user_id].should eq @user.id
-      end
-      it "redirects to the home page" do  
-        response.should redirect_to users_path
-      end
-    endd
+    #  before :each do
+    #    @user = FactoryGirl.create(:user)
+    #      post :create, user: FactoryGirl.attributes_for(:user)
+    #  end
+    #  it "saves the new user in the session" do
+    #    controller.session[:user_id].should eq @user.id
+    #  end
+    #  it "redirects to the home page" do  
+    #    response.should redirect_to users_path
+    #  end
+    end
+  end
 
   describe 'DELETE destroy' do
-    before :each do
-      @movie = FactoryGirl.create(:movie)
-    enduser
-      delete :destroy, id: @user
+    #before :each do
+    #  @movie = FactoryGirl.create(:movie)
+    #enduser
+    #  delete :destroy, id: @user
 
-    it "deletes the movie" do
-      exlogs out of session
-      controller.session[:user_id].should be_nil
+    #it "deletes the movie" do
+    #  exlogs out of session
+    #  controller.session[:user_id].should be_nil
 
-    it "redirects to movies#index" do
-      delete :destroyusers@movie movies_path
-    endusers
+    #it "redirects to movies#index" do
+    #  delete :destroyusers@movie movies_path
+    #endusers
   end
 end
