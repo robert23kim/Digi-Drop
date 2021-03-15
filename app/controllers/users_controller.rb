@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     
   def open_case
     @user = User.find params[:id]
-    byebug
+    #byebug
     # map the asset to the corresponding collectible for display
     if !@@added_asset.nil?
         @added_collectible = Collectible.select('*')
