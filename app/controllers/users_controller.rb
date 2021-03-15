@@ -20,8 +20,6 @@ class UsersController < ApplicationController
   end
 
   def new
-    # default: render 'new' template
-    @user = User.new
   end
 
   def create
@@ -37,7 +35,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find params[:id]
   end
     
   def open_case
@@ -65,17 +62,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    @movie = User.find params[:id]
-    @movie.update_attributes!(movie_params)
-    flash[:notice] = "#{@movie.title} was successfully updated."
-    redirect_to movie_path(@movie)
   end
 
   def destroy
-    @movie = User.find(params[:id])
-    @movie.destroy
-    flash[:notice] = "Movie '#{@movie.title}' deleted."
-    redirect_to movies_path
   end
 
   private

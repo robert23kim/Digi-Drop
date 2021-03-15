@@ -45,4 +45,45 @@ describe UsersController do
     end
   end
 
+  describe "POST #create" do
+    context "with valid attributes" do
+      it "saves the new user in the database" do
+        expect{
+          post :create, user: FactoryGirl.attributes_for(:user)
+        }.to change(User,:count).by(1)
+      end
+      it "redirects to the home page" do
+        post :create, user: FactoryGirl.attributes_for(:user)
+        response.should redirect_to users_path
+      end
+    end
+  end
+
+  describe "POST #open_case" do
+    context "with valid attributes" do
+      it "saves the new movie in the database" do
+        expect{
+          post :create, movie: FactoryGirl.attributes_for(:movie)
+        }.to change(Movie,:count).by(1)
+      end
+      it "redirects to the home page" do
+        post :create, movie: FactoryGirl.attributes_for(:movie)
+        response.should redirect_to movies_path
+      end
+    end
+  end
+
+  describe "POST #add_asset" do
+    context "with valid attributes" do
+      it "saves the new movie in the database" do
+        expect{
+          post :create, movie: FactoryGirl.attributes_for(:movie)
+        }.to change(Movie,:count).by(1)
+      end
+      it "redirects to the home page" do
+        post :create, movie: FactoryGirl.attributes_for(:movie)
+        response.should redirect_to movies_path
+      end
+    end
+  end
 end
