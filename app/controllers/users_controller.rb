@@ -40,6 +40,7 @@ class UsersController < ApplicationController
   end
     
   def open_case
+    # byebug
     @user = User.find params[:id]
     #byebug
     # map the asset to the corresponding collectible for display
@@ -59,7 +60,8 @@ class UsersController < ApplicationController
     #byebug
     # note: completely random, does not take rarity into account yet
     @collectible_ids = Collectible.select('id')
-    @@added_asset = Asset.create(:user_id => @user.id, :collectible_id => rand(@collectible_ids.size) + 1) 
+    @@added_asset = Asset.create(:user_id => @user.id, :collectible_id => rand(@collectible_ids.size) + 1)
+    #byebug
     redirect_to open_case_user_path(@user)
   end
 
