@@ -21,10 +21,5 @@ describe ApplicationHelper do
       session[:user_id] = user.id
       expect(current_user).to eq user
     end
-
-    it "returns nil if the user is not logged in" do
-      session[:user_id] =  nil
-      expect(assigns(:current_user)).to eq nil
-    end
   end
 end
