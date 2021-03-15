@@ -20,9 +20,11 @@ class UsersController < ApplicationController
   end
 
   def new
+    @user = User.new
   end
 
   def create
+    #byebug
     @user = User.new(user_params)
     if !!User.find_by(username: user_params[:username])
       redirect_to '/users/new', notice: "Username already exists"
@@ -70,6 +72,6 @@ class UsersController < ApplicationController
   # Making "internal" methods private is not required, but is a common practice.
   # This helps make clear which methods respond to requests, and which ones do not.
   def user_params
-    params.require(:user).permit(:username, :password)
+    params.require(:user).permit(:username, :password_digest)
   end
 end
