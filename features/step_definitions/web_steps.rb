@@ -45,6 +45,14 @@ Given /^(?:|I )am on (.+)$/ do |page_name|
   visit path_to(page_name)
 end
 
+Given /^the user is not logged in$/ do
+  session[:user_id] = nil
+end
+
+Given /^the user "(.*)" is logged in$/ do |u1|
+  session[:user_id] = User.where(username: u1)[0].id
+end
+
 When /^(?:|I )go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end
