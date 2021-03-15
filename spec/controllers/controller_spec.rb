@@ -87,3 +87,35 @@ describe UsersController do
     end
   end
 end
+
+
+describe SessionsController do
+  describe "POST #create" do
+    context "with valid attributes" do
+      before :each do
+        @user = FactoryGirl.create(:user)
+post :create, user: FactoryGirl.attributes_for(:user)
+      end
+      it "saves the new user in the session" do
+        controller.session[:user_id].should eq @user.id
+      end
+      it "redirects to the home page" do  
+        response.should redirect_to users_path
+      end
+    endd
+
+  describe 'DELETE destroy' do
+    before :each do
+      @movie = FactoryGirl.create(:movie)
+    enduser
+      delete :destroy, id: @user
+
+    it "deletes the movie" do
+      exlogs out of session
+      controller.session[:user_id].should be_nil
+
+    it "redirects to movies#index" do
+      delete :destroyusers@movie movies_path
+    endusers
+  end
+end
