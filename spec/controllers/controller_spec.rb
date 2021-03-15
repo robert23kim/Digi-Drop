@@ -59,34 +59,53 @@ describe UsersController do
       end
     end
   end
-
-  describe "POST #open_case" do
-    context "with valid attributes" do
-      #it "saves the new movie in the database" do
-      #  expect{
-      #    post :create, movie: FactoryGirl.attributes_for(:movie)
-      #  }.to change(Movie,:count).by(1)
-      #end
-      #it "redirects to the home page" do
-      #  post :create, movie: FactoryGirl.attributes_for(:movie)
-      #  response.should redirect_to movies_path
-      #end
-    end
-  end
-
+  
   describe "POST #add_asset" do
-    context "with valid attributes" do
-      #it "saves the new movie in the database" do
+    context "adds collectible as asset to user" do
+      it "creates an Asset" do
       #  expect{
       #    post :create, movie: FactoryGirl.attributes_for(:movie)
       #  }.to change(Movie,:count).by(1)
-      #end
-      #it "redirects to the home page" do
+        @user = FactoryGirl.create(:user)
+        @prize = FactoryGirl.create(:collectible)
+        post :add_asset, :id => @user.id
+        assigns(:collectible_ids).should_not be_nil
+        assigns(:added_asset).should_not be_nil
+      end
+      it "redirects to the open_case page" do
       #  post :create, movie: FactoryGirl.attributes_for(:movie)
-      #  response.should redirect_to movies_path
-      #end
+        @user = FactoryGirl.create(:user)
+        @prize = FactoryGirl.create(:collectible)
+        post :add_asset, :id => @user.id
+        response.should redirect_to open_case_user_path
+      end
     end
   end
+
+  describe "GET #open_case" do
+    context "opening a case and displaying prize" do
+      it "renders the open case template" do
+        @user = FactoryGirl.create(:user)
+        get :open_case, :id => @user.id
+        assigns(:user).should_not be_nil
+        response.should render_template :open_case
+      end
+      it "displays prize" do
+        #byebug
+        #post :create, movie: FactoryGirl.attributes_for(:movie)
+        #response.should redirect_to movies_path
+        
+        @user = FactoryGirl.create(:user)
+        @prize = FactoryGirl.create(:collectible)
+        post :add_asset, :id => @user.id
+        #get :open_case, :id => @user.id
+        assigns(:user).should_not be_nil
+        assigns(:added_collectible).should_not be_nil
+      end
+    end
+  end
+
+  
 end
 
 
