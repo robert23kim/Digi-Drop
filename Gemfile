@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '>= 2.6.6', '< 2.7.0'
 gem 'rails', '4.2.10'
 gem 'execjs'
-gem 'therubyracer', :platforms => :ruby
+gem 'mini_racer', :platforms => :ruby
 gem 'bcrypt'
 
 # for Heroku deployment 
@@ -17,6 +17,10 @@ group :development, :test do
   gem 'ZenTest', '4.11.2'
   gem 'factory_girl_rails'
   gem 'rerun'
+  gem 'bootstrap', '~> 4.6'
+  gem 'jquery'
+  gem 'popper_js'
+  gem 'turbolinks', '~> 5.2.0'
 end
 
 group :test do
