@@ -1,30 +1,64 @@
 <!--  app/views/users/show.html.erb -->
-<% if current_user %>
-  Logged in as <%= current_user.username %>.
-  <%= link_to 'Log Out', logout_path %>
-<% else %>
-  <%= link_to 'Sign Up', 'users/new' %> or 
-  <%= link_to 'Log In', login_path %>
-<% end %>
-<h2><em><%= @user.username %></em> Collectibles</h2>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <a class="navbar-brand" href=<%= users_path %>>DigiId</a>
+   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+         <li class="nav-item active">
+            <a class="nav-link" href=<%= users_path %>>Home <span class="sr-only">(current)</span></a>
+         </li>
+         <% if logged_in? %>
+         <li class="nav-item">
+            <a class="nav-link" href=<%= user_path(current_user)%>>My Collectibles</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" href=<%= open_case_user_path(current_user)%>>Cases</a>
+         </li>
+         <% end %>
+      </ul>
+   </div>
+   <ul class="navbar-nav mr-auto">
+      <% if logged_in? %> 
+      <li class="nav-item dropdown">
+         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <%= current_user.username %>
+         </a>
+         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href=<%= logout_path %>>Log out</a>
+         </div>
+      </li>
+      <% else %>
+      <li class="nav-item dropdown">
+         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Not logged in
+         </a>
+         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href=<%= login_path %>>Log in</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href='users/new'>Sign up</a>
+         </div>
+      </li>
+      <% end %> 
+   </ul>
+</nav>
 
-<table class="table table-striped col-md-12" id="users">
-<tbody>
-    <% @collectibles.each do |collectible| %>
-      <tr>
-        <td>
-          <%= collectible.name %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <img src=<%= collectible.url%> width=auto height="250">
-        </td>
-      </tr>
-    <% end %>
-</tbody>
-</table>
-
-<div class="row">
-  <%= link_to 'Back to user list', users_path, :class => 'btn btn-primary col-2' %>
+<div class="container">
+    <div class="row mt-3">
+        <h2><em><%= @user.username %></em> Collectibles</h2>
+        <table class="table table-striped col-md-12" id="users">
+        <tbody>
+            <% @collectibles.each do |collectible| %>
+              <tr>
+                <td>
+                  <%= collectible.name %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src=<%= collectible.url%> width=auto height="250">
+                </td>
+              </tr>
+            <% end %>
+        </tbody>
+        </table>
+    </div>
 </div>
