@@ -110,16 +110,22 @@ end
 describe SessionsController do
   describe "POST #create" do
     context "with valid attributes" do
-    #  before :each do
-    #    @user = FactoryGirl.create(:user)
-    #      post :create, user: FactoryGirl.attributes_for(:user)
-    #  end
-    #  it "saves the new user in the session" do
-    #    controller.session[:user_id].should eq @user.id
-    #  end
-    #  it "redirects to the home page" do  
-    #    response.should redirect_to users_path
-    #  end
+      before :each do
+        @user = FactoryGirl.create(:user)
+        #post :create, 
+      end
+      it "saves the new user in the session" do
+        post :create, :username => @user.username, :password_digest => "12345"
+        controller.session[:user_id].should eq @user.id
+      end
+      it "redirects to the home page if authentication is valid" do
+        post :create, :username => @user.username, :password_digest => "12345"
+        response.should redirect_to users_path
+      end
+      it "redirects to the home page if authentication is invalid" do
+        post :create, :username => @user.username, :password_digest => "54321"
+        response.should redirect_to login_path
+      end
     end
   end
 
