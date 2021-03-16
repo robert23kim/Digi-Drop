@@ -50,11 +50,11 @@ describe UsersController do
       it "saves the new user in the database" do
         #byebug
         expect{
-          post :create, user: FactoryGirl.attributes_for(:user)
+          post :create, user: {"username" => "john123", "password" => "12345"}
         }.to change(User,:count).by(1)
       end
       it "redirects to the home page" do
-        post :create, user: FactoryGirl.attributes_for(:user)
+        post :create, user: {"username" => "john123", "password" => "12345"}
         response.should redirect_to users_path
       end
     end

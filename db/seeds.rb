@@ -23,7 +23,6 @@ users.each do |user|
 end
 
 collectibles = [{:name => 'Kitska Warmbest', :rarity => 0.001, :url => 'https://lh3.googleusercontent.com/4YPexPRmyHJ_BW_f41KKO-QdOD_vffe0ndD3tt7vu7ZCsPydNBSVy1Je-7F781SLgWP37ujmkHqhGSBUYSp4nGxKitBd6MqDlxkssg=s992', :value => 10.00},
-				{:name => 'ATARI SNEAKER Solaris edition by Retrocoin', :rarity => 0.002, :url => 'https://storage.opensea.io/files/78c82c4f2520b8f877f8a9972247b5cd.mp4', :value => 25.00},
 				{:name => 'Protrait of a Collector', :rarity => 0.003, :url => 'https://lh3.googleusercontent.com/tSyl3XXZmI6YI1SD3lccyyO8NOw20xxOLR0pSn-2CFqHkIRIhRnCpEaQhIIrAYdcdt0siH3AY5bY0yKldI_pkZxVNXA_HVJSUeMM=s992', :value => 75.00},
 				{:name => 'Saki Ashizawa newly shot visual (Studio)', :rarity => 0.004, :url => 'https://lh3.googleusercontent.com/IjWxFQowKRGOCSot55b5pzAaA8NuZVUrt2r3N_X9cJDxVFRiHdAd_PfunuAukLrf2t84DS9ou2FTePoD9rgbwdZt9JFYXQQ1RLcHpg=s0', :value => 157.00},
 				{:name => 'Beeple NFT Sells For $69.3 Million', :rarity => 0.005, :url => 'https://specials-images.forbesimg.com/imageserve/604a301bc8447b5c819d065f/960x0.jpg?fit=scale', :value => 335.00},
