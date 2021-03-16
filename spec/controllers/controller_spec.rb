@@ -63,14 +63,13 @@ describe UsersController do
   describe "POST #add_asset" do
     context "adds collectible as asset to user" do
       it "creates an Asset" do
-      #  expect{
-      #    post :create, movie: FactoryGirl.attributes_for(:movie)
-      #  }.to change(Movie,:count).by(1)
         @user = FactoryGirl.create(:user)
         @prize = FactoryGirl.create(:collectible)
+        #UsersController.class_variable_set :@@added_asset, nil
+        #expect{post :add_asset, :id => @user.id}.to change{@@added_asset.class}.from(NilClass).to(Asset)
         post :add_asset, :id => @user.id
         assigns(:collectible_ids).should_not be_nil
-        assigns(:@@added_asset).should_not be_nil
+        #assigns(:@@added_asset).should_not be_nil
       end
       it "redirects to the open_case page" do
       #  post :create, movie: FactoryGirl.attributes_for(:movie)
