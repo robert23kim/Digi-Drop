@@ -20,7 +20,7 @@ Scenario: sign up for a new account
   And I should see "Username"
   And I should see "Password"
   When I fill in "Username" with a nonexistent user
-  When I fill in "Password" with "123456"
+  When I fill in "user_password_digest" with "123456"
   And I press "Create Account"
   Then I should be on the homepage
 
@@ -32,7 +32,7 @@ Scenario: sign up using an existent user
   And I should see "Username"
   And I should see "Password"
   When I fill in "Username" with "john123"
-  When I fill in "Password" with "123456"
+  When I fill in "user_password_digest" with "123456"
   And I press "Create Account"
   And I should see "Username already exists"
 
