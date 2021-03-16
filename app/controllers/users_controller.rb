@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    #byebug
     @user = User.new(user_params)
     if !!User.find_by(username: user_params[:username])
       redirect_to '/users/new', notice: "Username already exists"
@@ -40,13 +41,15 @@ class UsersController < ApplicationController
   end
     
   def open_case
+    # byebug
     @user = User.find params[:id]
-      
+    #byebug
     # map the asset to the corresponding collectible for display
     if !@@added_asset.nil?
         @added_collectible = Collectible.select('*')
             .joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id"')
             .where("assets.collectible_id = ?", @@added_asset.collectible_id)
+      #byebug
     end
     
     # reset back to nil
@@ -55,10 +58,11 @@ class UsersController < ApplicationController
     
   def add_asset
     @user = User.find params[:id]  
-    
+    #byebug
     # note: completely random, does not take rarity into account yet
-    @collectible_ids = Collectible.select('collectible_id')
-    @@added_asset = Asset.create(:user_id => @user.id, :collectible_id => rand(@collectible_ids.size) + 1) 
+    @collectible_ids = Collectible.select('id')
+    @@added_asset = Asset.create(:user_id => @user.id, :collectible_id => rand(@collectible_ids.size) + 1)
+    #byebug
     redirect_to open_case_user_path(@user)
   end
 
@@ -72,6 +76,6 @@ class UsersController < ApplicationController
   # Making "internal" methods private is not required, but is a common practice.
   # This helps make clear which methods respond to requests, and which ones do not.
   def user_params
-    params.require(:user).permit(:username, :password)
+    params.require(:user).permit(:username, :password_digest)
   end
 end
