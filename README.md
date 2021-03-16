@@ -5,7 +5,7 @@
 <br>Kuo Bao kb3219
 
 ### Heroku deployment link
-<br>https://pacific-ravine-08432.herokuapp.com/
+<br>https://floating-savannah-61270.herokuapp.com/
 
 ### Github source code
 <br>https://github.com/robert23kim/project-digi-id
