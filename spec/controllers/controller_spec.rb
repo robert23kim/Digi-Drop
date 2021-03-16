@@ -48,6 +48,7 @@ describe UsersController do
   describe "POST #create" do
     context "with valid attributes" do
       it "saves the new user in the database" do
+        #byebug
         expect{
           post :create, user: FactoryGirl.attributes_for(:user)
         }.to change(User,:count).by(1)
@@ -58,65 +59,86 @@ describe UsersController do
       end
     end
   end
-
-  describe "POST #open_case" do
-    context "with valid attributes" do
-      #it "saves the new movie in the database" do
-      #  expect{
-      #    post :create, movie: FactoryGirl.attributes_for(:movie)
-      #  }.to change(Movie,:count).by(1)
-      #end
-      #it "redirects to the home page" do
-      #  post :create, movie: FactoryGirl.attributes_for(:movie)
-      #  response.should redirect_to movies_path
-      #end
-    end
-  end
-
+  
   describe "POST #add_asset" do
-    context "with valid attributes" do
-      #it "saves the new movie in the database" do
-      #  expect{
-      #    post :create, movie: FactoryGirl.attributes_for(:movie)
-      #  }.to change(Movie,:count).by(1)
-      #end
-      #it "redirects to the home page" do
+    context "adds collectible as asset to user" do
+      it "creates an Asset" do
+        @user = FactoryGirl.create(:user)
+        @prize = FactoryGirl.create(:collectible)
+        #UsersController.class_variable_set :@@added_asset, nil
+        #expect{post :add_asset, :id => @user.id}.to change{@@added_asset.class}.from(NilClass).to(Asset)
+        post :add_asset, :id => @user.id
+        assigns(:collectible_ids).should_not be_nil
+        #assigns(:@@added_asset).should_not be_nil
+      end
+      it "redirects to the open_case page" do
       #  post :create, movie: FactoryGirl.attributes_for(:movie)
-      #  response.should redirect_to movies_path
-      #end
+        @user = FactoryGirl.create(:user)
+        @prize = FactoryGirl.create(:collectible)
+        post :add_asset, :id => @user.id
+        response.should redirect_to open_case_user_path
+      end
     end
   end
+
+  describe "GET #open_case" do
+    context "opening a case and displaying prize" do
+      it "renders the open case template" do
+        @user = FactoryGirl.create(:user)
+        get :open_case, :id => @user.id
+        assigns(:user).should_not be_nil
+        response.should render_template :open_case
+      end
+      it "displays prize" do     
+        @user = FactoryGirl.create(:user)
+        @prize = FactoryGirl.create(:collectible)
+        @asset = FactoryGirl.create(:asset, :user_id => @user.id, :collectible_id => @prize.id)
+        #post :add_asset, :id => @user.id
+        UsersController.class_variable_set :@@added_asset, @asset
+        get :open_case, :id => @user.id
+        
+        assigns(:user).should_not be_nil
+        assigns(:added_collectible).should eq([@prize])
+      end
+    end
+  end
+
+  
 end
 
 
 describe SessionsController do
   describe "POST #create" do
     context "with valid attributes" do
-    #  before :each do
-    #    @user = FactoryGirl.create(:user)
-    #      post :create, user: FactoryGirl.attributes_for(:user)
-    #  end
-    #  it "saves the new user in the session" do
-    #    controller.session[:user_id].should eq @user.id
-    #  end
-    #  it "redirects to the home page" do  
-    #    response.should redirect_to users_path
-    #  end
+      before :each do
+        @user = FactoryGirl.create(:user)
+        #post :create, 
+      end
+      it "saves the new user in the session" do
+        post :create, :username => @user.username, :password => "12345"
+        controller.session[:user_id].should eq @user.id
+      end
+      it "redirects to the home page if authentication is valid" do
+        post :create, :username => @user.username, :password => "12345"
+        response.should redirect_to users_path
+      end
+      it "redirects to the home page if authentication is invalid" do
+        post :create, :username => @user.username, :password => "54321"
+        response.should redirect_to login_path
+      end
     end
   end
 
   describe 'DELETE destroy' do
-    #before :each do
-    #  @movie = FactoryGirl.create(:movie)
-    #enduser
-    #  delete :destroy, id: @user
-
-    #it "deletes the movie" do
-    #  exlogs out of session
-    #  controller.session[:user_id].should be_nil
-
-    #it "redirects to movies#index" do
-    #  delete :destroyusers@movie movies_path
-    #endusers
+    before :each do
+      @user = FactoryGirl.create(:user)
+      delete :destroy
+    end
+    it "logs out of session" do
+      controller.session[:user_id].should be_nil
+    end
+    it "redirects to movies#index" do
+      response.should redirect_to users_path
+    end
   end
 end
