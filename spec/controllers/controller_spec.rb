@@ -130,17 +130,15 @@ describe SessionsController do
   end
 
   describe 'DELETE destroy' do
-    #before :each do
-    #  @movie = FactoryGirl.create(:movie)
-    #enduser
-    #  delete :destroy, id: @user
-
-    #it "deletes the movie" do
-    #  exlogs out of session
-    #  controller.session[:user_id].should be_nil
-
-    #it "redirects to movies#index" do
-    #  delete :destroyusers@movie movies_path
-    #endusers
+    before :each do
+      @user = FactoryGirl.create(:user)
+      delete :destroy
+    end
+    it "logs out of session" do
+      controller.session[:user_id].should be_nil
+    end
+    it "redirects to movies#index" do
+      response.should redirect_to users_path
+    end
   end
 end
