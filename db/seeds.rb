@@ -48,3 +48,10 @@ assets = [{:user_id => 1, :collectible_id => 1},
 assets.each do |asset|
   Asset.create!(asset)
 end
+
+marketplaceItems = [{:user_id => 1, :collectible_id => 1, sell_price => 100.00},
+				]
+
+marketplaceItems.each do |marketplaceItem|
+	MarketplaceItem.create!(marketplaceItem)
+end
