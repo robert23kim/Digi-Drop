@@ -8,19 +8,19 @@
          </li>
          <% if logged_in? %>
          <li class="nav-item">
-            <a class="nav-link" href=<%= user_path(current_user)%>>Mange Collectibles</a>
+            <a class="nav-link" href=<%= user_path(current_user)%>>Manage Collectibles</a>
          </li>
          <li class="nav-item">
             <a class="nav-link" href=<%= open_case_user_path(current_user)%>>Cases</a>
-         </li>
-         <li class="nav-item">
-            <a>Your Balance</a>
          </li>
          <% end %>
       </ul>
    </div>
    <ul class="navbar-nav mr-auto">
       <% if logged_in? %> 
+      <li class="nav-item active">
+            <a class="nav-link">Your Balance: $0</a>
+      </li>
       <li class="nav-item dropdown">
          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          <%= current_user.username %>
