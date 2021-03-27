@@ -72,6 +72,13 @@ class UsersController < ApplicationController
   def destroy
   end
 
+  def sell
+    id = params[:user_id] # retrieve movie ID from URI route
+    collectible_id = params[:collectible_id]
+    @user = User.find(id) # look up movie by unique ID
+    @collectible = Collectible.find(collectible_id)
+  end
+
   private
   # Making "internal" methods private is not required, but is a common practice.
   # This helps make clear which methods respond to requests, and which ones do not.
