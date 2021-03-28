@@ -106,6 +106,14 @@ class UsersController < ApplicationController
   def update
     #byebug
     @user = User.find params[:id]
+    amt = Float(params[:amount])
+    #byebug
+    if @user.balance.nil?
+      @user.balance = amt
+    else
+      @user.balance = @user.balance + amt
+    end
+    @user.save
     redirect_to user_path(@user)
   end
 
