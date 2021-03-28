@@ -5,7 +5,7 @@ class CreateMarkeplaceItem < ActiveRecord::Migration
       t.integer :collectible_id
       t.float :sell_price
       # Add fields that let Rails automatically keep track
-      # of when movies are added or modified:
+      # of when marketplace_items are added or modified:
       t.timestamps
     end
   end
