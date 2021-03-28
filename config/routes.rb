@@ -11,6 +11,6 @@ Rottenpotatoes::Application.routes.draw do
   post 'login', to: 'sessions#create'
   get 'signup', to: 'users#new', as: 'signup'
   get 'logout', to: 'sessions#destroy', as: 'logout'
-  get 'sell(/:user_id)(/:collectible_id)', to: 'users#sell', as: 'sell'
+  get 'sell(/:user_id)(/:collectible_id)(/:price)', to: 'users#sell', as: 'sell'
 
 end
