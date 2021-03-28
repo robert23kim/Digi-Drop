@@ -73,10 +73,8 @@ class UsersController < ApplicationController
   end
 
   def sell
-    id = params[:user_id] # retrieve movie ID from URI route
-    collectible_id = params[:collectible_id]
-    @user = User.find(id) # look up movie by unique ID
-    @collectible = Collectible.find(collectible_id)
+    Product.create(:user_id => params[:user_id], :asset_id => params[:asset_id], :sell_price => params[:price])
+    redirect_to users_path
   end
 
   private
