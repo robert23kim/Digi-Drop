@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     # will render app/views/movies/show.<extension> by default
     
     #Adds balance value to nav bar if logged in
-    byebug
+    #byebug
     @userBal = "$0"
     if !session[:user_id].nil?
       id = session[:user_id]
@@ -68,7 +68,12 @@ class UsersController < ApplicationController
             .where("assets.collectible_id = ?", @@added_asset.collectible_id)
       #byebug
     end
-    
+    #Adds balance value to nav bar if logged in
+    @userBal = "$0"
+    if !session[:user_id].nil?
+      id = session[:user_id]
+      @userBal = User.balanceToString(User.find(id))
+    end
     # reset back to nil
     @@added_asset = nil  
   end
