@@ -4,7 +4,7 @@ class Assets < ActiveRecord::Migration
       t.integer :user_id
       t.integer :collectible_id
       # Add fields that let Rails automatically keep track
-      # of when movies are added or modified:
+      # of when assets are added or modified:
       t.timestamps
     end
   end
