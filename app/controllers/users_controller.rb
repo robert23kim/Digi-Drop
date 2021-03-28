@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     #Adds balance value to nav bar if logged in
     #byebug
     @userBal = "$0"
-    if !session[:user_id].nil?
+    if !session[:user_id].nil? #and !session[:user_id].empty?
       id = session[:user_id]
       @userBal = User.balanceToString(User.find(id))
     end
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     
     #Adds balance value to nav bar if logged in
     @userBal = "$0"
-    if !session[:user_id].nil?
+    if !session[:user_id].nil? #and !session[:user_id].empty?
       id = session[:user_id]
       @userBal = User.balanceToString(User.find(id))
     end
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
     end
     #Adds balance value to nav bar if logged in
     @userBal = "$0"
-    if !session[:user_id].nil?
+    if !session[:user_id].nil? #and !session[:user_id].empty?
       id = session[:user_id]
       @userBal = User.balanceToString(User.find(id))
     end
