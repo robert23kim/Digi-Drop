@@ -6,10 +6,19 @@ class UsersController < ApplicationController
     id = params[:id] # retrieve movie ID from URI route
     @user = User.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
+    
+    #Adds balance value to nav bar if logged in
+    byebug
+    @userBal = "$0"
+    if !session[:user_id].nil?
+      id = session[:user_id]
+      @userBal = User.balanceToString(User.find(id))
+    end
     @collectibles = Collectible.usersCollection(@user)
   end
 
   def index
+    #byebug
     @users = User.all
     @countItemsHash = Hash.new
     @sumValueHash = Hash.new
@@ -17,6 +26,14 @@ class UsersController < ApplicationController
       @countItemsHash[user.id] = Collectible.joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id" INNER JOIN "users" ON "users"."id" = "assets"."user_id"').where("users.username = ?", user.username).count
       @sumValueHash[user.id] = Collectible.joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id" INNER JOIN "users" ON "users"."id" = "assets"."user_id"').where("users.username = ?", user.username).sum(:value)
     end
+    
+    #Adds balance value to nav bar if logged in
+    @userBal = "$0"
+    if !session[:user_id].nil?
+      id = session[:user_id]
+      @userBal = User.balanceToString(User.find(id))
+    end
+    
     @users = @users.sort_by{|u| @sumValueHash[u.id]}.reverse
   end
 
