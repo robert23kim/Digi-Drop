@@ -19,6 +19,11 @@ class UsersController < ApplicationController
     end
     @users = @users.sort_by{|u| @sumValueHash[u.id]}.reverse
   end
+  
+  def market
+    @user = User.find params[:id]
+    @products = Product.products()
+  end
 
   def new
     @user = User.new
@@ -73,8 +78,37 @@ class UsersController < ApplicationController
   end
 
   def sell
+    @user = User.find params[:user_id] 
     Product.create(:user_id => params[:user_id], :asset_id => params[:asset_id], :sell_price => params[:price])
-    redirect_to users_path
+    Asset.where(id: params[:asset_id]).update_all(on_the_market: true)
+    redirect_to user_path(@user)
+  end
+
+  def unlist
+    @user = User.find params[:user_id]
+    Product.where(asset_id: params[:asset_id]).destroy_all
+    Asset.where(id: params[:asset_id]).update_all(on_the_market: false)
+    #redirect_to user_path(@user)
+    redirect_to(:back)
+  end
+
+  def buy
+    buyer_balance = User.where(id: params[:buyer_id]).first.balance
+    seller_balance = User.where(id: params[:seller_id]).first.balance
+    price = params[:price].to_f
+    if buyer_balance < price
+      redirect_to :back, notice: "Insufficient Balance"
+    else
+      Asset.where(id: params[:asset_id]).update_all(user_id: params[:buyer_id], on_the_market: false)
+      User.where(id: params[:buyer_id]).update_all(balance: (buyer_balance-price))
+      User.where(id: params[:buyer_id]).update_all(balance: (seller_balance+price))
+      Product.where(asset_id: params[:asset_id]).destroy_all
+      redirect_to :back, notice: "Your purchase was successful"
+    end
+    #@user = User.find params[:user_id]
+    #Product.where(asset_id: params[:asset_id]).destroy_all
+    #Asset.where(id: params[:asset_id]).update_all(on_the_market: false)
+    #redirect_to user_path(@user)
   end
 
   private
