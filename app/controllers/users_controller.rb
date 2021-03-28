@@ -87,6 +87,9 @@ class UsersController < ApplicationController
     #byebug
     redirect_to open_case_user_path(@user)
   end
+  
+  def add_balance
+  end
 
   def update
   end
