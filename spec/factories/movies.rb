@@ -7,6 +7,7 @@ FactoryGirl.define do
     username "john123"
     password_digest BCrypt::Password.create("12345", cost: ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                 BCrypt::Engine.cost) #"12345"
+    balance 123.00
   end
   factory :collectible do
     name "Kitska Warmbestrarity"
