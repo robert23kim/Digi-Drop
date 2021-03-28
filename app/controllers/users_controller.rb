@@ -89,9 +89,24 @@ class UsersController < ApplicationController
   end
   
   def add_balance
+    @user = User.find params[:id]
+    @userBal = "$0"
+    if !session[:user_id].nil? #and !session[:user_id].empty?
+      id = session[:user_id]
+      @userBal = User.balanceToString(User.find(id))
+    end
+    #byebug
+    #if params[:amount].nil?
+    #  redirect_to add_balance_user_path(@user)
+    #else
+    #  redirect_to user_path(@user)
+    #end
   end
 
   def update
+    #byebug
+    @user = User.find params[:id]
+    redirect_to user_path(@user)
   end
 
   def destroy
@@ -103,4 +118,7 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:username, :password)
   end
+  #def bal_params
+  #  params.require(:user).permit(:card_number, :expiration_date, :CVC, :billing_address, :city, :state, :ZIP, :amount)
+  #end
 end

@@ -19,7 +19,10 @@
       </ul>
    </div>
    <ul class="navbar-nav mr-auto">
-      <% if logged_in? %> 
+      <% if logged_in? %>
+      <li class="nav-item active">
+            <a class="nav-link">Your Balance: <%= @userBal %></a>
+      </li>
       <li class="nav-item dropdown">
          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          <%= current_user.username %>
@@ -45,7 +48,7 @@
 
 <h2>Payment Method</h2>
 
-<%= form_tag add_balance_user_path, :class => 'form' do %><br>
+<%= form_tag user_path(@user), :method => :put, :class => 'form' do %><br>
 <%= label_tag :card_number %>
 <%= text_field_tag :card_number %>
 <%= label_tag :expiration_date %>
@@ -63,5 +66,5 @@
 <%= label_tag :amount %>
 <%= text_field_tag :amount %><br><br>
 
-<%= submit_tag 'Add to Balance' %>
+<%= submit_tag 'Add to Balance'%>
 <% end %>
