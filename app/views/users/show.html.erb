@@ -13,6 +13,9 @@
          <li class="nav-item">
             <a class="nav-link" href=<%= open_case_user_path(current_user)%>>Cases</a>
          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=<%= market_user_path(current_user)%>>Market</a>
+         </li>
          <% end %>
       </ul>
    </div>
@@ -52,8 +55,11 @@
                   <%= collectible.name %>
                 </td>
                 <td>
-                <%= collectible.asset_id %>
-                  <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
+                  <% if collectible.on_the_market == 'f'%>
+                    <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
+                  <% else %>
+                    <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
+                  <% end %>
                 </td>
               </tr>
               <tr>
@@ -71,7 +77,7 @@
 <form action="/sell" class="form-container">
   <h2>Listing <em><%= @user.id %></em> </h2>
   <label for="sell"><b>Price</b></label>
-  <input type="number"  name="price" required>
+  <input type="number"  name="price" step="0.01" required>
   <input type="hidden"  name="user_id" id="user_id", value = '<%= @user.id %>'>
   <input type="hidden"  name = "asset_id" id="asset_id">
   <button type="submit" class="btn">Sell</button>
