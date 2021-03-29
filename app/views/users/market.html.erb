@@ -13,20 +13,12 @@
          <li class="nav-item">
             <a class="nav-link" href=<%= open_case_user_path(current_user)%>>Cases</a>
          </li>
-         <li class="nav-item">
-            <a class="nav-link" href=<%= market_user_path(current_user)%>>Market</a>
-         </li>
-         <li class="nav-item">
-            <a class="nav-link" href=<%= add_balance_user_path(current_user)%>>Add Balance</a>
-         </li>
+
          <% end %>
       </ul>
    </div>
    <ul class="navbar-nav mr-auto">
       <% if logged_in? %> 
-      <li class="nav-item active">
-            <a class="nav-link">Your Balance: <%= @userBal %></a>
-      </li>
       <li class="nav-item dropdown">
          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          <%= current_user.username %>
@@ -50,29 +42,38 @@
    </ul>
 </nav>
 
-<h2>Top Users</h2>
+<h2>Market</h2>
 
 <div class="container">
     <div class="row mt-3">
         <table class="table table-striped col-md-12" id="users">
           <thead>
             <tr>
-              <th>Users</th>
-              <th>Collectibles</th>
-              <th>Value</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            <% @users.each do |user| %>
+            <% @products.each do |product| %>
               <tr>
                 <td>
-                  <%= link_to "#{user.username}", user_path(user) %>
+                  <%= product.name %>
                 </td>
                 <td>
-                  <%= @countItemsHash[user.id] %>
+                  <%= product.sell_price %>
                 </td>
                 <td>
-                  $<%= @sumValueHash[user.id] %>
+                  <% if product.user_id ==  @user.id%>
+                    <%= button_to 'unlist', unlist_path(@user.id, product.asset_id), :class => "sell_button" %>
+                  <% else %>
+                    <%= button_to 'buy', buy_path(@user.id, product.user_id, product.asset_id, product.sell_price), :class => "sell_button" %>
+                  <% end %> 
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src=<%= product.url%> width=auto height="250">
                 </td>
               </tr>
             <% end %>
