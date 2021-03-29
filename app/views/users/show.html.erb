@@ -16,11 +16,11 @@
                                     </div>
                                     <span class="badge badge-success">Common</span>
                                 </div>             
-                                                  <% if collectible.on_the_market == 'f'%>
-                    <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
-                  <% else %>
-                    <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
-                  <% end %>
+                                <% if collectible.on_the_market == 'f'%>
+                                    <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
+                                <% else %>
+                                    <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
+                                <% end %>
                             </div>
                         <% when 'N' %>
                             <div class="col-auto mb-3">
@@ -31,11 +31,11 @@
                                     </div>
                                     <span class="badge badge-secondary">Normal</span>
                                 </div>
-                                                  <% if collectible.on_the_market == 'f'%>
-                    <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
-                  <% else %>
-                    <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
-                  <% end %>
+                                <% if collectible.on_the_market == 'f'%>
+                                    <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
+                                <% else %>
+                                    <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
+                                <% end %>
                             </div>
                         <% when 'R' %>
                             <div class="col-auto mb-3">
@@ -46,11 +46,11 @@
                                     </div>
                                     <span class="badge badge-danger">Rare</span>
                                 </div>
-                                                  <% if collectible.on_the_market == 'f'%>
-                    <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
-                  <% else %>
-                    <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
-                  <% end %>
+                                <% if collectible.on_the_market == 'f'%>
+                                    <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
+                                <% else %>
+                                    <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
+                                <% end %>
                             </div>
                         <% when 'SR' %>
                             <div class="col-auto mb-3">
@@ -61,46 +61,26 @@
                                     </div>
                                     <span class="badge badge-warning">Super Rare</span>
                                 </div>
-                                                  <% if collectible.on_the_market == 'f'%>
-                    <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
-                  <% else %>
-                    <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
-                  <% end %>
+                                <% if collectible.on_the_market == 'f'%>
+                                    <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
+                                <% else %>
+                                    <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
+                                <% end %>
                             </div>               
                         <% end %> 
             <% end %> 
         </div>        
-<!--               <tr>
-                <td>
-                  <%= collectible.name %>
-                </td>
-                <td>
-                  <% if collectible.on_the_market == 'f'%>
-                    <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
-                  <% else %>
-                    <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
-                  <% end %>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src=<%= collectible.url%> width=auto height="250">
-                </td>
-              </tr>
-            <% end %>
-        </tbody>
-        </table> -->
     </div>
 </div>
 
 <div class="form-popup" id="myForm">
-<form action="/sell" class="form-container">
-  <h2>Listing <em><%= @user.id %></em> </h2>
-  <label for="sell"><b>Price</b></label>
-  <input type="number"  name="price" step="0.01" required>
-  <input type="hidden"  name="user_id" id="user_id", value = '<%= @user.id %>'>
-  <input type="hidden"  name = "asset_id" id="asset_id">
-  <button type="submit" class="btn">Sell</button>
-  <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
-</form>
+    <form action="/sell" class="form-container">
+        <h2>Listing <em><%= @user.id %></em> </h2>
+        <label for="sell"><b>Price</b></label>
+        <input type="number"  name="price" step="0.01" required>
+        <input type="hidden"  name="user_id" id="user_id", value = '<%= @user.id %>'>
+        <input type="hidden"  name = "asset_id" id="asset_id">
+        <button type="submit" class="btn">Sell</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+    </form>
 </div>

@@ -40,6 +40,13 @@ class UsersController < ApplicationController
   def market
     @user = User.find params[:id]
     @products = Product.products()
+      
+    @userBal = "$0"
+    if !session[:user_id].nil? #and !session[:user_id].empty?
+      id = session[:user_id]
+      @userBal = User.balanceToString(User.find(id))
+    end
+    @collectibles = Collectible.usersCollection(@user)
   end
 
   def new
