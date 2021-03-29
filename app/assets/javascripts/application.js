@@ -16,3 +16,12 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
+
+function openForm(asset_id) {
+  document.getElementById("myForm").style.display = "block";
+  document.getElementById("asset_id").setAttribute('value',asset_id)
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
