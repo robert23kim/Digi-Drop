@@ -1,7 +1,6 @@
 Rottenpotatoes::Application.routes.draw do
   resources :users do
       get 'open_case', :on => :member
-      post 'add_asset', :on => :member
       get 'market', :on => :member
       get 'add_balance', :on => :member
 
@@ -18,4 +17,6 @@ Rottenpotatoes::Application.routes.draw do
   get 'sell(/:user_id)(/:asset_id)(/:price)', to: 'users#sell', as: 'sell'
   post 'unlist(/:user_id)(/:asset_id)', to: 'users#unlist', as: 'unlist'
   post 'buy(/:buyer_id)(/:seller_id)(/:asset_id)(/:price)', to: 'users#buy', as: 'buy'
+  post 'add(/:user_id)(/:case_name)', to: 'users#add', as: 'add'
+  match 'open(/:user_id)(/:case_name)' => 'users#open', via: [:get, :post], as: 'open'
 end
