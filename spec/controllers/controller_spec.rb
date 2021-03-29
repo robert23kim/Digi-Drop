@@ -65,7 +65,22 @@ describe UsersController do
       it "creates an Asset" do
         @user = FactoryGirl.create(:user)
         @case = FactoryGirl.create(:case)
-        @prize = FactoryGirl.create(:collectible)
+        @coll_data = [
+            {:rarity => "C"},
+            {:rarity => "N"},
+            {:rarity => "R"},
+            {:rarity => "SR"},
+        ]
+        @prizes = @coll_data.map { |c| FactoryGirl.create(:collectible, c) }
+          
+        @case_data = [
+            {:collectible_id => "1"},
+            {:collectible_id => "2"},
+            {:collectible_id => "3"},
+            {:collectible_id => "4"},
+        ]
+        @contents = @case_data.map { |c| FactoryGirl.create(:content, c) }          
+          
         #UsersController.class_variable_set :@@added_asset, nil
         #expect{post :add_asset, :id => @user.id}.to change{@@added_asset.class}.from(NilClass).to(Asset)
         post :add, :user_id => @user.id, :case_name => @case.name
@@ -76,9 +91,24 @@ describe UsersController do
       #  post :create, movie: FactoryGirl.attributes_for(:movie)
         @user = FactoryGirl.create(:user)
         @case = FactoryGirl.create(:case)
-        @prize = FactoryGirl.create(:collectible)
+        @coll_data = [
+            {:rarity => "C"},
+            {:rarity => "N"},
+            {:rarity => "R"},
+            {:rarity => "SR"},
+        ]
+        @prizes = @coll_data.map { |c| FactoryGirl.create(:collectible, c) }
+          
+        @case_data = [
+            {:collectible_id => "1"},
+            {:collectible_id => "2"},
+            {:collectible_id => "3"},
+            {:collectible_id => "4"},
+        ]
+        @contents = @case_data.map { |c| FactoryGirl.create(:content, c) }
+          
         post :add, :user_id => @user.id, :case_name => @case.name
-        response.should redirect_to open_path
+        response.should redirect_to open_path(@user, @case.name)
       end
     end
   end
