@@ -106,7 +106,82 @@ describe UsersController do
     end
   end
 
+  describe "GET #market" do
+    it "renders the market template" do
+      @user = FactoryGirl.create(:user)
+      get :market, :id => @user.id
+      response.should render_template :market
+    end
+  end
   
+  describe "GET #sell" do
+    before(:each) do
+      request.env["HTTP_REFERER"] = "/users/1"
+    end
+    it "lists a collectible to the market" do
+      @user = FactoryGirl.create(:user)
+      @asset = FactoryGirl.create(:asset)
+      expect{
+        get :sell, :user_id => @user.id, :asset_id => @asset.id, :sell_price => 10.00
+      }.to change(Product,:count).by(1)
+    end
+    it "redirects to the current page" do
+      @user = FactoryGirl.create(:user)
+      @asset = FactoryGirl.create(:asset)
+      get :sell, :user_id => @user.id, :asset_id => @asset.id, :sell_price => 10.00
+      response.should redirect_to "/users/1"
+      end
+  end
+  
+  describe "POST #unlist" do
+    before do
+      request.env["HTTP_REFERER"] = "/users/1"
+      @user = FactoryGirl.create(:user)
+      @asset = FactoryGirl.create(:asset)
+      get :sell, :user_id => @user.id, :asset_id => @asset.id, :sell_price => 10.00
+    end
+    it "unlists a collectible from the market" do
+      expect{
+        post :unlist, :user_id => @user.id, :asset_id => @asset.id
+      }.to change(Product,:count).by(-1)
+    end
+    it "redirects to the current page" do
+      @user = FactoryGirl.create(:user)
+      @asset = FactoryGirl.create(:asset)
+      post :unlist, :user_id => @user.id, :asset_id => @asset.id
+      response.should redirect_to "/users/1"
+      end
+  end  
+
+  describe "POST #buy" do
+    before do
+      request.env["HTTP_REFERER"] = "/market/2"
+      @seller = FactoryGirl.create(:user)
+      @buyer = FactoryGirl.create(:user)
+      @asset = FactoryGirl.create(:asset)
+      get :sell, :user_id => @seller.id, :asset_id => @asset.id, :sell_price => 10.00
+    end
+    it "unlists a collectible from the market" do
+      expect{
+        post :buy, :buyer_id => @buyer.id, :seller_id => @seller.id, :asset_id => @asset.id, :price => 10.00
+      }.to change(Product,:count).by(-1)
+    end
+    it "fails the purchase if balance is not enough" do
+      expect{
+        post :buy, :buyer_id => @buyer.id, :seller_id => @seller.id, :asset_id => @asset.id, :price => 10000.00
+      }.to change(Product,:count).by(0)
+    end
+    it "changes the balancs of buyer and seller" do
+      post :buy, :buyer_id => @buyer.id, :seller_id => @seller.id, :asset_id => @asset.id, :price => 10.00     
+      expect(User.where(id: @buyer.id).first.balance).to eql(113.0)
+      expect(User.where(id: @seller.id).first.balance).to eql(133.0)
+    end
+    it "redirects to the current page" do
+      post :buy, :buyer_id => @buyer.id, :seller_id => @seller.id, :asset_id => @asset.id, :price => 10.00
+      response.should redirect_to "/market/2"
+      end
+  end 
+
 end
 
 

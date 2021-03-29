@@ -15,11 +15,13 @@
                                     <span class="badge digiid_common">Common</span>
                                     <div class="card-body">
                                         <p class="card-text"> <%= collectible.name %>  </p>
-                                    <% if collectible.on_the_market == 'f'%>
+                                    <% if logged_in? && @user.id == current_user.id %>
+                                      <% if collectible.on_the_market == 'f'%>
                                         <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
-                                    <% else %>
+                                      <% else %>
                                         <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
-                                    <% end %>                                        
+                                      <% end %>
+                                    <% end %>                                    
                                     </div>
                                 </div>             
                             </div>
@@ -30,11 +32,13 @@
                                     <span class="badge digiid_normal">Normal</span>
                                     <div class="card-body">
                                         <p class="card-text"> <%= collectible.name %>  </p>
-                                        <% if collectible.on_the_market == 'f'%>
+                                        <% if logged_in? && @user.id == current_user.id %>
+                                          <% if collectible.on_the_market == 'f'%>
                                             <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
-                                        <% else %>
+                                          <% else %>
                                             <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
-                                        <% end %>      
+                                          <% end %>
+                                        <% end %>
                                     </div>                              
                                 </div>
                             </div>
@@ -45,11 +49,13 @@
                                     <span class="badge digiid_rare">Rare</span>
                                     <div class="card-body">
                                         <p class="card-text"> <%= collectible.name %>  </p>
-                                        <% if collectible.on_the_market == 'f'%>
+                                        <% if logged_in? && @user.id == current_user.id %>
+                                          <% if collectible.on_the_market == 'f'%>
                                             <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
-                                        <% else %>
+                                          <% else %>
                                             <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
-                                        <% end %>                                        
+                                          <% end %>
+                                        <% end %>                              
                                     </div>
                                 </div>
                             </div>
@@ -60,10 +66,12 @@
                                     <span class="badge digiid_superrare">Super Rare</span>                                    
                                     <div class="card-body">
                                         <p class="card-text"> <%= collectible.name %>  </p>
-                                        <% if collectible.on_the_market == 'f'%>
+                                        <% if logged_in? && @user.id == current_user.id %>
+                                          <% if collectible.on_the_market == 'f'%>
                                             <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
-                                        <% else %>
+                                          <% else %>
                                             <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
+                                          <% end %>
                                         <% end %>
                                     </div>
                                 </div>
@@ -76,7 +84,6 @@
 
 <div class="form-popup" id="myForm">
     <form action="/sell" class="form-container">
-        <h2>Listing <em><%= @user.id %></em> </h2>
         <label for="sell"><b>Price</b></label>
         <input type="number"  name="price" step="0.01" required>
         <input type="hidden"  name="user_id" id="user_id", value = '<%= @user.id %>'>

@@ -24,4 +24,9 @@ FactoryGirl.define do
     url 'https://lh3.googleusercontent.com/WI5xTAibboR86Q6gH7BVrar38WMMYYlbZsp7SOpBvMwYTN6Gcehh24Eitjg5she-KFzRyUCAUvl58Cpg0_KHZpNLfVNokXk4NlFG1xc=w326'
     value 10.00
   end
+  factory :product do
+    user_id "1" 
+    asset_id "1"
+    sell_price "100"
+  end
 end
