@@ -32,4 +32,10 @@ Scenario: I can add funds to my balance
   Then  I should be on the collectibles page for "sam444"
   And I should see "Your Balance: $1200.20" in all of the pages
   
+Scenario: I should start with a zero balance when I sign up
+  Given user is logged out
+  And I am on the homepage
+  When I sign up as "six666" with password "123456"
+  Then I should see "Your Balance: $0.00" in all of the pages
+  
   
