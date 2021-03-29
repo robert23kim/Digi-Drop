@@ -178,6 +178,40 @@ describe UsersController do
       response.should redirect_to "/market/2"
       end
   end 
+  
+  describe "GET #add_balance" do
+    before do
+      request.env["HTTP_REFERER"] = "/users/1"
+      @user = FactoryGirl.create(:user, :balance => 123.0)
+    end
+    it "renders Payment Method page" do
+      get :add_balance, :id => @user
+      response.should render_template :add_balance
+    end
+  end
+  
+  describe "PUT #update" do
+    before do
+      request.env["HTTP_REFERER"] = "/users/1"
+      @user = FactoryGirl.create(:user, :balance => 123.0)
+    end
+    it "redirects to the user's page" do
+      put :update, :id => @user, :amount => 333.78
+      response.should redirect_to user_path(@user)
+    end
+    it "increases the user's balance by the amount" do
+      put :update, :id => @user, :amount => 333.78
+      @user.reload
+      expect(@user.balance).to eq(123.0+333.78)
+    end
+    it "sets the user's balance to amount if the former is nil" do
+      @user2 = FactoryGirl.create(:user, :balance => nil)
+      put :update, :id => @user2, :amount => 333.78
+      @user2.reload
+      expect(@user2.balance).to eq(333.78)
+    end
+    
+  end
 
 end
 
