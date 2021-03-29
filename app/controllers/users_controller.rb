@@ -120,7 +120,7 @@ class UsersController < ApplicationController
     end
 
     # Only choose from contents of a specific case, of the selected rarity chosen above
-    @case_contents = Content.select('collectible_id')
+    @case_contents = Content.select('*')
         .joins('INNER JOIN "collectibles" ON "collectibles"."id" = "contents"."collectible_id"')
         .joins('INNER JOIN "cases" ON "cases"."id" = "contents"."case_id"')
         .where("cases.name = ?", params[:case_name])
