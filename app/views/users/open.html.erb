@@ -1,11 +1,21 @@
-<!--  app/views/users/open_case.html.erb -->
 <%= render 'components/navbar' %>
 
 <div class="container">
     <div class="row mt-3">
-        <%= button_to 'Open Case', add_asset_user_path(@user, '1'), :class => "btn btn-success" %>
+        <img src=<%= @active_case.url%> class="img-fluid">
     </div>
+    <div class="row mt-3">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <% @cases.each do |c| %>
+                <%= button_to c.name, open_path(@user, c.name), :class => "btn btn-success" %>
+            <% end %>  
+        </div>
+
+        <%= button_to 'Open Case', add_path(@user, @active_case.name), :class => "btn btn-success" %>
+    </div>
+</div>
     
+<div class="container">
     <div class="row mt-3">
         <% if !@added_collectible.nil? and @added_collectible.size > 0 %>
             <% case @added_collectible.first.rarity
