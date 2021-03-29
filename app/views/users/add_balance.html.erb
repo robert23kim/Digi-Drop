@@ -1,4 +1,3 @@
-<!--  app/views/users/open_case.html.erb -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
    <a class="navbar-brand" href=<%= users_path %>>My Collectibles</a>
    <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -20,7 +19,7 @@
       </ul>
    </div>
    <ul class="navbar-nav mr-auto">
-      <% if logged_in? %> 
+      <% if logged_in? %>
       <li class="nav-item active">
             <a class="nav-link">Your Balance: <%= @userBal %></a>
       </li>
@@ -47,21 +46,25 @@
    </ul>
 </nav>
 
-<div class="container">
-    <div class="row mt-3">
-        <%= button_to 'Open Case', add_asset_user_path(@user), :class => "btn btn-success" %>
-    </div>
-    
-    <div class="row mt-3">
-        <% if !@added_collectible.nil? and @added_collectible.size > 0 %>
-            <div class="card" style="width: 36rem;">
-                <img class="card-img-top" src=<%= @added_collectible.first.url%>>
-                <div class="card-body">
-                <p class="card-text">
-                    <%= @added_collectible.first.name %>
-                </p>
-                </div>
-            </div>
-        <% end %>
-    </div>
-</div>
+<h2>Payment Method</h2>
+
+<%= form_tag user_path(@user), :method => :put, :class => 'form' do %><br>
+<%= label_tag :card_number %>
+<%= text_field_tag :card_number %>
+<%= label_tag :expiration_date %>
+<%= text_field_tag :expiration_date %>
+<%= label_tag :CVC %>
+<%= password_field_tag :CVC %><br><br>
+<%= label_tag :billing_address %>
+<%= text_field_tag :billing_address %><br>
+<%= label_tag :city %>
+<%= text_field_tag :city %>
+<%= label_tag :state %>
+<%= text_field_tag :state %>
+<%= label_tag :ZIP %>
+<%= text_field_tag :ZIP %><br><br>
+<%= label_tag :amount %>
+<%= text_field_tag :amount %><br><br>
+
+<%= submit_tag 'Add to Balance'%>
+<% end %>

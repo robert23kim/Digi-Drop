@@ -13,9 +13,9 @@ def password_digest(string)
   BCrypt::Password.create(string, cost: cost)
 end
 
-users = [{:username => 'john123', :password_digest => "#{password_digest('123456')}"},
-    	  {:username => 'jim345', :password_digest => "#{password_digest('123456')}"},
-    	  {:username => 'mike987', :password_digest => "#{password_digest('123456')}"},
+users = [{:username => 'john123', :password_digest => "#{password_digest('123456')}", :balance => 123.00},
+    	  {:username => 'jim345', :password_digest => "#{password_digest('123456')}", :balance => 345.67},
+    	  {:username => 'mike987', :password_digest => "#{password_digest('123456')}", :balance => 987.65},
   	 ]
 
 users.each do |user|
