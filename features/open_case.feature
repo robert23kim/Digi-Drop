@@ -12,7 +12,7 @@ Background: users have been added to database
 
   And the following collectibles exist:
   | name                         | rarity               | url                                                                                                                                                   | value |
-  | Kitska Warmbestrarity        | 0.001                | https://lh3.googleusercontent.com/4YPexPRmyHJ_BW_f41KKO-QdOD_vffe0ndD3tt7vu7ZCsPydNBSVy1Je-7F781SLgWP37ujmkHqhGSBUYSp4nGxKitBd6MqDlxkssg=s992         |	10    |
+  | Kitska Warmbestrarity        | C                | https://lh3.googleusercontent.com/4YPexPRmyHJ_BW_f41KKO-QdOD_vffe0ndD3tt7vu7ZCsPydNBSVy1Je-7F781SLgWP37ujmkHqhGSBUYSp4nGxKitBd6MqDlxkssg=s992         |	10    |
   
 
 Scenario: view my collectibles
