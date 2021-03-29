@@ -49,6 +49,7 @@ Then /^I should not see "([^"]*)" in any of the pages$/ do |arg1|
   wpages = Array["Home"]
   wpages.each do |p|
     step %{I follow "#{p}"}
+    #byebug
     step %{I should not see "#{arg1}"}
   end
 end
