@@ -19,4 +19,9 @@ FactoryGirl.define do
     user_id "1" 
     collectible_id "1"
   end
+  factory :product do
+    user_id "1" 
+    asset_id "1"
+    sell_price "100"
+  end
 end
