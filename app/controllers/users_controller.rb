@@ -69,17 +69,23 @@ class UsersController < ApplicationController
   def edit
   end
     
-  def open_case
-    # byebug
-    @user = User.find params[:id]
-    #byebug
+  def open
+    @user = User.find params[:user_id]
+    @cases = Case.select('*')
+      
+    @active_case = if params[:case_name].nil?
+        Case.find_by name: "Featured"
+    else
+        Case.find_by name: params[:case_name]
+    end
+      
     # map the asset to the corresponding collectible for display
     if !@@added_asset.nil?
         @added_collectible = Collectible.select('*')
             .joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id"')
             .where("assets.collectible_id = ?", @@added_asset.collectible_id)
-      #byebug
     end
+      
     #Adds balance value to nav bar if logged in
     @userBal = "$0"
     if !session[:user_id].nil? #and !session[:user_id].empty?
@@ -90,36 +96,39 @@ class UsersController < ApplicationController
     @@added_asset = nil  
   end
     
-  def add_asset()
-    @user = User.find params[:id]
-      
-    @collectible_ids = Collectible.select('id')
-      
-#     # Logic, first pick out rarity based on probability C: 60, N: 25, R: 10, SR: 5 
-#     @rarity = nil
-#     @random = rand(1..100)
- 
-#     case @random
-#     when 1..60
-#         @rarity = 'C'
-#     when 61..85
-#         @rarity = 'N'
-#     when 86..95
-#         @rarity = 'R'
-#     when 96..100
-#         @rarity = 'SR'
-#     end
-      
-#     # Only choose from contents of a specific case
-#     @collectible_ids = Content.select('collectible_id')
-#         .joins('INNER JOIN "collectibles" ON "collectibles"."_id" = "contents"."collectible_id"')
-#         .where("contents.case_id = ?", case_id)
-#         .where("collectibles.rarity = ?", @rarity)
+  def add
+    @user = User.find params[:user_id]
+    @active_case = if params[:case_name].nil?
+        Case.find_by name: "Featured"
+    else
+        Case.find_by name: params[:case_name]
+    end
+
+    # Logic, first pick out rarity based on probability C: 60, N: 25, R: 10, SR: 5 
+    @rarity = nil
+    @random = rand(1..100)
+
+    case @random
+    when 1..60
+        @rarity = 'C'
+    when 61..85
+        @rarity = 'N'
+    when 86..95
+        @rarity = 'R'
+    when 96..100
+        @rarity = 'SR'
+    end
+
+    # Only choose from contents of a specific case, of the selected rarity chosen above
+    @case_contents = Content.select('collectible_id')
+        .joins('INNER JOIN "collectibles" ON "collectibles"."id" = "contents"."collectible_id"')
+        .joins('INNER JOIN "cases" ON "cases"."id" = "contents"."case_id"')
+        .where("cases.name = ?", params[:case_name])
+        .where("collectibles.rarity = ?", @rarity)
 
     # Then pick out the specific items.  
-    @@added_asset = Asset.create(:user_id => @user.id, :collectible_id => rand(@collectible_ids.size) + 1)
-
-    redirect_to open_case_user_path(@user)
+    @@added_asset = Asset.create(:user_id => @user.id, :collectible_id => @case_contents[rand(@case_contents.size)].collectible_id)
+    redirect_to open_path(@user, @active_case.name)      
   end
   
   def add_balance
