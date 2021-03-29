@@ -7,8 +7,10 @@ Feature: sell collectibles
 Background: users have been added to database
 
   Given the following users registered:
-  | username                | password_digest |
-  | john123                 | 123456          |
+  | username                | password_digest | balance     |
+  | john123                 | 123456          | 100         |
+  | mike123                 | 123456          | 100         |
+  | jim123                  | 123456          | 10          |
 
   And the following collectibles exist:
   | name                         | rarity               | url                                                                                                                                                   | value |
@@ -20,11 +22,11 @@ Background: users have been added to database
   And the following assets exist:
   | user_id                | collectible_id    | on_the_market  |
   | 1                      | 1                 | f              |
-  | 1                      | 3                 | f              |
   | 2                      | 4                 | f              |
 
   And the following products exist:
   | user_id    | asset_id    | sell_price    |
+  | 2          | 2           | 12.00         |
 
 Scenario: sell my collectibles
   Given I am on the homepage
@@ -33,8 +35,40 @@ Scenario: sell my collectibles
   Then  I should be on the collectibles page for "john123"
   Given I sell "Kitska Warmbestrarity"
   And I should see button "unlist"
-  And I follow "Market"
-  Then I should be on the market page for "john123"
-  And I should see "Price"
-  And I should see "Kitska Warmbestrarity"
-  And I should see "10"
+
+Scenario: unlist my collectible
+  Given I am on the homepage
+  Given I am logged_in as "john123"
+  When I follow "Manage Collectibles"
+  Then  I should be on the collectibles page for "john123"
+  Given I sell "Kitska Warmbestrarity"
+  And I should see button "unlist"
+  When I press "unlist"
+  Then I should see button "sell"
+
+Scenario: buy collectible enough funds
+  Given I am on the homepage
+  Given I am logged_in as "john123"
+  When I follow "Market"
+  Then  I should be on the market page for "john123"
+  And I should see "F1 Delta Time"
+  And I should see "12"
+  And I should see button "buy"
+  When I press "buy"
+  Then I should see "Your purchase was successful"
+  When I follow "Manage Collectibles"
+  Then I should see "F1 Delta Time"
+  And I should see button "sell"
+
+Scenario: buy collectible low funds
+  Given I am on the homepage
+  Given I am logged_in as "jim123"
+  When I follow "Market"
+  Then  I should be on the market page for "jim123"
+  And I should see "F1 Delta Time"
+  And I should see "12"
+  And I should see button "buy"
+  When I press "buy"
+  Then I should see "Insufficient Balance"
+  When I follow "Manage Collectibles"
+  Then I should not see "F1 Delta Time"

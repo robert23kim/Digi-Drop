@@ -34,6 +34,13 @@ Given /I am logged_in as "john123"/ do
   click_button("Login")
 end
 
+Given /I am logged_in as "jim123"/ do
+  visit("/login")
+  fill_in("username", :with => "jim123")
+  fill_in("password", :with => "123456")
+  click_button("Login")
+end
+
 Given /I sell "Kitska Warmbestrarity"/ do
   visit("/sell/1/1/10")
 end
