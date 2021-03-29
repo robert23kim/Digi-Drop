@@ -142,6 +142,7 @@ class UsersController < ApplicationController
     @user = User.find params[:id]
     amt = Float(params[:amount])
     #byebug
+    #check if amt is numerical
     if @user.balance.nil?
       @user.balance = amt
     else
