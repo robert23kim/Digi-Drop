@@ -16,6 +16,11 @@ Scenario: I can see my balance while logged in
   And I am logged_in as "john123"
   Then I should see "Your Balance: $1200.56" in all of the pages
   
+Scenario: I don't see a balance while logged out
+  Given user is logged out
+  And I am on the homepage
+  Then I should not see "Your Balance:" in any of the pages
+  
   
   
   
