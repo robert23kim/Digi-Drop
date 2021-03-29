@@ -14,8 +14,8 @@ Background: users have been added to database
 Scenario: I can see my balance while logged in
   Given I am on the homepage
   And I am logged_in as "john123"
-  When I follow "Home"
-  Then I should see "Your Balance: $1200.56"
+  Then I should see "Your Balance: $1200.56" in all of the pages
+  
   
   
   
