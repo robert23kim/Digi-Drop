@@ -13,10 +13,24 @@ Given /the following collectibles exist/ do |users_table|
   end
 end
 
+Given /the following cases exist/ do |users_table|
+  #byebug
+  users_table.hashes.each do |user|
+    Case.create user
+  end
+end
+
 Given /the following assets exist/ do |users_table|
   #byebug
   users_table.hashes.each do |user|
     Asset.create user
+  end
+end
+
+Given /the following contents exist/ do |users_table|
+  #byebug
+  users_table.hashes.each do |user|
+    Content.create user
   end
 end
 
