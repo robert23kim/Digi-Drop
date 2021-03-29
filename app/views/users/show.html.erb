@@ -16,7 +16,7 @@
                                     </div>
                                     <span class="badge badge-success">Common</span>
                                 </div>             
-                                <% if @user.id == current_user.id %>
+                                <% if logged_in? && @user.id == current_user.id %>
                                   <% if collectible.on_the_market == 'f'%>
                                     <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
                                   <% else %>
@@ -33,7 +33,7 @@
                                     </div>
                                     <span class="badge badge-secondary">Normal</span>
                                 </div>
-                                <% if @user.id == current_user.id %>
+                                <% if logged_in? && @user.id == current_user.id %>
                                   <% if collectible.on_the_market == 'f'%>
                                     <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
                                   <% else %>
@@ -50,7 +50,7 @@
                                     </div>
                                     <span class="badge badge-danger">Rare</span>
                                 </div>
-                                <% if @user.id == current_user.id %>
+                                <% if logged_in? && @user.id == current_user.id %>
                                   <% if collectible.on_the_market == 'f'%>
                                     <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
                                   <% else %>
@@ -67,7 +67,7 @@
                                     </div>
                                     <span class="badge badge-warning">Super Rare</span>
                                 </div>
-                                <% if @user.id == current_user.id %>
+                                <% if logged_in? && @user.id == current_user.id %>
                                   <% if collectible.on_the_market == 'f'%>
                                     <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
                                   <% else %>
@@ -83,7 +83,6 @@
 
 <div class="form-popup" id="myForm">
     <form action="/sell" class="form-container">
-        <h2>Listing <em><%= @user.id %></em> </h2>
         <label for="sell"><b>Price</b></label>
         <input type="number"  name="price" step="0.01" required>
         <input type="hidden"  name="user_id" id="user_id", value = '<%= @user.id %>'>
