@@ -37,14 +37,20 @@ Then /I should see all of the collectibles of "(.*)"/ do |username|
   end
 end
 
-Then(/^I should see "([^"]*)" in all of the pages$/) do |arg1|
+Then /^I should see "([^"]*)" in all of the pages$/ do |arg1|
   wpages = Array["Home", "Manage Collectibles", "Cases", "Market", "Add Balance"]
   wpages.each do |p|
     step %{I follow "#{p}"}
     step %{I should see "#{arg1}"}
+  end  
+end
+
+Then /^I should not see "([^"]*)" in any of the pages$/ do |arg1|
+  wpages = Array["Home"]
+  wpages.each do |p|
+    step %{I follow "#{p}"}
+    step %{I should not see "#{arg1}"}
   end
-  
-  
 end
 
 Then /(.*) seed users should exist/ do | n_seeds |
