@@ -11,12 +11,17 @@ FactoryGirl.define do
   end
   factory :collectible do
     name "Kitska Warmbestrarity"
-    rarity 0.001
+    rarity ''
     url "https://lh3.googleusercontent.com/4YPexPRmyHJ_BW_f41KKO-QdOD_vffe0ndD3tt7vu7ZCsPydNBSVy1Je-7F781SLgWP37ujmkHqhGSBUYSp4nGxKitBd6MqDlxkssg=s992"
     value 10
   end
   factory :asset do
     user_id "1" 
     collectible_id "1"
+  end
+  factory :case do
+    name 'Featured'
+    url 'https://lh3.googleusercontent.com/WI5xTAibboR86Q6gH7BVrar38WMMYYlbZsp7SOpBvMwYTN6Gcehh24Eitjg5she-KFzRyUCAUvl58Cpg0_KHZpNLfVNokXk4NlFG1xc=w326'
+    value 10.00
   end
 end
