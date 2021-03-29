@@ -56,13 +56,35 @@ class UsersController < ApplicationController
     @@added_asset = nil  
   end
     
-  def add_asset
-    @user = User.find params[:id]  
-    #byebug
-    # note: completely random, does not take rarity into account yet
+  def add_asset()
+    @user = User.find params[:id]
+      
     @collectible_ids = Collectible.select('id')
+      
+#     # Logic, first pick out rarity based on probability C: 60, N: 25, R: 10, SR: 5 
+#     @rarity = nil
+#     @random = rand(1..100)
+ 
+#     case @random
+#     when 1..60
+#         @rarity = 'C'
+#     when 61..85
+#         @rarity = 'N'
+#     when 86..95
+#         @rarity = 'R'
+#     when 96..100
+#         @rarity = 'SR'
+#     end
+      
+#     # Only choose from contents of a specific case
+#     @collectible_ids = Content.select('collectible_id')
+#         .joins('INNER JOIN "collectibles" ON "collectibles"."_id" = "contents"."collectible_id"')
+#         .where("contents.case_id = ?", case_id)
+#         .where("collectibles.rarity = ?", @rarity)
+
+    # Then pick out the specific items.  
     @@added_asset = Asset.create(:user_id => @user.id, :collectible_id => rand(@collectible_ids.size) + 1)
-    #byebug
+
     redirect_to open_case_user_path(@user)
   end
 

@@ -1,8 +1,7 @@
-class CreateCollectibles < ActiveRecord::Migration
+class CreateCases < ActiveRecord::Migration
   def change
-    create_table :collectibles do |t|
+    create_table :cases do |t|
       t.string :name
-      t.string :rarity
       t.string :url
       t.float :value
       # Add fields that let Rails automatically keep track
