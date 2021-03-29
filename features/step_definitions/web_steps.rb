@@ -112,6 +112,14 @@ When /^(?:|I )press "([^\"]*)"(?: within "([^\"]*)")?$/ do |button, selector|
   end
 end
 
+When /^(?:|I )press first "([^\"]*)"?$/ do |button|
+    click_button(button, match: :first)
+end
+
+Then /^(?:|I )should see button "([^"]*)"$/ do |text|
+  expect(page).to have_button(text)
+end
+
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
   if page.respond_to? :should
     page.should have_content(text)

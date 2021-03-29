@@ -20,6 +20,13 @@ Given /the following assets exist/ do |users_table|
   end
 end
 
+Given /the following products exist/ do |users_table|
+  #byebug
+  users_table.hashes.each do |user|
+    Product.create user
+  end
+end
+
 Then /I should see all the users/ do
   # Make sure that all the movies in the app are visible in the table
   User.all.each do |user|
