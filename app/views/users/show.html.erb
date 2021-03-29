@@ -15,7 +15,7 @@
                                         <p class="card-text"> <%= collectible.name %>  </p>
                                     </div>
                                     <span class="badge badge-success">Common</span>
-                                </div>
+                                </div>                         
                             </div>
                         <% when 'N' %>
                             <div class="col-auto mb-3">
@@ -51,6 +51,18 @@
             <% end %> 
         </div>
     </div>
+</div>
+
+<div class="form-popup" id="myForm">
+<form action="/sell" class="form-container">
+  <h2>Listing <em><%= @user.id %></em> </h2>
+  <label for="sell"><b>Price</b></label>
+  <input type="number"  name="price" step="0.01" required>
+  <input type="hidden"  name="user_id" id="user_id", value = '<%= @user.id %>'>
+  <input type="hidden"  name = "asset_id" id="asset_id">
+  <button type="submit" class="btn">Sell</button>
+  <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+</form>
 </div>
 
 
