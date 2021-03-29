@@ -8,6 +8,7 @@ Background: users have been added to database
   Given the following users registered:
   | username                | password_digest | balance |
   | john123                 | 123456          | 1200.56 |
+  | sam444                  | 123456          | 0.00    |
   
   And user is logged out
   
@@ -21,6 +22,14 @@ Scenario: I don't see a balance while logged out
   And I am on the homepage
   Then I should not see "Your Balance:" in any of the pages
   
-  
+Scenario: I can add funds to my balance
+  Given I am on the homepage
+  And I am logged_in as "sam444" with password "123456"
+  Then I should see "Your Balance: $0.00" in all of the pages
+  When I follow "Add Balance"
+  And I fill in "Amount" with "1200.20"
+  And I press "Add to Balance"
+  Then  I should be on the collectibles page for "sam444"
+  And I should see "Your Balance: $1200.20" in all of the pages
   
   

@@ -33,3 +33,10 @@ Given /I am logged_in as "john123"/ do
   fill_in("password", :with => "123456")
   click_button("Login")
 end
+
+Given /^I am logged_in as "([^"]*)" with password "([^"]*)"$/ do |arg1, arg2|
+  visit("/login")
+  fill_in("username", :with => arg1)
+  fill_in("password", :with => arg2)
+  click_button("Login")
+end
