@@ -16,7 +16,6 @@ end
 users = [{:username => 'john123', :password_digest => "#{password_digest('123456')}", :balance => 10000.00},
     	  {:username => 'jim345', :password_digest => "#{password_digest('123456')}", :balance => 10000.00},
     	  {:username => 'mike987', :password_digest => "#{password_digest('123456')}", :balance => 10000.00},
-  	 ]
 
 users.each do |user|
   User.create!(user)
