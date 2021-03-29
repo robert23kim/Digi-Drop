@@ -6,10 +6,19 @@ class UsersController < ApplicationController
     id = params[:id] # retrieve movie ID from URI route
     @user = User.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
+    
+    #Adds balance value to nav bar if logged in
+    #byebug
+    @userBal = "$0"
+    if !session[:user_id].nil? #and !session[:user_id].empty?
+      id = session[:user_id]
+      @userBal = User.balanceToString(User.find(id))
+    end
     @collectibles = Collectible.usersCollection(@user)
   end
 
   def index
+    #byebug
     @users = User.all
     @countItemsHash = Hash.new
     @sumValueHash = Hash.new
@@ -17,7 +26,20 @@ class UsersController < ApplicationController
       @countItemsHash[user.id] = Collectible.joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id" INNER JOIN "users" ON "users"."id" = "assets"."user_id"').where("users.username = ?", user.username).count
       @sumValueHash[user.id] = Collectible.joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id" INNER JOIN "users" ON "users"."id" = "assets"."user_id"').where("users.username = ?", user.username).sum(:value)
     end
+    
+    #Adds balance value to nav bar if logged in
+    @userBal = "$0"
+    if !session[:user_id].nil? #and !session[:user_id].empty?
+      id = session[:user_id]
+      @userBal = User.balanceToString(User.find(id))
+    end
+    
     @users = @users.sort_by{|u| @sumValueHash[u.id]}.reverse
+  end
+  
+  def market
+    @user = User.find params[:id]
+    @products = Product.products()
   end
 
   def new
@@ -51,7 +73,12 @@ class UsersController < ApplicationController
             .where("assets.collectible_id = ?", @@added_asset.collectible_id)
       #byebug
     end
-    
+    #Adds balance value to nav bar if logged in
+    @userBal = "$0"
+    if !session[:user_id].nil? #and !session[:user_id].empty?
+      id = session[:user_id]
+      @userBal = User.balanceToString(User.find(id))
+    end
     # reset back to nil
     @@added_asset = nil  
   end
@@ -87,11 +114,71 @@ class UsersController < ApplicationController
 
     redirect_to open_case_user_path(@user)
   end
+  
+  def add_balance
+    @user = User.find params[:id]
+    @userBal = "$0"
+    if !session[:user_id].nil? #and !session[:user_id].empty?
+      id = session[:user_id]
+      @userBal = User.balanceToString(User.find(id))
+    end
+    #byebug
+    #if params[:amount].nil?
+    #  redirect_to add_balance_user_path(@user)
+    #else
+    #  redirect_to user_path(@user)
+    #end
+  end
 
   def update
+    #byebug
+    @user = User.find params[:id]
+    amt = Float(params[:amount])
+    #byebug
+    if @user.balance.nil?
+      @user.balance = amt
+    else
+      @user.balance = @user.balance + amt
+    end
+    @user.save
+    redirect_to user_path(@user)
   end
 
   def destroy
+  end
+
+  def sell
+    @user = User.find params[:user_id] 
+    Product.create(:user_id => params[:user_id], :asset_id => params[:asset_id], :sell_price => params[:price])
+    Asset.where(id: params[:asset_id]).update_all(on_the_market: true)
+    redirect_to user_path(@user)
+  end
+
+  def unlist
+    @user = User.find params[:user_id]
+    Product.where(asset_id: params[:asset_id]).destroy_all
+    Asset.where(id: params[:asset_id]).update_all(on_the_market: false)
+    #redirect_to user_path(@user)
+    redirect_to(:back)
+  end
+
+  def buy
+    buyer_balance = User.where(id: params[:buyer_id]).first.balance
+    seller_balance = User.where(id: params[:seller_id]).first.balance
+    price = params[:price].to_f
+    if buyer_balance < price
+      redirect_to :back, notice: "Insufficient Balance"
+    else
+      Asset.where(id: params[:asset_id]).update_all(user_id: params[:buyer_id], on_the_market: false)
+      User.where(id: params[:buyer_id]).update_all(balance: (buyer_balance-price))
+      User.where(id: params[:buyer_id]).update_all(balance: (seller_balance+price))
+      Product.where(asset_id: params[:asset_id]).destroy_all
+      redirect_to :back, notice: "Your purchase was successful"
+    end
+    #@user = User.find params[:user_id]
+    #Product.where(asset_id: params[:asset_id]).destroy_all
+    #Asset.where(id: params[:asset_id]).update_all(on_the_market: false)
+    #redirect_to user_path(@user)
   end
 
   private
@@ -100,4 +187,7 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:username, :password)
   end
+  #def bal_params
+  #  params.require(:user).permit(:card_number, :expiration_date, :CVC, :billing_address, :city, :state, :ZIP, :amount)
+  #end
 end
