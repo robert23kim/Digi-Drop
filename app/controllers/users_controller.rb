@@ -149,7 +149,7 @@ class UsersController < ApplicationController
     else
       Asset.where(id: params[:asset_id]).update_all(user_id: params[:buyer_id], on_the_market: false)
       User.where(id: params[:buyer_id]).update_all(balance: (buyer_balance-price))
-      User.where(id: params[:buyer_id]).update_all(balance: (seller_balance+price))
+      User.where(id: params[:seller_id]).update_all(balance: (seller_balance+price))
       Product.where(asset_id: params[:asset_id]).destroy_all
       redirect_to :back, notice: "Your purchase was successful"
     end
