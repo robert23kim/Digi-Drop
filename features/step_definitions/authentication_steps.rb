@@ -33,3 +33,20 @@ Given /I am logged_in as "john123"/ do
   fill_in("password", :with => "123456")
   click_button("Login")
 end
+
+Given /^I am logged_in as "([^"]*)" with password "([^"]*)"$/ do |arg1, arg2|
+  visit("/login")
+  fill_in("username", :with => arg1)
+  fill_in("password", :with => arg2)
+  click_button("Login")
+end
+
+When /^I sign up as "([^"]*)" with password "([^"]*)"$/ do |arg1, arg2|
+  step %{I follow "Not logged in"}
+  step %{I follow "Sign up"}
+  step %{I should be on the signup page}
+  step %{I fill in "Username" with "#{arg1}"}
+  step %{I fill in "Password" with "#{arg2}"}
+  step %{I press "Create Account"}
+  step %{I should be on the homepage}
+end
