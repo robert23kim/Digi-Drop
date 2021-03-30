@@ -27,8 +27,13 @@ Given /the following assets exist/ do |users_table|
   end
 end
 
+Given /the following products exist/ do |users_table|
+  users_table.hashes.each do |user|
+    Product.create user
+  end
+end
+
 Given /the following contents exist/ do |users_table|
-  #byebug
   users_table.hashes.each do |user|
     Content.create user
   end
