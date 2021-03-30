@@ -60,34 +60,67 @@ describe UsersController do
     end
   end
   
-  describe "POST #add_asset" do
+  describe "POST #add" do
     context "adds collectible as asset to user" do
       it "creates an Asset" do
         @user = FactoryGirl.create(:user)
-        @prize = FactoryGirl.create(:collectible)
+        @case = FactoryGirl.create(:case)
+        @coll_data = [
+            {:rarity => "C"},
+            {:rarity => "N"},
+            {:rarity => "R"},
+            {:rarity => "SR"},
+        ]
+        @prizes = @coll_data.map { |c| FactoryGirl.create(:collectible, c) }
+          
+        @case_data = [
+            {:collectible_id => "1"},
+            {:collectible_id => "2"},
+            {:collectible_id => "3"},
+            {:collectible_id => "4"},
+        ]
+        @contents = @case_data.map { |c| FactoryGirl.create(:content, c) }          
+          
         #UsersController.class_variable_set :@@added_asset, nil
         #expect{post :add_asset, :id => @user.id}.to change{@@added_asset.class}.from(NilClass).to(Asset)
-        post :add_asset, :id => @user.id
-        assigns(:collectible_ids).should_not be_nil
+        post :add, :user_id => @user.id, :case_name => @case.name
+        assigns(:case_contents).should_not be_nil
         #assigns(:@@added_asset).should_not be_nil
       end
-      it "redirects to the open_case page" do
+      it "redirects to the open page" do
       #  post :create, movie: FactoryGirl.attributes_for(:movie)
         @user = FactoryGirl.create(:user)
-        @prize = FactoryGirl.create(:collectible)
-        post :add_asset, :id => @user.id
-        response.should redirect_to open_case_user_path
+        @case = FactoryGirl.create(:case)
+        @coll_data = [
+            {:rarity => "C"},
+            {:rarity => "N"},
+            {:rarity => "R"},
+            {:rarity => "SR"},
+        ]
+        @prizes = @coll_data.map { |c| FactoryGirl.create(:collectible, c) }
+          
+        @case_data = [
+            {:collectible_id => "1"},
+            {:collectible_id => "2"},
+            {:collectible_id => "3"},
+            {:collectible_id => "4"},
+        ]
+        @contents = @case_data.map { |c| FactoryGirl.create(:content, c) }
+          
+        post :add, :user_id => @user.id, :case_name => @case.name
+        response.should redirect_to open_path(@user, @case.name)
       end
     end
   end
 
-  describe "GET #open_case" do
+  describe "GET #open" do
     context "opening a case and displaying prize" do
       it "renders the open case template" do
         @user = FactoryGirl.create(:user)
-        get :open_case, :id => @user.id
+        @case = FactoryGirl.create(:case)
+        get :open, :user_id => @user.id
         assigns(:user).should_not be_nil
-        response.should render_template :open_case
+        response.should render_template :open
       end
       it "displays prize" do     
         @user = FactoryGirl.create(:user)
@@ -95,7 +128,7 @@ describe UsersController do
         @asset = FactoryGirl.create(:asset, :user_id => @user.id, :collectible_id => @prize.id)
         #post :add_asset, :id => @user.id
         UsersController.class_variable_set :@@added_asset, @asset
-        get :open_case, :id => @user.id
+        get :open, :user_id => @user.id
         
         assigns(:user).should_not be_nil
         assigns(:added_collectible).should eq([@prize])
@@ -178,6 +211,50 @@ describe UsersController do
       response.should redirect_to "/market/2"
       end
   end 
+  
+  describe "GET #add_balance" do
+    before do
+      request.env["HTTP_REFERER"] = "/users/1"
+      @user = FactoryGirl.create(:user, :balance => 123.0)
+    end
+    it "renders Payment Method page" do
+      get :add_balance, :id => @user
+      response.should render_template :add_balance
+    end
+  end
+  
+  describe "PUT #update" do
+    before do
+      request.env["HTTP_REFERER"] = "/users/1"
+      @user = FactoryGirl.create(:user, :balance => 123.0)
+    end
+    it "redirects to the user's page" do
+      put :update, :id => @user, :amount => "333.78"
+      response.should redirect_to user_path(@user)
+    end
+    it "increases the user's balance by the amount" do
+      put :update, :id => @user, :amount => "333.78"
+      @user.reload
+      expect(@user.balance).to eq(123.0+333.78)
+    end
+    it "sets the user's balance to amount if the former is nil" do
+      @user2 = FactoryGirl.create(:user, :balance => nil)
+      put :update, :id => @user2, :amount => "333.78"
+      @user2.reload
+      expect(@user2.balance).to eq(333.78)
+    end
+    it "puts out a notice redirects back to the current if amount input is invalid" do
+      put :update, :id => @user, :amount => "invalid"
+      response.should redirect_to add_balance_user_path(@user)
+      controller.flash[:notice].should eq("Invalid input for Amount")
+    end
+    it "doesn't accept nil" do
+      put :update, :id => @user, :amount => nil
+      response.should redirect_to add_balance_user_path(@user)
+      controller.flash[:notice].should eq("Invalid input for Amount")
+    end
+    
+  end
 
 end
 

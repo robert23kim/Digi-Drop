@@ -1,0 +1,92 @@
+<%= render 'components/navbar' %>
+
+<div class="container">
+   <div class="row mt-3">
+      <div class="col-sm">
+         <div class="card" style="width: 32rem;">
+            <img class="card-img-top" src=<%= @active_case.url%> class="rounded" >
+            <div class="card-body">
+               <ul class="nav nav-pills nav justify-content-center">
+               <% @cases.each do |c| %>
+               <% if c.name == @active_case.name %>
+               <li class="nav-item">
+                  <a class="nav-link digiid_third" href=<%= open_path(@user, c.name) %>>
+                  <%= c.name %>
+                  </a>
+               </li>
+               <% else %>
+               <li class="nav-item">
+                  <a class="nav-link" href=<%= open_path(@user, c.name) %>>
+                  <%= c.name %>
+                  </a>
+               </li>
+               <% end %>  
+               <% end %>  
+               <ul>
+            </div>
+            <div class="card-body">
+               <%= button_to 'Open Case', add_path(@user, @active_case.name), :class => "btn btn-lg btn-block digiid_top" %>
+            </div>
+         </div>
+      </div>
+             
+      <div class="col-sm">
+         <% if !@added_collectible.nil? and @added_collectible.size > 0 %>
+         <% case @added_collectible.first.rarity
+            when 'C' %>
+         <div class="card digiid_border_common" style="width: 18rem;">
+            <div class="card-header">
+                You got:
+            </div>
+            <img class="card-img-top" src=<%= @added_collectible.first.url%>>
+            <span class="badge digiid_common">Common</span>
+            <div class="card-body">
+               <p class="card-text">
+                  <%= @added_collectible.first.name %>
+               </p>
+            </div>
+         </div>
+         <% when 'N' %>
+         <div class="card digiid_border_normal" style="width: 18rem;">
+            <div class="card-header">
+                You got:
+            </div>
+            <img class="card-img-top" src=<%= @added_collectible.first.url%>>
+            <span class="badge digiid_normal">Normal</span>   
+            <div class="card-body">
+               <p class="card-text">
+                  <%= @added_collectible.first.name %>
+               </p>
+            </div>                  
+         </div>
+         <% when 'R' %>
+         <div class="card digiid_border_rare" style="width: 18rem;">
+            <div class="card-header">
+                You got:
+            </div>
+            <img class="card-img-top" src=<%= @added_collectible.first.url%>>
+            <span class="badge digiid_rare">Rare</span>             
+            <div class="card-body">
+               <p class="card-text">
+                  <%= @added_collectible.first.name %>
+               </p>
+            </div>
+         </div>
+         <% when 'SR' %>
+         <div class="card digiid_border_superrare" style="width: 18rem;">
+            <div class="card-header">
+                You got:
+            </div>
+            <img class="card-img-top" src=<%= @added_collectible.first.url%>>
+            <span class="badge digiid_superrare">Super Rare</span>             
+            <div class="card-body">
+               <p class="card-text">
+                  <%= @added_collectible.first.name %>
+               </p>
+            </div>
+         </div>
+         <% end %>             
+         <% end %>  
+      </div>
+   </div>
+</div>
