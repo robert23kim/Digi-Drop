@@ -196,19 +196,29 @@ describe UsersController do
       @user = FactoryGirl.create(:user, :balance => 123.0)
     end
     it "redirects to the user's page" do
-      put :update, :id => @user, :amount => 333.78
+      put :update, :id => @user, :amount => "333.78"
       response.should redirect_to user_path(@user)
     end
     it "increases the user's balance by the amount" do
-      put :update, :id => @user, :amount => 333.78
+      put :update, :id => @user, :amount => "333.78"
       @user.reload
       expect(@user.balance).to eq(123.0+333.78)
     end
     it "sets the user's balance to amount if the former is nil" do
       @user2 = FactoryGirl.create(:user, :balance => nil)
-      put :update, :id => @user2, :amount => 333.78
+      put :update, :id => @user2, :amount => "333.78"
       @user2.reload
       expect(@user2.balance).to eq(333.78)
+    end
+    it "puts out a notice redirects back to the current if amount input is invalid" do
+      put :update, :id => @user, :amount => "invalid"
+      response.should redirect_to add_balance_user_path(@user)
+      controller.flash[:notice].should eq("Invalid input for Amount")
+    end
+    it "doesn't accept nil" do
+      put :update, :id => @user, :amount => nil
+      response.should redirect_to add_balance_user_path(@user)
+      controller.flash[:notice].should eq("Invalid input for Amount")
     end
     
   end
