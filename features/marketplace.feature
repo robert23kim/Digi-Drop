@@ -62,7 +62,7 @@ Scenario: buy collectible enough funds
 
 Scenario: buy collectible low funds
   Given I am on the homepage
-  Given I am logged_in as "jim123"
+  Given I am logged_in as "jim123" with password "123456"
   When I follow "Market"
   Then  I should be on the market page for "jim123"
   And I should see "F1 Delta Time"
