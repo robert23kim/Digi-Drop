@@ -13,6 +13,13 @@ Given /the following collectibles exist/ do |users_table|
   end
 end
 
+Given /the following cases exist/ do |users_table|
+  #byebug
+  users_table.hashes.each do |user|
+    Case.create user
+  end
+end
+
 Given /the following assets exist/ do |users_table|
   #byebug
   users_table.hashes.each do |user|
@@ -21,9 +28,14 @@ Given /the following assets exist/ do |users_table|
 end
 
 Given /the following products exist/ do |users_table|
-  #byebug
   users_table.hashes.each do |user|
     Product.create user
+  end
+end
+
+Given /the following contents exist/ do |users_table|
+  users_table.hashes.each do |user|
+    Content.create user
   end
 end
 
@@ -41,6 +53,23 @@ Then /I should see all of the collectibles of "(.*)"/ do |username|
   collection = Collectible.usersCollection(user)
   collection.each do |c|
     step %{I should see "#{c.name}"}
+  end
+end
+
+Then /^I should see "([^"]*)" in all of the pages$/ do |arg1|
+  wpages = Array["Home", "Manage Collectibles", "Cases", "Market", "Add Balance"]
+  wpages.each do |p|
+    step %{I follow "#{p}"}
+    step %{I should see "#{arg1}"}
+  end  
+end
+
+Then /^I should not see "([^"]*)" in any of the pages$/ do |arg1|
+  wpages = Array["Home"]
+  wpages.each do |p|
+    step %{I follow "#{p}"}
+    #byebug
+    step %{I should not see "#{arg1}"}
   end
 end
 
