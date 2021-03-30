@@ -140,16 +140,21 @@ class UsersController < ApplicationController
   def update
     #byebug
     @user = User.find params[:id]
-    amt = Float(params[:amount])
-    #byebug
-    #check if amt is numerical
-    if @user.balance.nil?
-      @user.balance = amt
+    if !User.numeric?(params[:amount]) or Float(params[:amount])<0
+      flash[:notice] = "Invalid input for Amount"
+      redirect_to add_balance_user_path(@user)
     else
-      @user.balance = @user.balance + amt
+      amt = Float(params[:amount])
+      #byebug
+      #check if amt is numerical
+      if @user.balance.nil?
+        @user.balance = amt
+      else
+        @user.balance = @user.balance + amt
+      end
+      @user.save
+      redirect_to user_path(@user)
     end
-    @user.save
-    redirect_to user_path(@user)
   end
 
   def destroy
