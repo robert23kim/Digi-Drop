@@ -16,4 +16,9 @@ class User < ActiveRecord::Base
       #  return "$#{flbal}"
       #end
     end
+  
+    def self.numeric?(amt)
+      #flbal = account.balance
+      Float(amt) != nil rescue false
+    end
 end
