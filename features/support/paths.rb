@@ -31,6 +31,9 @@ module NavigationHelpers
     when /^the collectibles page for "(.+)"$/
       user_path(User.find_by_username($1))
       
+    when /^the payment method page for "(.+)"$/
+      add_balance_user_path(User.find_by_username($1))
+      
     #when /^the Similar Movies page for "(.+)"$/
     #  same_dir_path(Movie.find_by_title($1))
 

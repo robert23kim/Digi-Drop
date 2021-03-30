@@ -140,8 +140,8 @@ class UsersController < ApplicationController
   def update
     #byebug
     @user = User.find params[:id]
-    if !User.numeric?(params[:amount])
-      flash[:notice] = "Invalid input for \"Amount\""
+    if !User.numeric?(params[:amount]) or Float(params[:amount])<0
+      flash[:notice] = "Invalid input for Amount"
       redirect_to add_balance_user_path(@user)
     else
       amt = Float(params[:amount])
