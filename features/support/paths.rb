@@ -19,6 +19,9 @@ module NavigationHelpers
 
     when /^the login\s?page$/ then '/login'
 
+    when /^the market page for "(.+)"$/
+      market_user_path(User.find_by_username($1))
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
@@ -30,6 +33,9 @@ module NavigationHelpers
 
     when /^the collectibles page for "(.+)"$/
       user_path(User.find_by_username($1))
+      
+    when /^the payment method page for "(.+)"$/
+      add_balance_user_path(User.find_by_username($1))
       
     #when /^the Similar Movies page for "(.+)"$/
     #  same_dir_path(Movie.find_by_title($1))

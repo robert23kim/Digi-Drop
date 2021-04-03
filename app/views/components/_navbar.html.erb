@@ -1,5 +1,4 @@
-<!--  app/views/users/open_case.html.erb -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light digiid_base">
    <a class="navbar-brand" href=<%= users_path %>>My Collectibles</a>
    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
@@ -11,13 +10,22 @@
             <a class="nav-link" href=<%= user_path(current_user)%>>Manage Collectibles</a>
          </li>
          <li class="nav-item">
-            <a class="nav-link" href=<%= open_case_user_path(current_user)%>>Cases</a>
+            <a class="nav-link" href=<%= open_path(current_user)%>>Cases</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" href=<%= market_user_path(current_user)%>>Market</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" href=<%= add_balance_user_path(current_user)%>>Add Balance</a>
          </li>
          <% end %>
       </ul>
    </div>
    <ul class="navbar-nav mr-auto">
       <% if logged_in? %> 
+      <li class="nav-item active">
+            <a class="nav-link">Your Balance: <%= @userBal %></a>
+      </li>
       <li class="nav-item dropdown">
          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          <%= current_user.username %>
@@ -40,22 +48,3 @@
       <% end %> 
    </ul>
 </nav>
-
-<div class="container">
-    <div class="row mt-3">
-        <%= button_to 'Open Case', add_asset_user_path(@user), :class => "btn btn-success" %>
-    </div>
-    
-    <div class="row mt-3">
-        <% if !@added_collectible.nil? and @added_collectible.size > 0 %>
-            <div class="card" style="width: 36rem;">
-                <img class="card-img-top" src=<%= @added_collectible.first.url%>>
-                <div class="card-body">
-                <p class="card-text">
-                    <%= @added_collectible.first.name %>
-                </p>
-                </div>
-            </div>
-        <% end %>
-    </div>
-</div>

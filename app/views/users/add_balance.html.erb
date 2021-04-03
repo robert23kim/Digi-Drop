@@ -1,0 +1,24 @@
+<%= render 'components/navbar' %>
+
+<h2>Payment Method</h2>
+
+<%= form_tag user_path(@user), :method => :put, :class => 'form' do %><br>
+<%= label_tag :card_number %>
+<%= text_field_tag :card_number %>
+<%= label_tag :expiration_date %>
+<%= text_field_tag :expiration_date %>
+<%= label_tag :CVC %>
+<%= password_field_tag :CVC %><br><br>
+<%= label_tag :billing_address %>
+<%= text_field_tag :billing_address %><br>
+<%= label_tag :city %>
+<%= text_field_tag :city %>
+<%= label_tag :state %>
+<%= text_field_tag :state %>
+<%= label_tag :ZIP %>
+<%= text_field_tag :ZIP %><br><br>
+<%= label_tag :amount %>
+<%= text_field_tag :amount %><br><br>
+
+<%= submit_tag 'Add to Balance'%>
+<% end %>
