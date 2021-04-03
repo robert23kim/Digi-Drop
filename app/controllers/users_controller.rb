@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   @@added_asset = nil
     
   def show
+    @blurValue = "5px"
     id = params[:id] # retrieve movie ID from URI route
     @user = User.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default

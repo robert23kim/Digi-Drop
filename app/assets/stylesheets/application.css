@@ -101,10 +101,6 @@
   filter: contrast(75%);
 }
 
-.filter-super-rare {
-  filter: blur(0px);
-}
-
 .digiid_base {
     background-color: #dddddd;
 }
