@@ -76,3 +76,7 @@ end
 Then /(.*) seed users should exist/ do | n_seeds |
   User.count.should be n_seeds.to_i
 end
+
+Then /^I should see the image "(.+)"$/ do |image|
+    page.should have_xpath("//img[@src=\"#{image}\"]")
+end
