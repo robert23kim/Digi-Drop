@@ -8,3 +8,5 @@ log/
 tmp/
 vendor/bundle
 .DS_Store
+.idea
+*.iml
