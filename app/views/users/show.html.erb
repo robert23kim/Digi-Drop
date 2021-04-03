@@ -11,7 +11,7 @@
                             when 'C' %>
                             <div class="col-auto mb-3">
                                 <div class="card h-70 digiid_border_common" style="width: 18rem;">
-                                    <img class="card-img-top" src=<%= collectible.url%>>
+                                    <img class="card-img-top-common" src=<%= collectible.url%>>
                                     <span class="badge digiid_common">Common</span>
                                     <div class="card-body">
                                         <p class="card-text"> <%= collectible.name %>  </p>
@@ -28,7 +28,7 @@
                         <% when 'N' %>
                             <div class="col-auto mb-3">
                                 <div class="card h-70 digiid_border_normal" style="width: 18rem;">
-                                    <img class="card-img-top" src=<%= collectible.url%> class="rounded" >
+                                    <img class="card-img-top-normal" src=<%= collectible.url%> class="rounded" >
                                     <span class="badge digiid_normal">Normal</span>
                                     <div class="card-body">
                                         <p class="card-text"> <%= collectible.name %>  </p>
@@ -45,7 +45,7 @@
                         <% when 'R' %>
                             <div class="col-auto mb-3">
                                 <div class="card h-70 digiid_border_rare" style="width: 18rem;">
-                                    <img class="card-img-top" src=<%= collectible.url%> class="rounded" >
+                                    <img class="card-img-top-rare" src=<%= collectible.url%> class="rounded" >
                                     <span class="badge digiid_rare">Rare</span>
                                     <div class="card-body">
                                         <p class="card-text"> <%= collectible.name %>  </p>
@@ -62,7 +62,7 @@
                         <% when 'SR' %>
                             <div class="col-auto mb-3">
                                 <div class="card h-70 digiid_border_superrare" style="width: 18rem;">
-                                    <img class="card-img-top" src=<%= collectible.url%> class="rounded" >
+                                    <img class="card-img-top-super-rare" src=<%= collectible.url%> class="rounded" >
                                     <span class="badge digiid_superrare">Super Rare</span>                                    
                                     <div class="card-body">
                                         <p class="card-text"> <%= collectible.name %>  </p>
