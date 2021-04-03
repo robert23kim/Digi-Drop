@@ -78,6 +78,11 @@ class UsersController < ApplicationController
     else
         Case.find_by name: params[:case_name]
     end
+    
+    @case_contents = Collectible.select('"collectibles"."id" as id, "collectibles"."url" as url, "collectibles"."name" as name, rarity')
+        .joins('INNER JOIN "contents" ON "collectibles"."id" = "contents"."collectible_id"')
+        .joins('INNER JOIN "cases" ON "cases"."id" = "contents"."case_id"')
+        .where("cases.name = ?", @active_case.name)
       
     # map the asset to the corresponding collectible for display
     if !@@added_asset.nil?
