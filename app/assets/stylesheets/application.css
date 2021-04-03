@@ -86,6 +86,25 @@
     object-fit: contain;
 }
 
+.filter-common {
+  filter: grayscale(90%);
+  filter: contrast(50%);
+}
+
+.filter-normal {
+  filter: grayscale(90%);
+  filter: contrast(75%);
+}
+
+.filter-rare {
+  filter: grayscale(25%);
+  filter: contrast(75%);
+}
+
+.filter-super-rare {
+  filter: blur(0px);
+}
+
 .digiid_base {
     background-color: #dddddd;
 }
