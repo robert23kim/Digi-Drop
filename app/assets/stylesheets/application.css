@@ -144,3 +144,37 @@
 .digiid_border_superrare {
     border-color: #ffcd3c;
 }
+
+.digiid_image_common {
+    width: 100px;
+    height: 125px;
+    border: 3px solid #dbe2ef;
+    padding: 3px;
+    object-fit: cover;
+}
+
+.digiid_image_normal {
+    width: 100px;
+    height: 125px;
+    border: 3px solid #95e1d3;
+    padding: 3px;
+    object-fit: cover;
+}
+
+.digiid_image_rare {
+    width: 100px;
+    height: 125px;
+    border: 3px solid #f6416c;
+    padding: 3px;
+    object-fit: cover;
+}
+
+.digiid_image_superrare {
+    width: 100px;
+    height: 125px;
+    border: 3px solid #ffcd3c;
+    padding: 3px;
+    object-fit: cover;
+}
+
+.top-buffer { margin-bottom:20px; }

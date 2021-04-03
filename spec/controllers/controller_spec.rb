@@ -124,14 +124,29 @@ describe UsersController do
       end
       it "displays prize" do     
         @user = FactoryGirl.create(:user)
-        @prize = FactoryGirl.create(:collectible)
-        @asset = FactoryGirl.create(:asset, :user_id => @user.id, :collectible_id => @prize.id)
+        @case = FactoryGirl.create(:case)
+        @coll_data = [
+            {:rarity => "C"},
+            {:rarity => "N"},
+            {:rarity => "R"},
+            {:rarity => "SR"},
+        ]
+        @prizes = @coll_data.map { |c| FactoryGirl.create(:collectible, c) }
+          
+        @case_data = [
+            {:collectible_id => "1"},
+            {:collectible_id => "2"},
+            {:collectible_id => "3"},
+            {:collectible_id => "4"},
+        ]
+        @contents = @case_data.map { |c| FactoryGirl.create(:content, c) }
+        @asset = FactoryGirl.create(:asset, :user_id => @user.id, :collectible_id => @prizes[0].id)
         #post :add_asset, :id => @user.id
         UsersController.class_variable_set :@@added_asset, @asset
-        get :open, :user_id => @user.id
+        get :open, :user_id => @user.id, :case_name => @case.name
         
         assigns(:user).should_not be_nil
-        assigns(:added_collectible).should eq([@prize])
+        assigns(:added_collectible).should eq([@prizes[0]])
       end
     end
   end

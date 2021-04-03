@@ -16,10 +16,10 @@ Background: users have been added to database
   | Kitska Warmbestrarity        | N                | https://lh3.googleusercontent.com/4YPexPRmyHJ_BW_f41KKO-QdOD_vffe0ndD3tt7vu7ZCsPydNBSVy1Je-7F781SLgWP37ujmkHqhGSBUYSp4nGxKitBd6MqDlxkssg=s992         |	10    |
   | Kitska Warmbestrarity        | R                | https://lh3.googleusercontent.com/4YPexPRmyHJ_BW_f41KKO-QdOD_vffe0ndD3tt7vu7ZCsPydNBSVy1Je-7F781SLgWP37ujmkHqhGSBUYSp4nGxKitBd6MqDlxkssg=s992         |	10    |
   | Kitska Warmbestrarity        | SR               | https://lh3.googleusercontent.com/4YPexPRmyHJ_BW_f41KKO-QdOD_vffe0ndD3tt7vu7ZCsPydNBSVy1Je-7F781SLgWP37ujmkHqhGSBUYSp4nGxKitBd6MqDlxkssg=s992         |	10    |
-  | Chubbies #5142               | C                | https://lh3.googleusercontent.com/4YPexPRmyHJ_BW_f41KKO-QdOD_vffe0ndD3tt7vu7ZCsPydNBSVy1Je-7F781SLgWP37ujmkHqhGSBUYSp4nGxKitBd6MqDlxkssg=s992         |	10    |
-  | Chubbies #5142               | N                | https://lh3.googleusercontent.com/4YPexPRmyHJ_BW_f41KKO-QdOD_vffe0ndD3tt7vu7ZCsPydNBSVy1Je-7F781SLgWP37ujmkHqhGSBUYSp4nGxKitBd6MqDlxkssg=s992         |	10    |
-  | Chubbies #5142               | R                | https://lh3.googleusercontent.com/4YPexPRmyHJ_BW_f41KKO-QdOD_vffe0ndD3tt7vu7ZCsPydNBSVy1Je-7F781SLgWP37ujmkHqhGSBUYSp4nGxKitBd6MqDlxkssg=s992         |	10    |
-  | Chubbies #5142               | SR               | https://lh3.googleusercontent.com/4YPexPRmyHJ_BW_f41KKO-QdOD_vffe0ndD3tt7vu7ZCsPydNBSVy1Je-7F781SLgWP37ujmkHqhGSBUYSp4nGxKitBd6MqDlxkssg=s992         |	10    |
+  | Chubbies #5142               | C                | https://lh3.googleusercontent.com/u7GsI2B5B1KFqd7dUDzbhmlyZP35aGopWp9fxzhrUFqW0Wro3xgkDJ9H-EVct7TpPCHkh7VxkJeCw3vzV4retxdzYeYSR1nLO4Ck=s992         |	10    |
+  | Chubbies #5142               | N                | https://lh3.googleusercontent.com/u7GsI2B5B1KFqd7dUDzbhmlyZP35aGopWp9fxzhrUFqW0Wro3xgkDJ9H-EVct7TpPCHkh7VxkJeCw3vzV4retxdzYeYSR1nLO4Ck=s992         |	10    |
+  | Chubbies #5142               | R                | https://lh3.googleusercontent.com/u7GsI2B5B1KFqd7dUDzbhmlyZP35aGopWp9fxzhrUFqW0Wro3xgkDJ9H-EVct7TpPCHkh7VxkJeCw3vzV4retxdzYeYSR1nLO4Ck=s992         |	10    |
+  | Chubbies #5142               | SR               | https://lh3.googleusercontent.com/u7GsI2B5B1KFqd7dUDzbhmlyZP35aGopWp9fxzhrUFqW0Wro3xgkDJ9H-EVct7TpPCHkh7VxkJeCw3vzV4retxdzYeYSR1nLO4Ck=s992         |	10    |
  
   And the following cases exist:
   | name                         | url                                                                                                                                               | value
@@ -51,3 +51,20 @@ Scenario: Select a different case, and open that instead
   When I follow "Chubbies"
   When I press "Open Case"
   Then I should see "Chubbies #5142"
+  
+Scenario: Check case preview
+  Given I am on the homepage
+  Given I am logged_in as "john123"
+  When I follow "Cases"
+  When I follow "Preview"
+  Then I should see "Common: 60%"
+  Then I should see the image "https://lh3.googleusercontent.com/4YPexPRmyHJ_BW_f41KKO-QdOD_vffe0ndD3tt7vu7ZCsPydNBSVy1Je-7F781SLgWP37ujmkHqhGSBUYSp4nGxKitBd6MqDlxkssg=s992"
+  
+Scenario: Check case preview with different case selection
+  Given I am on the homepage
+  Given I am logged_in as "john123"
+  When I follow "Cases"
+  When I follow "Chubbies"
+  When I follow "Preview"
+  Then I should see "Common: 60%"
+  Then I should see the image "https://lh3.googleusercontent.com/u7GsI2B5B1KFqd7dUDzbhmlyZP35aGopWp9fxzhrUFqW0Wro3xgkDJ9H-EVct7TpPCHkh7VxkJeCw3vzV4retxdzYeYSR1nLO4Ck=s992"
