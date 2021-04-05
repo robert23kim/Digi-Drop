@@ -1,0 +1,93 @@
+/* Colors
+Background Grays:
+Base: #202225
+Secondary: #2F3136
+Tertiary: #36393F
+Hover/Active: #4F545C
+Text field: #40444B
+
+Fonts:
+Inactive: #8E9297
+Active: #fff
+Text:muted: #72767D
+Hover: #DCDDDE
+
+Buttons:
+Lightup Green:#43B581
+Info Blue: #3498DB
+Link Blue: #00B0F4;
+Warn Red: #992D22;
+ */
+
+.digiid-logo {
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.digiid-bar {
+    border-bottom: 2px solid #72767D;
+}
+
+.digiid-border {
+    border: 2px solid #72767D;
+    border-radius: 5px;
+}
+
+.digiid-border-color {
+    border-color: #72767D;
+}
+
+.digiid-bar, .digiid-bar .dropdown-menu {
+    background-color: #2F3136;
+    color: #8E9297;
+    max-height: 48px;
+    max-width: 1200px;
+}
+
+.digiid-bar-brand {
+    padding-left: 8px;
+}
+
+.dropdown-item, .dropdown-divider, .dropdown {
+    background-color: #2F3136;
+}
+
+.nav-item:hover, .dropdown-item:hover, .digiid-link:hover {
+    background: rgba(79, 84, 92, 0.32);
+    color: #DCDDDE;
+}
+
+.dropdown-item:hover {
+    background: rgb(79, 84, 92);
+}
+
+.navbar-dark .navbar-nav .active > .digiid-link {
+    color: #fff;
+    background-color: #4F545C;
+}
+
+.digiid-link, .dropdown-item {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    cursor: pointer;
+    display: block;
+    padding: .5rem 1rem;
+    color: #8E9297!important;
+}
+
+.digiid-tertiary-dark {
+    background-color: #36393F;
+    color: #fff;
+}
+
+.digiid-base-dark {
+    background-color: #202225;
+}
+
+.digiid-secondary-dark {
+    background-color: #2F3136;
+}
+

@@ -18,6 +18,6 @@
 //= require_tree .
 
 $(document).on("click", ".button-sell", function () {
-  var myBookId = $(this).data('id');
-  $(".modal-body #asset_id").val( myBookId );
+  var asset_id = $(this).data('id');
+  $(".modal-body #asset_id").val( asset_id );
 });

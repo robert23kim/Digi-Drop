@@ -1,47 +1,39 @@
 <div class="container-fluid">
 
-  <div class="row mt-3">
-    <div class="row justify-content-center">
-      <% @products.each do |product| %>
-        <div class="col-auto mb-3">
-          <div class="card h-70 digiid-border" style="width: 18rem;">
-            <div class="card-header">
-              <p class="card-text"> <%= product.name %>  </p>
-            </div>
-
-<!--            <img class="card-img-top filter-<%#= product.rarity %>" src=<%#= product.url %>>-->
-            <img class="card-img-top" src=<%= product.url %>>
-<!--            <span class="badge <%#= product.rarity %>">-->
-            <span class="badge">
-<!--              NOTE: FOLLOWING CASE STATEMENT NEEDS TO BE BROKEN INTO TWO LINES AFTER UNCOMMENTING-->
-              <%# case collectible.rarity when 'C' %>
-<!--                  Common-->
-                <%# when 'N' %>
-<!--                  Normal-->
-                <%# when 'R' %>
-<!--                  Rare-->
-                <%# when 'SR' %>
-<!--                  Super Rare-->
-              <%# end %>
-            </span>
-            <div class="card-body">
-              <div class="row mt-3">
-                <div class="col-auto">
-                  $<%= product.sell_price %>
-                </div>
-                <div class="col-auto">
-                  <% if product.user_id ==  @user.id%>
-                    <%= button_to 'unlist', unlist_path(@user.id, product.asset_id), :class => "button-right" %>
-                  <% else %>
-                    <%= button_to 'buy', buy_path(@user.id, product.user_id, product.asset_id, product.sell_price), :class => "button-right" %>
-                  <% end %>
-                </div>
-              </div>
-            </div>
+  <div class="row justify-content-center">
+    <% @products.each do |product| %>
+      <div class="col-auto mb-4">
+        <div class="card h-60 digiid-border">
+          <div class="card-header">
+            <p class="card-text"> <%= product.name %>  </p>
           </div>
+
+          <img class="card-img-top filter-<%= product.rarity %>" src=<%= product.url %>>
+          <span class="badge <%= product.rarity %>">
+              <% case product.rarity
+                 when 'C' %>
+                  Common
+                <% when 'N' %>
+                  Normal
+                <% when 'R' %>
+                  Rare
+                <% when 'SR' %>
+                  Super Rare
+              <% end %>
+            </span>
+
+          <div class="card-body">
+            <p class="card-text"> $<%= product.sell_price %>  </p>
+            <% if product.user_id == @user.id %>
+              <%= button_to 'unlist', unlist_path(@user.id, product.asset_id), :class => "button button-close" %>
+            <% else %>
+              <%= button_to 'buy', buy_path(@user.id, product.user_id, product.asset_id, product.sell_price), :class => "button button-info" %>
+            <% end %>
+          </div>
+
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 
 </div>
