@@ -1,158 +1,153 @@
-<%= render 'components/navbar' %>
-<div class="container">
-   <div class="row mt-3">
-      <div class="col-sm">
-         <div class="card" style="width: 32rem;">         
-             <img class="card-img-top" src=<%= @active_case.url%> class="rounded" >
-             
-            <div class="card-body">
-               <ul class="nav nav-pills nav justify-content-center">
-               <% @cases.each do |c| %>
-               <% if c.name == @active_case.name %>
-               <li class="nav-item">
-                  <a class="nav-link digiid_third" href=<%= open_path(@user, c.name) %>>
-                  <%= c.name %>
-                  </a>
-               </li>
-               <% else %>
-               <li class="nav-item">
-                  <a class="nav-link" href=<%= open_path(@user, c.name) %>>
-                  <%= c.name %>
-                  </a>
-               </li>
-               <% end %>  
-               <% end %>  
-               <ul>
-                   
-              <a href="#" data-toggle="modal" data-target="#previewModal" >
-                    <span class="badge badge-primary">Preview</span>
-              </a>
+<div class="container-fluid">
+  <div class="row mt-3">
+    <div class="col-1 mb-5">
+    </div>
 
-            </div>
-            <div class="card-body">
-               <%= button_to 'Open Case', add_path(@user, @active_case.name), :class => "btn btn-lg btn-block digiid_top" %>
-            </div>
-         </div>
+    <div class="col-6 mb-5">
+      <img class="card-img-top" src=<%= @active_case.url %> class="rounded">
+      <ul class="nav nav-pills nav justify-content-center">
+        <% @cases.each do |c| %>
+          <li class="nav-item <%= 'active' if c.name == @active_case.name %>">
+            <a class="nav-link digiid-link" href=<%= open_path(@user, c.name) %>>
+              <%= c.name %>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+      <div class="row mt-3">
+        <button class="button btn-block" href="#" data-toggle="modal" data-target="#previewModal">
+          Preview
+        </button>
+
+        <button type="submit" form="case" value="Open Case" class="btn btn-lg btn-block button-case">  Open Case       </button>
+
+        <%= form_tag add_path(@user, @active_case.name), :method => "POST", :id => 'case' do %>  <% end %>
+
       </div>
-      <div class="col-sm">
-         <% if !@added_collectible.nil? and @added_collectible.size > 0 %>
-         <% case @added_collectible.first.rarity
-            when 'C' %>
-         <div class="card digiid_border_common" style="width: 18rem;">
+    </div>
+
+    <div class="col-1 mb-5">
+    </div>
+
+    <div class="col-4 mb-5">
+      <% if !@added_collectible.nil? and @added_collectible.size > 0 %>
+        <% case @added_collectible.first.rarity
+           when 'C' %>
+          <div class="card digiid-border" style="max-height: 400px; width: 18rem;">
             <div class="card-header">
-               You got:
+              You got:
             </div>
-            <img class="card-img-top filter-common" src=<%= @added_collectible.first.url%>>
-            <span class="badge digiid_common">Common</span>
+            <img class="card-img-top filter-C" src=<%= @added_collectible.first.url %>>
+            <span class="badge C">Common</span>
             <div class="card-body">
-               <p class="card-text">
-                  <%= @added_collectible.first.name %>
-               </p>
+              <p class="card-text">
+                <%= @added_collectible.first.name %>
+              </p>
             </div>
-         </div>
-         <% when 'N' %>
-         <div class="card digiid_border_normal" style="width: 18rem;">
+          </div>
+        <% when 'N' %>
+          <div class="card digiid-border" style="max-height: 400px; width: 18rem;">
             <div class="card-header">
-               You got:
+              You got:
             </div>
-            <img class="card-img-top filter-normal" src=<%= @added_collectible.first.url%>>
-            <span class="badge digiid_normal">Normal</span>   
+            <img class="card-img-top filter-N" src=<%= @added_collectible.first.url %>>
+            <span class="badge N">Normal</span>
             <div class="card-body">
-               <p class="card-text">
-                  <%= @added_collectible.first.name %>
-               </p>
+              <p class="card-text">
+                <%= @added_collectible.first.name %>
+              </p>
             </div>
-         </div>
-         <% when 'R' %>
-         <div class="card digiid_border_rare" style="width: 18rem;">
+          </div>
+        <% when 'R' %>
+          <div class="card digiid-border" style="max-height: 400px; width: 18rem;">
             <div class="card-header">
-               You got:
+              You got:
             </div>
-            <img class="card-img-top filter-rare" src=<%= @added_collectible.first.url%>>
-            <span class="badge digiid_rare">Rare</span>             
+            <img class="card-img-top filter-R" src=<%= @added_collectible.first.url %>>
+            <span class="badge R">Rare</span>
             <div class="card-body">
-               <p class="card-text">
-                  <%= @added_collectible.first.name %>
-               </p>
+              <p class="card-text">
+                <%= @added_collectible.first.name %>
+              </p>
             </div>
-         </div>
-         <% when 'SR' %>
-         <div class="card digiid_border_superrare" style="width: 18rem;">
+          </div>
+        <% when 'SR' %>
+          <div class="card digiid-border" style="max-height: 400px; width: 18rem;">
             <div class="card-header">
-               You got:
+              You got:
             </div>
-            <img class="card-img-top filter-super-rare" src=<%= @added_collectible.first.url%>>
-            <span class="badge digiid_superrare">Super Rare</span>             
+            <img class="card-img-top filter-SR" src=<%= @added_collectible.first.url %>>
+            <span class="badge SR">Super Rare</span>
             <div class="card-body">
-               <p class="card-text">
-                  <%= @added_collectible.first.name %>
-               </p>
+              <p class="card-text">
+                <%= @added_collectible.first.name %>
+              </p>
             </div>
-         </div>
-         <% end %>             
-         <% end %>  
-      </div>
-   </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
-       
+
 
 <!-- Modal -->
 <div class="modal fade" id="previewModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document">
-     <div class="modal-content">
-        <div class="modal-header">
-           <h5 class="modal-title" id="exampleModalLabel"> <%= @active_case.name %> Case Contents </h5>
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-           <span aria-hidden="true">&times;</span>
-           </button>
+    <div class="modal-content">
+      <div class="modal-header digiid-dark digiid-border-color">
+        <h5 class="modal-title" id="exampleModalLabel"> <%= @active_case.name %> Case Contents </h5>
+        <button type="button-right" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body digiid-dark">
+        <div class="container-fluid">
+          <span class="badge C"> Common: 60% </span>
+          <div class="row top-buffer">
+            <% @case_contents.each do |content| %>
+              <% if content.rarity == 'C' %>
+                <div class="col-md-auto">
+                  <img class='image-C' src=<%= content.url %>>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <span class="badge N"> Normal: 25% </span>
+          <div class="row top-buffer">
+            <% @case_contents.each do |content| %>
+              <% if content.rarity == 'N' %>
+                <div class="col-md-auto">
+                  <img class='image-N' src=<%= content.url %>>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <span class="badge R"> Rare: 10% </span>
+          <div class="row top-buffer">
+            <% @case_contents.each do |content| %>
+              <% if content.rarity == 'R' %>
+                <div class="col-md-auto">
+                  <img class='image-R' src=<%= content.url %>>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <span class="badge SR"> Super Rare: 5% </span>
+          <div class="row top-buffer">
+            <% @case_contents.each do |content| %>
+              <% if content.rarity == 'SR' %>
+                <div class="col-md-auto">
+                  <img class='image-SR' src=<%= content.url %>>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
         </div>
-        <div class="modal-body">
-           <div class="container-fluid">
-              <span class="badge digiid_common"> Common: 60% </span>
-              <div class="row top-buffer">
-                 <% @case_contents.each do |content| %>
-                 <% if content.rarity == 'C' %>
-                 <div class="col-md-auto">
-                    <img class='digiid_image_common' src=<%= content.url %>>   
-                 </div>
-                 <% end %>
-                 <% end %>
-              </div>
-              <span class="badge digiid_normal"> Normal: 25% </span>
-              <div class="row top-buffer">
-                 <% @case_contents.each do |content| %>
-                 <% if content.rarity == 'N' %>                                    
-                 <div class="col-md-auto">
-                    <img class='digiid_image_normal' src=<%= content.url %>>    
-                 </div>
-                 <% end %>  
-                 <% end %>
-              </div>
-              <span class="badge digiid_rare"> Rare: 10% </span>                          
-              <div class="row top-buffer">
-                 <% @case_contents.each do |content| %>
-                 <% if content.rarity == 'R' %>                                    
-                 <div class="col-md-auto">
-                    <img class='digiid_image_rare' src=<%= content.url %>>    
-                 </div>
-                 <% end %>
-                 <% end %>
-              </div>
-              <span class="badge digiid_superrare"> Super Rare: 5% </span>                          
-              <div class="row top-buffer">
-                 <% @case_contents.each do |content| %>
-                 <% if content.rarity == 'SR' %>                                    
-                 <div class="col-md-auto">
-                    <img class='digiid_image_superrare' src=<%= content.url %>>    
-                 </div>
-                 <% end %>
-                 <% end %>
-              </div>
-           </div>
-        </div>
-        <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-     </div>
+      </div>
+      <div class="modal-footer digiid-dark digiid-border-color">
+        <button type="button" class="button-right" data-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
 </div>       

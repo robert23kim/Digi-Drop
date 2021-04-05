@@ -16,184 +16,163 @@
 
 @import "bootstrap";
 
-/* The popup form - hidden by default */
-.form-popup {
-  display: none;
-  position: fixed;
-  bottom: 50%;
-  right: 20%;
-  border: 3px solid #f1f1f1;
+/*
+Colors
+
+Grays:
+Base: #202225
+Secondary: #2F3136
+Tertiary: #36393F
+Hover/Active: #4F545C
+Text field: #40444B
+
+Fonts:
+Inactive: #8E9297
+Active: #fff
+Text:muted: #72767D
+Hover: #DCDDDE
+
+Lightup Green:#43B581
+
+ */
+
+nav {
+    max-width: 1500px;
+    margin: 0 auto;
 }
 
-/* Add styles to the form container */
-.form-container {
-  max-width: 300px;
-  padding: 10px;
-  background-color: white;
+body {
+    background-color: #202225;
+    font-family: 'B612', sans-serif!important;
+    color: #fff;
 }
 
-/* Full-width input fields */
-.form-container input[type=text], .form-container input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  border: none;
-  background: #f1f1f1;
+h1 {
+    font-size: 22px;
+    font-weight: 400;
+    color: #fff;
 }
 
-/* When the inputs get focus, do something */
-.form-container input[type=text]:focus, .form-container input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
+h2 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #8E9297;
 }
 
-/* Set a style for the submit/login button */
-.form-container .btn {
-  background-color: #4d9aff;
-  color: white;
-  padding: 8px 10px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom:10px;
-  opacity: 0.8;
+.container-fluid {
+    background: #36393F;
+    max-width: 1500px;
+    padding-top: 16px;
+    padding-left: 16px;
 }
 
-/* Add a red background color to the cancel button */
-.form-container .cancel {
-  background-color: red;
+.digiid-logo {
+    text-transform: uppercase;
+    font-size: 28px;
+    font-weight: 500;
 }
 
-/* Add some hover effects to buttons */
-.form-container .btn:hover, .open-button:hover {
-  opacity: 1;
+.digiid-bar {
+    border-bottom: 2px solid #72767D;
 }
 
-.sell_button {
-  background-color: #4d9aff; /* Green */
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
+.digiid-border {
+    border: 2px solid #72767D;
+}
+
+.digiid-border-color {
+    border-color: #72767D;
+}
+
+.digiid-bar, .digiid-bar .dropdown-menu {
+    background-color: #2F3136;
+    color: #8E9297;
+    max-height: 60px;
+    max-width: 1500px;
+}
+
+.digiid-bar-brand {
+    padding-left: 10px;
+}
+
+.card {
+    background-color: #36393F;
+    color: #8E9297;
+}
+
+.digiid-link, .dropdown-item {
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    cursor: pointer;
+    display: block;
+    padding: .5rem 1rem;
+    color: #8E9297;
+}
+
+.active {
+    background-color: #4F545C;
+}
+
+.nav-item:hover, .dropdown-item:hover, .digiid-link:hover, .button:hover, .button-sell:hover, .button-right:hover {
+    background: rgba(79, 84, 92, 0.32);
+    color: #DCDDDE;
+}
+
+.navbar-dark .navbar-nav .active>.digiid-link {
+    color: #fff;
+}
+
+.button, .button-sell, .button-right, .button-case {
+    background-color: #36393F;
+    border: none;
+    text-transform: uppercase;
+    color: #8E9297;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 700;
+
+}
+
+.button-case {
+    background-color: #43B581;
+    color: #fff;
+    display: block;
+    width: 100%;
+}
+
+.button-case:hover {
+    color: #fff;
+}
+
+.button-right, .button-sell {
     float: right;
+}
+
+.digiid-dark {
+    background-color: #36393F;
+    color: #fff;
+}
+
+input, select, textarea{
+    background-color: #40444B;
+    border: none;
+    color: #fff;
+}
+
+textarea:focus, input:focus {
+    background-color: #40444B;
+    border: none;
+    color: #fff;
 }
 
 .card-img-top {
     width: 100%;
     height: 15vw;
     object-fit: contain;
-}
-
-.filter-common {
-  filter: grayscale(90%);
-  filter: contrast(50%);
-}
-
-.filter-normal {
-  filter: grayscale(90%);
-  filter: contrast(75%);
-}
-
-.filter-rare {
-  filter: grayscale(25%);
-  filter: contrast(75%);
-}
-
-.filter-super-rare {
-  filter: blur(0px);
-}
-
-.digiid_base {
-    background-color: #dddddd;
-}
-
-.digiid_second {
-    background-color: #222831;
-    color: white;
-}
-
-.digiid_third:hover {
-    color: white;
-}
-
-.digiid_third {
-    background-color: #30475e;
-    color: white;
-}
-
-.digiid_top {
-    background-color: #f05454;
-    color: white;
-}
-
-.digiid_common {
-    background-color: #dbe2ef;
-    color: white;
-}
-
-.digiid_border_common {
-    border-color: #dbe2ef;
-}
-
-.digiid_normal {
-    background-color: #95e1d3;
-    color: white;
-}
-
-.digiid_border_normal {
-    border-color: #95e1d3;
-}
-
-.digiid_rare {
-    background-color: #f6416c;
-    color: white;
-}
-
-.digiid_border_rare {
-    border-color: #f6416c;
-}
-
-.digiid_superrare {
-    background-color: #ffcd3c;
-    color: white;
-}
-
-.digiid_border_superrare {
-    border-color: #ffcd3c;
-}
-
-.digiid_image_common {
-    width: 100px;
-    height: 125px;
-    border: 3px solid #dbe2ef;
-    padding: 3px;
-    object-fit: cover;
-}
-
-.digiid_image_normal {
-    width: 100px;
-    height: 125px;
-    border: 3px solid #95e1d3;
-    padding: 3px;
-    object-fit: cover;
-}
-
-.digiid_image_rare {
-    width: 100px;
-    height: 125px;
-    border: 3px solid #f6416c;
-    padding: 3px;
-    object-fit: cover;
-}
-
-.digiid_image_superrare {
-    width: 100px;
-    height: 125px;
-    border: 3px solid #ffcd3c;
-    padding: 3px;
-    object-fit: cover;
 }
 
 .top-buffer { margin-bottom:20px; }

@@ -1,0 +1,77 @@
+.filter-C {
+    filter: grayscale(90%);
+    filter: contrast(50%);
+}
+
+.filter-N {
+    filter: grayscale(90%);
+    filter: contrast(75%);
+}
+
+.filter-R {
+    filter: grayscale(25%);
+    filter: contrast(75%);
+}
+
+.filter-SR {
+    filter: blur(0px);
+}
+
+.digiid-border {
+    border-color: #72767D;
+}
+
+.C, .R, .N, .SR {
+    color: white;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.C {
+    background-color: #4F545C;
+}
+
+.N {
+    background-color: #719fb0;
+}
+
+.R {
+    background-color: #f6416c;
+}
+
+.SR {
+    background-color: #ffcd3c;
+}
+
+.image-C {
+    width: 100px;
+    height: 125px;
+    border: 3px solid #72767D;
+    padding: 3px;
+    object-fit: cover;
+}
+
+.image-N {
+    width: 100px;
+    height: 125px;
+    border: 3px solid #72767D;
+    padding: 3px;
+    object-fit: cover;
+}
+
+.image-R {
+    width: 100px;
+    height: 125px;
+    border: 3px solid #72767D;
+    padding: 3px;
+    object-fit: cover;
+}
+
+.image-SR {
+    width: 100px;
+    height: 125px;
+    border: 3px solid #72767D;
+    padding: 3px;
+    object-fit: cover;
+}

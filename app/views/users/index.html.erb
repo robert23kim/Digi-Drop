@@ -1,33 +1,30 @@
-<!--  This file is app/views/users/index.html.erb -->
-<%= render 'components/navbar' %>
+<div class="container-fluid">
+  <h1> Top Users </h1>
 
-<h2>Top Users</h2>
-
-<div class="container">
-    <div class="row mt-3">
-        <table class="table table-striped col-md-12" id="users">
-          <thead>
-            <tr>
-              <th>Users</th>
-              <th>Collectibles</th>
-              <th>Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @users.each do |user| %>
-              <tr>
-                <td>
-                  <%= link_to "#{user.username}", user_path(user) %>
-                </td>
-                <td>
-                  <%= @countItemsHash[user.id] %>
-                </td>
-                <td>
-                  $<%= @sumValueHash[user.id] %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-    </div>
+  <div class="row mt-3">
+    <table class="table table-striped col-md-12 digiid-dark" id="users">
+      <thead>
+      <tr>
+        <th>Users</th>
+        <th>Collectibles</th>
+        <th>Value</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td>
+            <%= link_to "#{user.username}", user_path(user) %>
+          </td>
+          <td>
+            <%= @countItemsHash[user.id] %>
+          </td>
+          <td>
+            $<%= @sumValueHash[user.id] %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   @@added_asset = nil
-    
+
   def show
     id = params[:id] # retrieve movie ID from URI route
     @user = User.find(id) # look up movie by unique ID
@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   def index
     #byebug
     @users = User.all
+
     @countItemsHash = Hash.new
     @sumValueHash = Hash.new
     @users.each do |user|
@@ -39,8 +40,8 @@ class UsersController < ApplicationController
   
   def market
     @user = User.find params[:id]
+
     @products = Product.products()
-      
     @userBal = "$0"
     if !session[:user_id].nil? #and !session[:user_id].empty?
       id = session[:user_id]
@@ -56,6 +57,7 @@ class UsersController < ApplicationController
   def create
     #byebug
     @user = User.new(user_params)
+
     if !!User.find_by(username: user_params[:username])
       redirect_to '/users/new', notice: "Username already exists"
     elsif @user.save
@@ -71,8 +73,8 @@ class UsersController < ApplicationController
     
   def open
     @user = User.find params[:user_id]
+
     @cases = Case.select('*')
-      
     @active_case = if params[:case_name].nil?
         Case.find_by name: "Featured"
     else
@@ -103,6 +105,7 @@ class UsersController < ApplicationController
     
   def add
     @user = User.find params[:user_id]
+
     @active_case = if params[:case_name].nil?
         Case.find_by name: "Featured"
     else
@@ -138,6 +141,7 @@ class UsersController < ApplicationController
   
   def add_balance
     @user = User.find params[:id]
+
     @userBal = "$0"
     if !session[:user_id].nil? #and !session[:user_id].empty?
       id = session[:user_id]
