@@ -103,32 +103,40 @@ class UsersController < ApplicationController
     else
         Case.find_by name: params[:case_name]
     end
-
+    
+    new_balance = @user.balance.to_f - @active_case.value.to_f
+    
+    if new_balance < 0
+      redirect_to :back, notice: "Insufficient Balance"
+    else
     # Logic, first pick out rarity based on probability C: 60, N: 25, R: 10, SR: 5 
-    @rarity = nil
-    @random = rand(1..100)
+      @rarity = nil
+      @random = rand(1..100)
 
-    case @random
-    when 1..60
+      case @random
+      when 1..60
         @rarity = 'C'
-    when 61..85
+      when 61..85
         @rarity = 'N'
-    when 86..95
+      when 86..95
         @rarity = 'R'
-    when 96..100
+      when 96..100
         @rarity = 'SR'
-    end
+      end
 
     # Only choose from contents of a specific case, of the selected rarity chosen above
-    @case_contents = Content.select('*')
+      @case_contents = Content.select('*')
         .joins('INNER JOIN "collectibles" ON "collectibles"."id" = "contents"."collectible_id"')
         .joins('INNER JOIN "cases" ON "cases"."id" = "contents"."case_id"')
         .where("cases.name = ?", params[:case_name])
         .where("collectibles.rarity = ?", @rarity)
 
     # Then pick out the specific items.  
-    @@added_asset = Asset.create(:user_id => @user.id, :collectible_id => @case_contents[rand(@case_contents.size)].collectible_id)
-    redirect_to open_path(@user, @active_case.name)      
+      @@added_asset = Asset.create(:user_id => @user.id, :collectible_id => @case_contents[rand(@case_contents.size)].collectible_id)
+      User.where(id: @user.id).update_all(balance: new_balance)
+      @userBal = new_balance
+      redirect_to open_path(@user, @active_case.name)
+    end        
   end
   
   def add_balance

@@ -24,6 +24,7 @@
                <% end %>  
                <ul>
             </div>
+            <div class="card-body" style="color:#007bff; font-size: 18px; text-align:center;">Price: $<%=@active_case.value%></div>
             <div class="card-body">
                <%= button_to 'Open Case', add_path(@user, @active_case.name), :class => "btn btn-lg btn-block digiid_top" %>
             </div>
