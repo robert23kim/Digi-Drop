@@ -1,69 +1,94 @@
 <div class="container-fluid bottom-padding">
-  <div class="row mt-3">
-    <div class="col-1 mb-3">
-    </div>
+  <div class="col mb-3 digiid-base-dark digiid-border">
+    <input type="hidden" name="added_coll" id="added_coll" , value='<%= @added_collectible %>'>
 
-    <div class="col-5 mb-3 digiid-base-dark digiid-border">
-      <img class="img-fluid mx-auto d-block" src=<%= @active_case.url %>>
-      <div class="row mt-3 justify-content-center">
-        <ul class="nav nav-pills border-round">
-          <% @cases.each do |c| %>
-            <li class="nav-item case-item <%= 'active' if c.name == @active_case.name %>">
-              <a class="nav-link case-link" href=<%= open_path(@user, c.name) %>>
-                <%= c.name %>
-              </a>
-            </li>
-          <% end %>
+    <div class="row mt-3 justify-content-center">
 
-          <li class="nav-item info-item">
-            <a class="nav-link info-link" href="#" data-toggle="modal" data-target="#previewModal">
-               Info
+      <ul class="nav nav-pills border-round">
+        <% @cases.each do |c| %>
+          <li class="nav-item case-item <%= 'active' if c.name == @active_case.name %>">
+            <a class="nav-link case-link" href=<%= open_path(@user, c.name) %>>
+              <%= c.name %>
             </a>
           </li>
+        <% end %>
 
+      </ul>
+    </div>
+
+    <div class="row mt-3 justify-content-center">
+      <img class="banner-image" src=<%= @active_case.url %>>
+    </div>
+
+    <div class="row mt-3 mb-3  button-info-pad">
+      <div class="col">
+        <ul class="nav nav-pills border-round">
+          <li class="nav-item info-item">
+            <a class="nav-link info-link" href="#" data-toggle="modal" data-target="#previewModal">
+              Info
+            </a>
+          </li>
         </ul>
-
       </div>
 
-      <div class="row mt-3 mb-3 justify-content-center">
-        <button type="submit" form="case" value="Open Case" class="btn button button-case"> Open Case</button>
+      <div class="col button-case-pad">
+        <button type="submit" id="button-case" form="case" value="Open Case" class="btn button button-case"> Open Case
+        </button>
         <%= form_tag add_path(@user, @active_case.name), :method => "POST", :id => 'case' do %>
         <% end %>
       </div>
-
-    </div>
-
-    <div class="col-2 mb-3">
-    </div>
-
-    <div class="col-4 mb-3">
-      <% if !@added_collectible.nil? and @added_collectible.size > 0 %>
-        <div class="card digiid-border" style="max-height: 400px; width: 18rem;">
-          <div class="card-header">
-            <h2> You got:</h2>
-          </div>
-          <img class="card-img-top filter-<%= @added_collectible.first.rarity %>" src=<%= @added_collectible.first.url %>>
-          <span class="badge <%= @added_collectible.first.rarity %>">Common</span>
-          <div class="card-body">
-            <p class="card-text">
-              <%= @added_collectible.first.name %>
-            </p>
-          </div>
-        </div>
-      <% end %>
     </div>
   </div>
 </div>
 
+<!-- CASE OPEN Modal -->
+<div class="modal fade" id="caseOpenModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header digiid-secondary-dark digiid-border-color">
+        <h5 class="modal-title"> You got: </h5>
+      </div>
+      <div class="modal-body digiid-secondary-dark">
+        <div class="container-fluid">
+          <% if !@added_collectible.nil? and @added_collectible.size > 0 %>
+            <div class="card digiid-border" style="max-height: 400px; width: 18rem;">
+              <img class="card-img-top filter-<%= @added_collectible.first.rarity %>" src=<%= @added_collectible.first.url %>>
+              <span class="badge <%= @added_collectible.first.rarity %>">
+                <% case @added_collectible.first.rarity
+                   when 'C' %>
+                  Common
+                <% when 'N' %>
+                  Normal
+                <% when 'R' %>
+                  Rare
+                <% when 'SR' %>
+                  Super Rare
+              <% end %>
+              </span>
+              <div class="card-body">
+                <p class="card-text">
+                  <%= @added_collectible.first.name %>
+                </p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="modal-footer digiid-secondary-dark digiid-border-color">
+        <button type="button" class="button-right button-close" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- Modal -->
+<!-- CASE PREVIEW Modal -->
 <div class="modal fade" id="previewModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header digiid-tertiary-dark digiid-border-color">
-        <h5 class="modal-title" id="exampleModalLabel"> <%= @active_case.name %> Case Contents </h5>
+      <div class="modal-header digiid-secondary-dark digiid-border-color">
+        <h5 class="modal-title"> <%= @active_case.name %> Case Contents </h5>
       </div>
-      <div class="modal-body digiid-tertiary-dark">
+      <div class="modal-body digiid-secondary-dark">
         <div class="container-fluid">
           <span class="badge C"> Common: 60% </span>
           <div class="row top-buffer">
@@ -107,9 +132,9 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer digiid-tertiary-dark digiid-border-color">
+      <div class="modal-footer digiid-secondary-dark digiid-border-color">
         <button type="button" class="button-right button-close" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
-</div>       
+</div>

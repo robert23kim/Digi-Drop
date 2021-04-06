@@ -11,10 +11,10 @@
         <div class="carousel-item <%= 'active' if c.name == 'Featured' %>">
           <% if logged_in? %>
             <a href=<%= open_path(@user, c.name) %>>
-              <img class="hero-image" src=<%= c.url %>>
+              <img class="banner-image banner-fade" src=<%= c.url %>>
             </a>
           <% else %>
-            <img class="hero-image" src=<%= c.url %>>
+            <img class="banner-image banner-fade" src=<%= c.url %>>
           <% end %>
           <div class="carousel-caption d-none d-md-block">
             <h4> <%= c.name %></h4>

@@ -1,6 +1,4 @@
-.hero-image {
-    opacity: .3;
-
+.banner-image {
     height: 400px;
     width: 80%;
     object-fit: cover;
@@ -14,6 +12,9 @@
     position: relative;
 }
 
-.hero-image:hover {
+.banner-fade {
+    opacity: .3;
+}
+.banner-fade:hover {
     opacity: .6;
 }

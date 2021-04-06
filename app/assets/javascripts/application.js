@@ -17,7 +17,16 @@
 //= require bootstrap
 //= require_tree .
 
+// Fill asset id inside modal
 $(document).on("click", ".button-sell", function () {
-  var asset_id = $(this).data('id');
-  $(".modal-body #asset_id").val( asset_id );
+    let asset_id = $(this).data('id');
+    $(".modal-body #asset_id").val(asset_id);
+});
+
+// Open modal on page load if opened case before form submission. POST => redirect
+$(document).ready(function(){
+    let added_collectible = $("#added_coll").val();
+    if(!!added_collectible){
+        $("#caseOpenModal").modal('show');
+    }
 });
