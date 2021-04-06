@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 	assets = Asset.all
 	assets.each do |asset|
 		if asset.user_id == id && !asset.blurNum.nil?
-			@blurValue = asset.blurNum
+			@blurValue = asset.blurNum/100
 		end
 	end
   end
@@ -136,7 +136,7 @@ class UsersController < ApplicationController
 	superRareBlurNum = nil
 	if @rarity == 'SR'
 		superRareBlurNum = rand(1..100)
-		superRareBlurNum = (superRareBlurNum/100)*3
+		superRareBlurNum = superRareBlurNum * 3
 	end
 
     # Then pick out the specific items.  

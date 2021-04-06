@@ -4,7 +4,7 @@ class Assets < ActiveRecord::Migration
       t.integer :user_id
       t.integer :collectible_id
       t.boolean :on_the_market, :default => false
-      t.integer :blurNum
+      t.float :blurNum
       # Add fields that let Rails automatically keep track
       # of when assets are added or modified
       t.timestamps
