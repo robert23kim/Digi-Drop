@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   def index
     #byebug
     @users = User.all
+    @cases = Case.select('*')
 
     @countItemsHash = Hash.new
     @sumValueHash = Hash.new
@@ -32,6 +33,7 @@ class UsersController < ApplicationController
     @userBal = "$0"
     if !session[:user_id].nil? #and !session[:user_id].empty?
       id = session[:user_id]
+      @user = User.find(id) # look up movie by unique ID
       @userBal = User.balanceToString(User.find(id))
     end
     

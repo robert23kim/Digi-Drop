@@ -1,0 +1,19 @@
+.hero-image {
+    opacity: .3;
+
+    height: 400px;
+    width: 80%;
+    object-fit: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.hero-image:hover {
+    opacity: .6;
+}
