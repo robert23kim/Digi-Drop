@@ -32,6 +32,10 @@
     background-color: #2F3136;
 }
 
+.nav-item {
+    border-radius: 5px;
+}
+
 .nav-item:hover, .dropdown-item:hover, .digiid-link:hover {
     background: rgba(79, 84, 92, 0.32);
     color: #DCDDDE;
@@ -54,7 +58,8 @@
     cursor: pointer;
     display: block;
     padding: .5rem 1rem;
-    color: #8E9297!important;
+    color: #8E9297;
+    border-radius: 5px;
 }
 
 .digiid-tertiary-dark {

@@ -49,7 +49,7 @@
       <% @users.each do |user| %>
         <tr>
           <td>
-            <%= link_to "#{user.username}", user_path(user) %>
+            <%= link_to "#{user.username}", user_path(user), :class => "user-link" %>
           </td>
           <td>
             <%= @countItemsHash[user.id] %>

@@ -61,17 +61,17 @@
     cursor: pointer;
     display: block;
     padding: .5rem 1rem;
-    color: #43B581 !important;
+    color: #43B581;
     background-color: #36393F;
 }
 
 .case-link:hover {
-    color: #fff !important;
+    color: #fff;
     background-color: #43B581;
 }
 
 .nav-pills .active > .case-link {
-    color: #fff !important;
+    color: #fff;
     background-color: #43B581;
 }
 
@@ -91,17 +91,27 @@
     cursor: pointer;
     display: block;
     padding: .5rem 1rem;
-    color: #3498DB !important;
+    color: #3498DB;
     background-color: #36393F;
+    border-radius: 5px;
 }
 
 .info-link:hover {
-    color: #fff !important;
+    color: #fff;
     background-color: #3498DB;
 }
 
+.auth-link {
+    font-size: 10px;
+    color: #43B581;
+}
+
+.auth-link:hover {
+    background-color: #43B581;
+}
+
 .nav-pills .active > .info-link {
-    color: #fff !important;
+    color: #fff;
     background-color: #3498DB;
 }
 

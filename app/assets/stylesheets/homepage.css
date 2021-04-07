@@ -10,6 +10,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
+    border-radius: 5px;
 }
 
 .banner-fade {

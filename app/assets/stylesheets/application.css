@@ -45,6 +45,7 @@ body {
     font-family: 'B612', sans-serif !important;
     color: #fff;
     border-color: #72767D;
+    border-radius: 5px !important;
 }
 
 h1 {
@@ -53,10 +54,9 @@ h1 {
     color: #fff;
 }
 
-h2, h3 {
+h2 {
     font-size: 16px;
-    font-weight: 400;
-    color: #8E9297;
+
 }
 
 h4 {
@@ -65,20 +65,29 @@ h4 {
     color: #fff;
 }
 
-h3 {
+h3, .h3 {
     font-size: 12px;
+    font-weight: 400;
+    color: #8E9297;
 }
 
 input, select, textarea {
     background-color: #40444B;
     border: none;
     color: #fff;
+    font-size: 12px;
 }
 
 textarea:focus, input:focus {
     background-color: #40444B;
     border: none;
     color: #fff;
+}
+
+input:-webkit-autofill
+{
+    -webkit-text-fill-color: #fff !important;
+    -webkit-box-shadow: 0 0 0 1000px #40444B inset;
 }
 
 thead, tbody {
@@ -89,7 +98,7 @@ tbody {
     color: #8E9297;
 }
 
-a:link, a:visited, a:hover, a:active {
+.user-link:link, .user-link:visited, .user-link:hover, .user-link:active {
     color: #00B0F4;
 }
 
@@ -99,6 +108,7 @@ a:link, a:visited, a:hover, a:active {
     padding-top: 12px;
     padding-left: 12px;
     border-color: #72767D;
+    padding-bottom: 12px;
 }
 
 .bottom-padding {
