@@ -14,7 +14,7 @@
         <li class="nav-item <%= 'active' if current_page?(user_path(current_user)) %>">
           <a class="nav-link digiid-link" href=<%= user_path(current_user) %>>Manage</a>
         </li>
-        <li class="nav-item <%= 'active' if current_page?(open_path(current_user)) %>">
+        <li class="nav-item <%= 'active' if request.path.include? "open"  %>">
           <a class="nav-link digiid-link" href=<%= open_path(current_user) %>>Cases</a>
         </li>
         <li class="nav-item <%= 'active' if current_page?(market_user_path(current_user)) %>">
