@@ -93,6 +93,7 @@ class UsersController < ApplicationController
         @added_collectible = Collectible.select('*')
             .joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id"')
             .where("assets.collectible_id = ?", @@added_asset.collectible_id)
+            .first
     end
       
     #Adds balance value to nav bar if logged in

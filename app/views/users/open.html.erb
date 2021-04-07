@@ -1,7 +1,11 @@
+<%= content_tag :div, id: "case_contents", data: {temp: @case_contents} do %>
+<% end %>
+
+<%= content_tag :div, id: "added_collectible", data: {temp: @added_collectible} do %>
+<% end %>
+
 <div class="container-fluid bottom-padding">
   <div class="col mb-3 digiid-base-dark digiid-border">
-    <input type="hidden" name="added_coll" id="added_coll" , value='<%= @added_collectible %>'>
-
     <div class="row mt-3 justify-content-center">
 
       <ul class="nav nav-pills border-round">
@@ -43,20 +47,20 @@
 
 <!-- CASE OPEN Modal -->
 <div class="modal fade" id="caseOpenModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
+  <div class="modal-dialog modal-custom" role="document">
+    <div class="modal-content justify-content-center">
       <div class="modal-header digiid-secondary-dark digiid-border-color">
         <h5 class="modal-title"> You got: </h5>
       </div>
       <div class="modal-body digiid-secondary-dark">
-        <div class="container-fluid">
-          <% if !@added_collectible.nil? and @added_collectible.size > 0 %>
-            <div class="card digiid-border" style="max-height: 400px; width: 18rem;">
-              <img class="card-img-top filter-<%= @added_collectible.first.rarity %>" src=<%= @added_collectible.first.url %>>
-              <span class="badge <%= @added_collectible.first.rarity %>">
-                <% case @added_collectible.first.rarity
+        <div class="container-fluid justify-content-center">
+          <% unless @added_collectible.nil? %>
+          <div class="card digiid-border" style="max-height: 400px; width: 18rem;">
+                <img class="card-img-top filter-<%=  @added_collectible.rarity  %>" id="content-image" src=<%=  @added_collectible.url  %>>
+              <span id="content-badge" class="badge <%=  @added_collectible.rarity  %>">
+                <% case @added_collectible.rarity
                    when 'C' %>
-                  Common
+                Common
                 <% when 'N' %>
                   Normal
                 <% when 'R' %>
@@ -65,12 +69,12 @@
                   Super Rare
               <% end %>
               </span>
-              <div class="card-body">
-                <p class="card-text">
-                  <%= @added_collectible.first.name %>
-                </p>
-              </div>
+            <div class="card-body">
+              <p class="card-text" id="content-text">
+                <%=  @added_collectible.name  %>
+              </p>
             </div>
+          </div>
           <% end %>
         </div>
       </div>

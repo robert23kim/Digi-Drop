@@ -109,3 +109,8 @@ a:link, a:visited, a:hover, a:active {
     margin-bottom: 20px;
 }
 
+.modal-custom {
+    width: 375px;
+    margin: auto;
+    justify-content: center;
+}
