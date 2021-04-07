@@ -33,39 +33,71 @@ $(document).ready(function () {
     if (added_collectible) {
         $("#caseOpenModal").modal('show');
 
-        let case_contents = $('#case_contents').data('temp');
-        let shuffled_contents = shuffle(case_contents)
-        // let images = shuffle(cases.map(c => c.url));
+        let cardElement = document.getElementById('content-card');
+        cardElement.className = "bounce-in";
 
-        let index = 0;
-        let imgElement = document.getElementById('content-image');
-        let badgeElement = document.getElementById('content-badge');
-        let textElement = document.getElementById('content-text');
+        /* SPINNING ANIMATION LOGIC. NOT IN USE FOR NOW */
+        // let imgElement = document.getElementById('content-image');
+        // let badgeElement = document.getElementById('content-badge');
+        // let textElement = document.getElementById('content-text');
+        // let case_contents = $('#case_contents').data('temp');
+        // let shuffled_contents = shuffle(case_contents)
+        // let index = 0;
+        // function change() {
+        //     imgElement.src = shuffled_contents[index].url;
+        //     badgeElement.className = "badge " + shuffled_contents[index].rarity;
+        //
+        //     switch (shuffled_contents[index].rarity) {
+        //         case 'C':
+        //             badgeElement.innerHTML = "Common";
+        //             break;
+        //         case 'N':
+        //             badgeElement.innerHTML = "Normal";
+        //             break;
+        //         case 'R':
+        //             badgeElement.innerHTML = "Rare";
+        //             break;
+        //         case 'SR':
+        //             badgeElement.innerHTML = "Super Rare";
+        //             break;
+        //     }
+        //
+        //     textElement.innerHTML = shuffled_contents[index].name;
+        //
+        //     index = ++index % shuffled_contents.length;
+        // }
 
-        function change() {
-            imgElement.src = shuffled_contents[index].url;
-            badgeElement.className = "badge " + shuffled_contents[index].rarity;
-            textElement.innerHTML = shuffled_contents[index].name;
-
-            // imgElement.src = images[index];
-            index = ++index % shuffled_contents.length;
-        }
-
-        let spin = setInterval(change, 300);
+        // let spin = setInterval(change, 300);
 
         // 3s delay before spinning stops
-        setTimeout(function () {
-            // stop spinning
-            clearInterval(spin);
+        // setTimeout(function () {
+        //     // stop spinning
+        //     clearInterval(spin);
 
-            // set final to be actual reward
-            setTimeout(function() {
-                imgElement.src = added_collectible.url;
-                badgeElement.className = "badge " + added_collectible.rarity;
-                textElement.innerHTML = added_collectible.name;
-            }, 300);
-
-        }, 3000);
+        // set final to be actual reward
+        // setTimeout(function () {
+        //     imgElement.src = added_collectible.url;
+        //     badgeElement.className = "badge " + added_collectible.rarity;
+        //
+        //     switch (added_collectible.rarity) {
+        //         case 'C':
+        //             badgeElement.innerHTML = "Common";
+        //             break;
+        //         case 'N':
+        //             badgeElement.innerHTML = "Normal";
+        //             break;
+        //         case 'R':
+        //             badgeElement.innerHTML = "Rare";
+        //             break;
+        //         case 'SR':
+        //             badgeElement.innerHTML = "Super Rare";
+        //             break;
+        //     }
+        //
+        //     textElement.innerHTML = added_collectible.name;
+        // }, 600);
+        //
+        // }, 3000);
     }
 });
 

@@ -1,28 +1,9 @@
-/* Colors
-Background Grays:
-Base: #202225
-Secondary: #2F3136
-Tertiary: #36393F
-Hover/Active: #4F545C
-Text field: #40444B
-
-Fonts:
-Inactive: #8E9297
-Active: #fff
-Text:muted: #72767D
-Hover: #DCDDDE
-
-Buttons:
-Lightup Green:#43B581
-Info Blue: #3498DB
-Link Blue: #00B0F4;
-Warn Red: #992D22;
- */
-
 .card-img-top, .card-img-top-short {
     width: 100%;
     height: 12vw;
     object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .card-img-top-short {
@@ -39,5 +20,6 @@ Warn Red: #992D22;
     font-size: 11px;
     background-color: #2F3136;
     color: #8E9297;
+    text-align: center;
 }
 

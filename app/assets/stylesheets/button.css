@@ -1,24 +1,3 @@
-/* Colors
-Background Grays:
-Base: #202225
-Secondary: #2F3136
-Tertiary: #36393F
-Hover/Active: #4F545C
-Text field: #40444B
-
-Fonts:
-Inactive: #8E9297
-Active: #fff
-Text:muted: #72767D
-Hover: #DCDDDE
-
-Buttons:
-Lightup Green:#43B581
-Info Blue: #3498DB
-Link Blue: #00B0F4;
-Warn Red: #992D22;
- */
-
 .button:hover, .button-right:hover {
     background: rgba(79, 84, 92, 0.32);
     color: #DCDDDE;
@@ -48,14 +27,25 @@ Warn Red: #992D22;
 }
 
 .button-close {
-    color: #992D22;
+    color: #F04747;
     float: right;
     border-radius: 5px;
 }
 
 .button-close:hover {
     color: #fff;
-    background-color: #992D22;
+    background-color: #F04747;
+}
+
+.button-ok {
+    color: #43B581;
+    float: right;
+    border-radius: 5px;
+}
+
+.button-ok:hover {
+    color: #fff;
+    background-color: #43B581;
 }
 
 .case-item {
