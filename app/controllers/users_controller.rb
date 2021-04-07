@@ -15,12 +15,6 @@ class UsersController < ApplicationController
       @userBal = User.balanceToString(User.find(id))
     end
     @collectibles = Collectible.usersCollection(@user)
-	assets = Asset.all
-	assets.each do |asset|
-		if asset.user_id == id && !asset.blurNum.nil?
-			@blurValue = asset.blurNum/100
-		end
-	end
   end
 
   def index
@@ -132,11 +126,11 @@ class UsersController < ApplicationController
         .where("cases.name = ?", params[:case_name])
         .where("collectibles.rarity = ?", @rarity)
 
-	# Set random blur value, 3px max blur
+	# Set random blur value, 1.5px max blur
 	superRareBlurNum = nil
 	if @rarity == 'SR'
 		superRareBlurNum = rand(1..100)
-		superRareBlurNum = superRareBlurNum * 3
+		superRareBlurNum = superRareBlurNum * 1.5
 	end
 
     # Then pick out the specific items.  
