@@ -1,0 +1,470 @@
+/* Colors
+Background Grays:
+Base: #202225
+Secondary: #2F3136
+Tertiary: #36393F
+Hover/Active: #4F545C
+Text field: #40444B
+
+Fonts:
+Inactive: #8E9297
+Active: #fff
+Text:muted: #72767D
+Hover: #DCDDDE
+
+Buttons:
+Lightup Green:#43B581
+Info Blue: #3498DB
+Link Blue: #00B0F4;
+Warn Red: #992D22;
+ */
+
+
+.button:hover,  .button-right:hover {
+    background: rgba(79, 84, 92, 0.32);
+    color: #DCDDDE;
+}
+
+.button, .button-right, .button-sell {
+    background-color: #2F3136;
+    border: none;
+    text-transform: uppercase;
+    color: #8E9297;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.button-info, .button-sell {
+    color: #3498DB;
+    float: right;
+    border-radius: 5px;
+}
+
+.button-info:hover, .button-sell:hover {
+    color: #fff;
+    background-color: #3498DB;
+}
+
+.button-close {
+    color: #992D22;
+    float: right;
+    border-radius: 5px;
+}
+
+.button-close:hover {
+    color: #fff;
+    background-color: #992D22;
+}
+
+.case-item {
+    padding-left: 5px;
+    background: none!important;
+}
+
+.case-link {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    cursor: pointer;
+    display: block;
+    padding: .5rem 1rem;
+    color: #43B581!important;
+    background-color: #36393F;
+}
+
+.case-link:hover {
+    color: #fff!important;
+    background-color: #43B581;
+}
+
+.nav-pills .active > .case-link {
+    color: #fff!important;
+    background-color: #43B581;
+}
+
+.info-item {
+    padding-left: 15px;
+}
+
+.info-item:hover {
+    background: none!important;
+}
+
+.info-link {
+    text-transform: uppercase;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    cursor: pointer;
+    display: block;
+    padding: .5rem 1rem;
+    color: #3498DB!important;
+    background-color: #36393F;
+}
+
+.info-link:hover {
+    color: #fff!important;
+    background-color: #3498DB;
+}
+
+.nav-pills .active > .info-link {
+    color: #fff!important;
+    background-color: #3498DB;
+}
+
+.border-round {
+    border-radius: 5px;
+}
+
+.button-case {
+    background-color: #43B581;
+    color: #fff;
+    display: block;
+    width: 75%;
+    height: 50px;
+    font-size: 16px;
+}
+
+.button-case:hover {
+    color: #fff;
+    background-color: #43B581;
+}
+/* Colors
+Background Grays:
+Base: #202225
+Secondary: #2F3136
+Tertiary: #36393F
+Hover/Active: #4F545C
+Text field: #40444B
+
+Fonts:
+Inactive: #8E9297
+Active: #fff
+Text:muted: #72767D
+Hover: #DCDDDE
+
+Buttons:
+Lightup Green:#43B581
+Info Blue: #3498DB
+Link Blue: #00B0F4;
+Warn Red: #992D22;
+ */
+
+
+.card-img-top, .card-img-top-short {
+    width: 100%;
+    height: 12vw;
+    -o-object-fit: contain;
+       object-fit: contain;
+}
+
+.card-img-top-short {
+    height: 10vw;
+}
+
+.img-fluid {
+    height: 14vw;
+    padding-top: 10px;
+}
+
+.card {
+    width: 14rem;
+    font-size: 11px;
+    background-color: #2F3136;
+    color: #8E9297;
+}
+
+/* Colors
+Background Grays:
+Base: #202225
+Secondary: #2F3136
+Tertiary: #36393F
+Hover/Active: #4F545C
+Text field: #40444B
+
+Fonts:
+Inactive: #8E9297
+Active: #fff
+Text:muted: #72767D
+Hover: #DCDDDE
+
+Buttons:
+Lightup Green:#43B581
+Info Blue: #3498DB
+Link Blue: #00B0F4;
+Warn Red: #992D22;
+ */
+
+
+.digiid-logo {
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.digiid-bar {
+    border-bottom: 2px solid #72767D;
+}
+
+.digiid-border {
+    border: 2px solid #72767D;
+    border-radius: 5px;
+}
+
+.digiid-border-color {
+    border-color: #72767D;
+}
+
+.digiid-bar, .digiid-bar .dropdown-menu {
+    background-color: #2F3136;
+    color: #8E9297;
+    max-height: 48px;
+    max-width: 1200px;
+}
+
+.digiid-bar-brand {
+    padding-left: 8px;
+}
+
+.dropdown-item, .dropdown-divider, .dropdown {
+    background-color: #2F3136;
+}
+
+.nav-item:hover, .dropdown-item:hover, .digiid-link:hover {
+    background: rgba(79, 84, 92, 0.32);
+    color: #DCDDDE;
+}
+
+.dropdown-item:hover {
+    background: rgb(79, 84, 92);
+}
+
+.navbar-dark .navbar-nav .active > .digiid-link {
+    color: #fff;
+    background-color: #4F545C;
+}
+
+.digiid-link, .dropdown-item {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: .1em;
+    cursor: pointer;
+    display: block;
+    padding: .5rem 1rem;
+    color: #8E9297!important;
+}
+
+.digiid-tertiary-dark {
+    background-color: #36393F;
+    color: #fff;
+}
+
+.digiid-base-dark {
+    background-color: #202225;
+}
+
+.digiid-secondary-dark {
+    background-color: #2F3136;
+}
+
+.filter-C {
+    -webkit-filter: grayscale(90%);
+            filter: grayscale(90%);
+    -webkit-filter: contrast(50%);
+            filter: contrast(50%);
+}
+
+.filter-N {
+    -webkit-filter: grayscale(90%);
+            filter: grayscale(90%);
+    -webkit-filter: contrast(75%);
+            filter: contrast(75%);
+}
+
+.filter-R {
+    -webkit-filter: grayscale(25%);
+            filter: grayscale(25%);
+    -webkit-filter: contrast(75%);
+            filter: contrast(75%);
+}
+
+.filter-SR {
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
+}
+
+.digiid-border {
+    border-color: #72767D;
+}
+
+.C, .R, .N, .SR {
+    color: white;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.C {
+    background-color: #4F545C;
+}
+
+.N {
+    background-color: #719fb0;
+}
+
+.R {
+    background-color: #f6416c;
+}
+
+.SR {
+    background-color: #ffcd3c;
+}
+
+.image-C {
+    width: 100px;
+    height: 125px;
+    border: 3px solid #72767D;
+    padding: 3px;
+    -o-object-fit: cover;
+       object-fit: cover;
+}
+
+.image-N {
+    width: 100px;
+    height: 125px;
+    border: 3px solid #72767D;
+    padding: 3px;
+    -o-object-fit: cover;
+       object-fit: cover;
+}
+
+.image-R {
+    width: 100px;
+    height: 125px;
+    border: 3px solid #72767D;
+    padding: 3px;
+    -o-object-fit: cover;
+       object-fit: cover;
+}
+
+.image-SR {
+    width: 100px;
+    height: 125px;
+    border: 3px solid #72767D;
+    padding: 3px;
+    -o-object-fit: cover;
+       object-fit: cover;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+
+ */
+
+
+@import "bootstrap";
+
+/* Colors
+Background Grays:
+Base: #202225
+Secondary: #2F3136
+Tertiary: #36393F
+Hover/Active: #4F545C
+Text field: #40444B
+
+Fonts:
+Inactive: #8E9297
+Active: #fff
+Text:muted: #72767D
+Hover: #DCDDDE
+
+Buttons:
+Lightup Green:#43B581
+Info Blue: #3498DB
+Link Blue: #00B0F4;
+Warn Red: #992D22;
+ */
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+body {
+    background-color: #202225;
+    font-family: 'B612', sans-serif !important;
+    color: #fff;
+    border-color: #72767D;
+}
+
+h1 {
+    font-size: 18px;
+    font-weight: 400;
+    color: #fff;
+}
+
+h2, h3 {
+    font-size: 16px;
+    font-weight: 400;
+    color: #8E9297;
+}
+
+h3 {
+    font-size: 12px;
+}
+
+input, select, textarea {
+    background-color: #40444B;
+    border: none;
+    color: #fff;
+}
+
+textarea:focus, input:focus {
+    background-color: #40444B;
+    border: none;
+    color: #fff;
+}
+
+thead, tbody {
+    font-size: 12px;
+}
+
+tbody {
+    color: #8E9297;
+}
+
+a:link, a:visited, a:hover, a:active {
+    color: #00B0F4;
+}
+
+.container-fluid {
+    background: #36393F;
+    max-width: 1200px;
+    padding-top: 12px;
+    padding-left: 12px;
+    border-color: #72767D;
+}
+
+.bottom-padding {
+    padding-bottom: 20px;
+}
+
+.top-buffer {
+    margin-bottom: 20px;
+}
+

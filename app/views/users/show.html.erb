@@ -1,94 +1,55 @@
-<!--  app/views/users/show.html.erb -->
-<%= render 'components/navbar' %>
+<div class="container-fluid">
+  <h1><%= @user.username %> Collectibles</h1>
 
-<div class="container">
-    <h2><em><%= @user.username %></em> Collectibles</h2>
-
-    <div class="row mt-3">
-        <div class="row justify-content-center">
-            <% @collectibles.each do |collectible| %>
-                        <% case collectible.rarity
-                            when 'C' %>
-                            <div class="col-auto mb-3">
-                                <div class="card h-70 digiid_border_common" style="width: 18rem;">
-                                    <img class="card-img-top filter-common" src=<%= collectible.url%>>
-                                    <span class="badge digiid_common">Common</span>
-                                    <div class="card-body">
-                                        <p class="card-text"> <%= collectible.name %>  </p>
-                                    <% if logged_in? && @user.id == current_user.id %>
-                                      <% if collectible.on_the_market == 'f'%>
-                                        <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
-                                      <% else %>
-                                        <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
-                                      <% end %>
-                                    <% end %>                                    
-                                    </div>
-                                </div>             
-                            </div>
-                        <% when 'N' %>
-                            <div class="col-auto mb-3">
-                                <div class="card h-70 digiid_border_normal" style="width: 18rem;">
-                                    <img class="card-img-top filter-normal" src=<%= collectible.url%> class="rounded" >
-                                    <span class="badge digiid_normal">Normal</span>
-                                    <div class="card-body">
-                                        <p class="card-text"> <%= collectible.name %>  </p>
-                                        <% if logged_in? && @user.id == current_user.id %>
-                                          <% if collectible.on_the_market == 'f'%>
-                                            <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
-                                          <% else %>
-                                            <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
-                                          <% end %>
-                                        <% end %>
-                                    </div>                              
-                                </div>
-                            </div>
-                        <% when 'R' %>
-                            <div class="col-auto mb-3">
-                                <div class="card h-70 digiid_border_rare" style="width: 18rem;">
-                                    <img class="card-img-top filter-rare" src=<%= collectible.url%> class="rounded" >
-                                    <span class="badge digiid_rare">Rare</span>
-                                    <div class="card-body">
-                                        <p class="card-text"> <%= collectible.name %>  </p>
-                                        <% if logged_in? && @user.id == current_user.id %>
-                                          <% if collectible.on_the_market == 'f'%>
-                                            <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
-                                          <% else %>
-                                            <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
-                                          <% end %>
-                                        <% end %>                              
-                                    </div>
-                                </div>
-                            </div>
-                        <% when 'SR' %>
-                            <div class="col-auto mb-3">
-                                <div class="card h-70 digiid_border_superrare" style="width: 18rem;">
-                                    <img class="card-img-top filter-super-rare" src=<%= collectible.url%> class="rounded" >
-                                    <span class="badge digiid_superrare">Super Rare</span>                                    
-                                    <div class="card-body">
-                                        <p class="card-text"> <%= collectible.name %>  </p>
-                                        <% if logged_in? && @user.id == current_user.id %>
-                                          <% if collectible.on_the_market == 'f'%>
-                                            <button class="sell_button" onclick="openForm('<%= collectible.asset_id %>')">sell</button>
-                                          <% else %>
-                                            <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "sell_button" %>
-                                          <% end %>
-                                        <% end %>
-                                    </div>
-                                </div>
-                            </div>               
-                        <% end %> 
-            <% end %> 
-        </div>        
-    </div>
+  <div class="row justify-content-center">
+    <% @collectibles.each do |collectible| %>
+      <div class="col-auto mb-4">
+        <div class="card h-60 digiid-border">
+          <img class="card-img-top filter-<%= collectible.rarity %>" src=<%= collectible.url %>>
+          <span class="badge <%= collectible.rarity %>">
+              <% case collectible.rarity
+                 when 'C' %>
+                  Common
+                <% when 'N' %>
+                  Normal
+                <% when 'R' %>
+                  Rare
+                <% when 'SR' %>
+                  Super Rare
+              <% end %>
+            </span>
+          <div class="card-body">
+            <p class="card-text"> <%= collectible.name %>  </p>
+            <% if logged_in? && @user.id == current_user.id %>
+              <% if collectible.on_the_market == 'f' %>
+                <button type="button" class="button-sell" data-id="<%= collectible.asset_id %>" data-toggle="modal" data-target="#sellModal">sell</button>
+              <% else %>
+                <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "button button-close" %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
 
-<div class="form-popup" id="myForm">
-    <form action="/sell" class="form-container">
-        <label for="sell"><b>Price</b></label>
-        <input type="number"  name="price" step="0.01" required>
-        <input type="hidden"  name="user_id" id="user_id", value = '<%= @user.id %>'>
-        <input type="hidden"  name = "asset_id" id="asset_id">
-        <button type="submit" class="btn">Sell</button>
-        <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
-    </form>
+<!-- Modal-->
+<div class="modal fade" id="sellModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content digiid-secondary-dark">
+      <div class="modal-body digiid-secondary-dark">
+        <form action="/sell" class="digiid-secondary-dark">
+          <div class="form-group">
+            <label for="sell"><h2>Price</h2></label>
+            <input type="number" name="price" step="0.01" required>
+            <input type="hidden" name="user_id" id="user_id" , value='<%= @user.id %>'>
+            <input type="hidden" name="asset_id" id="asset_id">
+          </div>
+          <button type="button" class="button-right button-close" data-dismiss="modal">Close</button>
+          <button type="submit" class="button-right button-info">Sell</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

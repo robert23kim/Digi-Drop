@@ -1,55 +1,25 @@
-<!--  This file is app/views/users/index.html.erb -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-   <a class="navbar-brand" href=<%= users_path %>>My Collectibles</a>
-   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-         <li class="nav-item active">
-            <a class="nav-link" href=<%= users_path %>>Home <span class="sr-only">(current)</span></a>
-         </li>
-         <% if logged_in? %>
-         <li class="nav-item">
-            <a class="nav-link" href=<%= user_path(current_user)%>>Manage Collectibles</a>
-         </li>
-         <li class="nav-item">
-            <a class="nav-link" href=<%= open_case_user_path(current_user)%>>Cases</a>
-         </li>
-         <li class="nav-item">
-            <a class="nav-link" href=<%= market_user_path(current_user)%>>Market</a>
-         </li>
-         <% end %>
-      </ul>
-   </div>
-   <ul class="navbar-nav mr-auto">
-      <% if logged_in? %> 
-      <li class="nav-item dropdown">
-         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         <%= current_user.username %>
-         </a>
-         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href=<%= logout_path %>>Log out</a>
-         </div>
-      </li>
-      <% else %>
-      <li class="nav-item dropdown">
-         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         Not logged in
-         </a>
-         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href=<%= login_path %>>Log in</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href='users/new'>Sign up</a>
-         </div>
-      </li>
-      <% end %> 
-   </ul>
-</nav>
+<div class="container-fluid">
 
-<h2>Login</h2>
+  <%= form_tag '/login', :method => :post do %>
+    <div class="row">
+      <div class="col-1">
+        <%= label_tag :username, "Username", :class => "h3" %>
+      </div>
+      <div class="col-1">
+        <%= text_field_tag :username %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-1">
+        <%= label_tag :password, "Password", :class => "h3" %>
+      </div>
+      <div class="col-1">
+        <%= password_field_tag :password %>
+      </div>
+    </div>
+    <div class="row mt-1" style="padding-left: 195px">
+      <%= submit_tag 'Login', :class => "nav-link info-link auth-link" %>
+    </div>
+  <% end %>
 
-<%= form_tag '/login', :method => :post do %>
-<%= label_tag :username %>
-<%= text_field_tag :username %>
-<%= label_tag :password %>
-<%= password_field_tag :password %>
-<%= submit_tag 'Login' %>
-<% end %>
+</div>

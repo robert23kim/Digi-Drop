@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   @@added_asset = nil
-    
+
   def show
     id = params[:id] # retrieve movie ID from URI route
     @user = User.find(id) # look up movie by unique ID
@@ -20,6 +20,8 @@ class UsersController < ApplicationController
   def index
     #byebug
     @users = User.all
+    @cases = Case.select('*')
+
     @countItemsHash = Hash.new
     @sumValueHash = Hash.new
     @users.each do |user|
@@ -31,6 +33,7 @@ class UsersController < ApplicationController
     @userBal = "$0"
     if !session[:user_id].nil? #and !session[:user_id].empty?
       id = session[:user_id]
+      @user = User.find(id) # look up movie by unique ID
       @userBal = User.balanceToString(User.find(id))
     end
     
@@ -39,8 +42,8 @@ class UsersController < ApplicationController
   
   def market
     @user = User.find params[:id]
+
     @products = Product.products()
-      
     @userBal = "$0"
     if !session[:user_id].nil? #and !session[:user_id].empty?
       id = session[:user_id]
@@ -56,6 +59,7 @@ class UsersController < ApplicationController
   def create
     #byebug
     @user = User.new(user_params)
+
     if !!User.find_by(username: user_params[:username])
       redirect_to '/users/new', notice: "Username already exists"
     elsif @user.save
@@ -71,8 +75,8 @@ class UsersController < ApplicationController
     
   def open
     @user = User.find params[:user_id]
+
     @cases = Case.select('*')
-      
     @active_case = if params[:case_name].nil?
         Case.find_by name: "Featured"
     else
@@ -89,6 +93,7 @@ class UsersController < ApplicationController
         @added_collectible = Collectible.select('*')
             .joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id"')
             .where("assets.collectible_id = ?", @@added_asset.collectible_id)
+            .first
     end
       
     #Adds balance value to nav bar if logged in
@@ -103,6 +108,7 @@ class UsersController < ApplicationController
     
   def add
     @user = User.find params[:user_id]
+
     @active_case = if params[:case_name].nil?
         Case.find_by name: "Featured"
     else
@@ -138,6 +144,7 @@ class UsersController < ApplicationController
   
   def add_balance
     @user = User.find params[:id]
+
     @userBal = "$0"
     if !session[:user_id].nil? #and !session[:user_id].empty?
       id = session[:user_id]

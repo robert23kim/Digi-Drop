@@ -1,11 +1,25 @@
-<%= render 'components/navbar' %>
+<div class="container-fluid">
 
-<h2>Sign Up</h2>
+  <%= form_for @user do |u| %>
+    <div class="row">
+      <div class="col-1">
+        <%= u.label :username, "Username", :class => "h3" %>
+      </div>
+      <div class="col-1">
+        <%= u.text_field :username %><br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-1">
+        <%= u.label :password, "Password", :class => "h3" %>
+      </div>
+      <div class="col-1">
+        <%= u.password_field :password %><br>
+      </div>
+    </div>
+    <div class="row mt-1" style="padding-left: 125px">
+      <%= u.submit "Create Account", :class => "nav-link info-link auth-link" %>
+    </div>
+  <% end %>
 
-<%= form_for @user do |u|%>
-  <%= u.label :username %>
-  <%= u.text_field :username %><br>
-  <%= u.label :password %>
-  <%= u.password_field :password%><br>
-  <%= u.submit "Create Account"%>
-<% end %>
+</div>
