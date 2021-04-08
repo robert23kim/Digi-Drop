@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     id = params[:id] # retrieve movie ID from URI route
     @user = User.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
-    
+
     #Adds balance value to nav bar if logged in
     #byebug
     @userBal = "$0"
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       @countItemsHash[user.id] = Collectible.joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id" INNER JOIN "users" ON "users"."id" = "assets"."user_id"').where("users.username = ?", user.username).count
       @sumValueHash[user.id] = Collectible.joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id" INNER JOIN "users" ON "users"."id" = "assets"."user_id"').where("users.username = ?", user.username).sum(:value)
     end
-    
+
     #Adds balance value to nav bar if logged in
     @userBal = "$0"
     if !session[:user_id].nil? #and !session[:user_id].empty?
@@ -36,10 +36,10 @@ class UsersController < ApplicationController
       @user = User.find(id) # look up movie by unique ID
       @userBal = User.balanceToString(User.find(id))
     end
-    
-    @users = @users.sort_by{|u| @sumValueHash[u.id]}.reverse
+
+    @users = @users.sort_by { |u| @sumValueHash[u.id] }.reverse
   end
-  
+
   def market
     @user = User.find params[:id]
 
@@ -72,30 +72,30 @@ class UsersController < ApplicationController
 
   def edit
   end
-    
+
   def open
     @user = User.find params[:user_id]
 
     @cases = Case.select('*')
     @active_case = if params[:case_name].nil?
-        Case.find_by name: "Featured"
-    else
-        Case.find_by name: params[:case_name]
-    end
-    
+                     Case.find_by name: "Featured"
+                   else
+                     Case.find_by name: params[:case_name]
+                   end
+
     @case_contents = Collectible.select('"collectibles"."id" as id, "collectibles"."url" as url, "collectibles"."name" as name, rarity')
-        .joins('INNER JOIN "contents" ON "collectibles"."id" = "contents"."collectible_id"')
-        .joins('INNER JOIN "cases" ON "cases"."id" = "contents"."case_id"')
-        .where("cases.name = ?", @active_case.name)
-      
+                         .joins('INNER JOIN "contents" ON "collectibles"."id" = "contents"."collectible_id"')
+                         .joins('INNER JOIN "cases" ON "cases"."id" = "contents"."case_id"')
+                         .where("cases.name = ?", @active_case.name)
+
     # map the asset to the corresponding collectible for display
     if !@@added_asset.nil?
-        @added_collectible = Collectible.select('*')
-            .joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id"')
-            .where("assets.collectible_id = ?", @@added_asset.collectible_id)
-            .first
+      @added_collectible = Collectible.select('*')
+                               .joins('INNER JOIN "assets" ON "assets"."collectible_id" = "collectibles"."id"')
+                               .where("assets.collectible_id = ?", @@added_asset.collectible_id)
+                               .first
     end
-      
+
     #Adds balance value to nav bar if logged in
     @userBal = "$0"
     if !session[:user_id].nil? #and !session[:user_id].empty?
@@ -103,52 +103,59 @@ class UsersController < ApplicationController
       @userBal = User.balanceToString(User.find(id))
     end
     # reset back to nil
-    @@added_asset = nil  
+    @@added_asset = nil
   end
-    
+
   def add
     @user = User.find params[:user_id]
 
     @active_case = if params[:case_name].nil?
-        Case.find_by name: "Featured"
+                     Case.find_by name: "Featured"
+                   else
+                     Case.find_by name: params[:case_name]
+                   end
+
+    new_balance = @user.balance.to_f - @active_case.value.to_f
+    if new_balance < 0
+      redirect_to :back, notice: "Insufficient Balance"
     else
-        Case.find_by name: params[:case_name]
-    end
+      # Logic, first pick out rarity based on probability C: 60, N: 25, R: 10, SR: 5
+      @rarity = nil
+      @random = rand(1..100)
 
-    # Logic, first pick out rarity based on probability C: 60, N: 25, R: 10, SR: 5 
-    @rarity = nil
-    @random = rand(1..100)
-
-    case @random
-    when 1..60
+      case @random
+      when 1..60
         @rarity = 'C'
-    when 61..85
+      when 61..85
         @rarity = 'N'
-    when 86..95
+      when 86..95
         @rarity = 'R'
-    when 96..100
+      when 96..100
         @rarity = 'SR'
+      end
+
+      # Only choose from contents of a specific case, of the selected rarity chosen above
+      @case_contents = Content.select('*')
+                           .joins('INNER JOIN "collectibles" ON "collectibles"."id" = "contents"."collectible_id"')
+                           .joins('INNER JOIN "cases" ON "cases"."id" = "contents"."case_id"')
+                           .where("cases.name = ?", params[:case_name])
+                           .where("collectibles.rarity = ?", @rarity)
+
+      # Set random blur value, 1.5px max blur
+      superRareBlurNum = nil
+      if @rarity == 'SR'
+        superRareBlurNum = rand(1..100)
+        superRareBlurNum = superRareBlurNum * 1.5
+      end
+
+      # Then pick out the specific items.
+      @@added_asset = Asset.create(:user_id => @user.id, :collectible_id => @case_contents[rand(@case_contents.size)].collectible_id, :blurNum => superRareBlurNum)
+      User.where(id: @user.id).update_all(balance: new_balance)
+      @userBal = new_balance
+      redirect_to open_path(@user, @active_case.name)
     end
-
-    # Only choose from contents of a specific case, of the selected rarity chosen above
-    @case_contents = Content.select('*')
-        .joins('INNER JOIN "collectibles" ON "collectibles"."id" = "contents"."collectible_id"')
-        .joins('INNER JOIN "cases" ON "cases"."id" = "contents"."case_id"')
-        .where("cases.name = ?", params[:case_name])
-        .where("collectibles.rarity = ?", @rarity)
-
-	# Set random blur value, 1.5px max blur
-	superRareBlurNum = nil
-	if @rarity == 'SR'
-		superRareBlurNum = rand(1..100)
-		superRareBlurNum = superRareBlurNum * 1.5
-	end
-
-    # Then pick out the specific items.  
-    @@added_asset = Asset.create(:user_id => @user.id, :collectible_id => @case_contents[rand(@case_contents.size)].collectible_id, :blurNum => superRareBlurNum)
-    redirect_to open_path(@user, @active_case.name)      
   end
-  
+
   def add_balance
     @user = User.find params[:id]
 
@@ -168,7 +175,7 @@ class UsersController < ApplicationController
   def update
     #byebug
     @user = User.find params[:id]
-    if !User.numeric?(params[:amount]) or Float(params[:amount])<0
+    if !User.numeric?(params[:amount]) or Float(params[:amount]) < 0
       flash[:notice] = "Invalid input for Amount"
       redirect_to add_balance_user_path(@user)
     else
@@ -189,7 +196,7 @@ class UsersController < ApplicationController
   end
 
   def sell
-    @user = User.find params[:user_id] 
+    @user = User.find params[:user_id]
     Product.create(:user_id => params[:user_id], :asset_id => params[:asset_id], :sell_price => params[:price])
     Asset.where(id: params[:asset_id]).update_all(on_the_market: true)
     redirect_to user_path(@user)
@@ -211,8 +218,8 @@ class UsersController < ApplicationController
       redirect_to :back, notice: "Insufficient Balance"
     else
       Asset.where(id: params[:asset_id]).update_all(user_id: params[:buyer_id], on_the_market: false)
-      User.where(id: params[:buyer_id]).update_all(balance: (buyer_balance-price))
-      User.where(id: params[:seller_id]).update_all(balance: (seller_balance+price))
+      User.where(id: params[:buyer_id]).update_all(balance: (buyer_balance - price))
+      User.where(id: params[:seller_id]).update_all(balance: (seller_balance + price))
       Product.where(asset_id: params[:asset_id]).destroy_all
       redirect_to :back, notice: "Your purchase was successful"
     end
@@ -223,6 +230,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   # Making "internal" methods private is not required, but is a common practice.
   # This helps make clear which methods respond to requests, and which ones do not.
   def user_params
