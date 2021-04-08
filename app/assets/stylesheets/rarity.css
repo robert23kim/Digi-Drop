@@ -13,10 +13,6 @@
     filter: contrast(75%);
 }
 
-.filter-SR {
-    filter: blur(0px);
-}
-
 .digiid-border {
     border-color: #72767D;
 }

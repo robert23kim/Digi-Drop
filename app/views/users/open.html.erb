@@ -57,7 +57,11 @@
           <% unless @added_collectible.nil? %>
             <div id="content-card">
               <div class="card digiid-border justify-content-center" style="max-height: 400px; width: 18rem;">
-                <img class="card-img-top filter-<%= @added_collectible.rarity %>" id="content-image" src=<%= @added_collectible.url %>>
+			    <% if @added_collectible.rarity == 'SR' %>
+				  <img style="filter: blur(<%= @added_collectible.blurNum/100 %>px)" class="card-img-top %>" id="content-image" src=<%= @added_collectible.url %>>
+			    <% else %>
+				  <img class="card-img-top filter-<%= @added_collectible.rarity %>" id="content-image" src=<%= @added_collectible.url %>>
+			    <% end %>
                 <span id="content-badge" class="badge <%= @added_collectible.rarity %>">
                 <% case @added_collectible.rarity
                    when 'C' %>

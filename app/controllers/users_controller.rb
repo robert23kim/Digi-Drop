@@ -137,8 +137,15 @@ class UsersController < ApplicationController
         .where("cases.name = ?", params[:case_name])
         .where("collectibles.rarity = ?", @rarity)
 
+	# Set random blur value, 1.5px max blur
+	superRareBlurNum = nil
+	if @rarity == 'SR'
+		superRareBlurNum = rand(1..100)
+		superRareBlurNum = superRareBlurNum * 1.5
+	end
+
     # Then pick out the specific items.  
-    @@added_asset = Asset.create(:user_id => @user.id, :collectible_id => @case_contents[rand(@case_contents.size)].collectible_id)
+    @@added_asset = Asset.create(:user_id => @user.id, :collectible_id => @case_contents[rand(@case_contents.size)].collectible_id, :blurNum => superRareBlurNum)
     redirect_to open_path(@user, @active_case.name)      
   end
   

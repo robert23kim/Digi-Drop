@@ -5,7 +5,11 @@
     <% @collectibles.each do |collectible| %>
       <div class="col-auto mb-4">
         <div class="card h-60 digiid-border">
-          <img class="card-img-top filter-<%= collectible.rarity %>" src=<%= collectible.url %>>
+		  <% if collectible.rarity == 'SR' %>
+			<img style="filter: blur(<%= collectible.blurNum/100 %>px)" class="card-img-top %>" src=<%= collectible.url %>>
+		  <% else %>
+			<img class="card-img-top filter-<%= collectible.rarity %>" src=<%= collectible.url %>>
+		  <% end %>
           <span class="badge <%= collectible.rarity %>">
               <% case collectible.rarity
                  when 'C' %>
