@@ -140,3 +140,10 @@
 .button-case-pad {
     padding-left: 480px;
 }
+
+.submit-btn {
+    background-color: #4d9aff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}

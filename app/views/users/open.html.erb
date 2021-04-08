@@ -36,6 +36,7 @@
       </div>
 
       <div class="col button-case-pad">
+        <h2> Price: $<%= @active_case.value %> </h2>
         <button type="submit" id="button-case" form="case" value="Open Case" class="btn button button-case"> Open Case
         </button>
         <%= form_tag add_path(@user, @active_case.name), :method => "POST", :id => 'case' do %>
@@ -57,11 +58,11 @@
           <% unless @added_collectible.nil? %>
             <div id="content-card">
               <div class="card digiid-border justify-content-center" style="max-height: 400px; width: 18rem;">
-			    <% if @added_collectible.rarity == 'SR' %>
-				  <img style="filter: blur(<%= @added_collectible.blurNum/100 %>px)" class="card-img-top %>" id="content-image" src=<%= @added_collectible.url %>>
-			    <% else %>
-				  <img class="card-img-top filter-<%= @added_collectible.rarity %>" id="content-image" src=<%= @added_collectible.url %>>
-			    <% end %>
+                <% if @added_collectible.rarity == 'SR' %>
+                  <img style="filter: blur(<%= @added_collectible.blurNum/100 %>px)" class="card-img-top %>" id="content-image" src=<%= @added_collectible.url %>>
+                <% else %>
+                  <img class="card-img-top filter-<%= @added_collectible.rarity %>" id="content-image" src=<%= @added_collectible.url %>>
+                <% end %>
                 <span id="content-badge" class="badge <%= @added_collectible.rarity %>">
                 <% case @added_collectible.rarity
                    when 'C' %>
@@ -86,7 +87,9 @@
       </div>
       <div class="modal-footer digiid-secondary-dark digiid-border-color">
         <button type="button" class="button-right button-close" data-dismiss="modal">Close</button>
-        <button type="submit" id="button-case" form="case" value="Open Case" class="button-right button-ok"> Open Another </button>
+        <button type="submit" id="button-case" form="case" value="Open Case" class="button-right button-ok"> Open
+          Another
+        </button>
       </div>
     </div>
   </div>
