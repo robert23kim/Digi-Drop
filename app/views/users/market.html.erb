@@ -7,8 +7,11 @@
           <div class="card-header">
             <p class="card-text"> <%= product.name %>  </p>
           </div>
-
-          <img class="card-img-top filter-<%= product.rarity %>" src=<%= product.url %>>
+		    <% if product.rarity == 'SR' %>
+			  <img style="filter: blur(<%= product.blurNum/100 %>px)" class="card-img-top %>" src=<%= product.url %>>
+		    <% else %>
+			  <img class="card-img-top filter-<%= product.rarity %>" src=<%= product.url %>>
+		    <% end %>
           <span class="badge <%= product.rarity %>">
               <% case product.rarity
                  when 'C' %>
