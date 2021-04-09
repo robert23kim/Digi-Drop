@@ -146,7 +146,7 @@ describe UsersController do
         get :open, :user_id => @user.id, :case_name => @case.name
         
         assigns(:user).should_not be_nil
-        assigns(:added_collectible).should eq([@prizes[0]])
+        assigns(:added_collectible).should eq([@prizes[0]][0])
       end
     end
   end

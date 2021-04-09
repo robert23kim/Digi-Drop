@@ -31,7 +31,7 @@ Background: users have been added to database
 Scenario: sell my collectibles
   Given I am on the homepage
   Given I am logged_in as "john123"
-  When I follow "Manage Collectibles"
+  When I follow "Manage"
   Then  I should be on the collectibles page for "john123"
   Given I sell "Kitska Warmbestrarity"
   And I should see button "unlist"
@@ -39,7 +39,7 @@ Scenario: sell my collectibles
 Scenario: unlist my collectible
   Given I am on the homepage
   Given I am logged_in as "john123"
-  When I follow "Manage Collectibles"
+  When I follow "Manage"
   Then  I should be on the collectibles page for "john123"
   Given I sell "Kitska Warmbestrarity"
   And I should see button "unlist"
@@ -56,7 +56,7 @@ Scenario: buy collectible enough funds
   And I should see button "buy"
   When I press "buy"
   Then I should see "Your purchase was successful"
-  When I follow "Manage Collectibles"
+  When I follow "Manage"
   Then I should see "F1 Delta Time"
   And I should see button "sell"
 
@@ -70,5 +70,5 @@ Scenario: buy collectible low funds
   And I should see button "buy"
   When I press "buy"
   Then I should see "Insufficient Balance"
-  When I follow "Manage Collectibles"
+  When I follow "Manage"
   Then I should not see "F1 Delta Time"

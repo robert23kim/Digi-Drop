@@ -26,7 +26,7 @@ Background: users have been added to database
 Scenario: view my collectibles
   Given I am on the homepage
   Given I am logged_in as "john123"
-  When I follow "Manage Collectibles"
+  When I follow "Manage"
   Then  I should be on the collectibles page for "john123"
   And   I should see "Kitska Warmbestrarity"
   And   I should see "Protrait of a Collector"

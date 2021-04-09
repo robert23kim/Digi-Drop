@@ -56,7 +56,7 @@ Scenario: Check case preview
   Given I am on the homepage
   Given I am logged_in as "john123"
   When I follow "Cases"
-  When I follow "Preview"
+  When I follow "Info"
   Then I should see "Common: 60%"
   Then I should see the image "https://lh3.googleusercontent.com/4YPexPRmyHJ_BW_f41KKO-QdOD_vffe0ndD3tt7vu7ZCsPydNBSVy1Je-7F781SLgWP37ujmkHqhGSBUYSp4nGxKitBd6MqDlxkssg=s992"
   
@@ -65,6 +65,6 @@ Scenario: Check case preview with different case selection
   Given I am logged_in as "john123"
   When I follow "Cases"
   When I follow "Chubbies"
-  When I follow "Preview"
+  When I follow "Info"
   Then I should see "Common: 60%"
   Then I should see the image "https://lh3.googleusercontent.com/u7GsI2B5B1KFqd7dUDzbhmlyZP35aGopWp9fxzhrUFqW0Wro3xgkDJ9H-EVct7TpPCHkh7VxkJeCw3vzV4retxdzYeYSR1nLO4Ck=s992"

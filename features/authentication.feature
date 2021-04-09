@@ -47,7 +47,7 @@ Scenario: log in successfully
   When I fill in "Password" with "123456"
   And I press "Login"
   Then I should be on the homepage
-  And I should see "My Collectibles"
+  And I should see "Manage"
   
 
 Scenario: log in with wrong password
