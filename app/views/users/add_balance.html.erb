@@ -3,8 +3,11 @@
   <div class="payment-title">
     <h1>Payment Information</h1>
   </div>
-  <div class="row">
-    <div class="col">
+  <div class="row mt-3">
+    <div class="col-2">
+    </div>
+
+    <div class="col-4 ml-5 justify-content-center" style="padding-top: 53px">
       <div class="card_container preload">
         <div class="creditcard">
           <div class="front">
@@ -106,7 +109,7 @@
       </div>
     </div>
 
-    <div class="col">
+    <div class="col-4 mb-3">
       <div class="form-container">
         <div class="field-container">
           <label for="name">Name</label>
@@ -129,11 +132,16 @@
           <input class="card_input" id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric">
         </div>
       </div>
-      <%= form_tag user_path(@user), :method => :put, :class => 'form' do %><br>
-        <%= label_tag :amount %>
-        <%= text_field_tag :amount %><br><br>
-        <%= submit_tag('Add to Balance', :class => 'submit-btn') %>
-      <% end %>
+      <div style="float: right; justify-content: end; padding-left: 130px; margin-right: 20px">
+        <%= form_tag user_path(@user), :method => :put, :class => 'form' do %>
+          <%= label_tag :amount, "Amount"%>
+          <%= text_field_tag :amount %>
+          <%= submit_tag('Add to Balance', :class => 'submit-btn') %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-2">
     </div>
   </div>
 

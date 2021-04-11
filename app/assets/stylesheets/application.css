@@ -76,6 +76,7 @@ input, select, textarea {
     border: none;
     color: #fff;
     font-size: 12px;
+    border-radius: 5px;
 }
 
 textarea:focus, input:focus {
