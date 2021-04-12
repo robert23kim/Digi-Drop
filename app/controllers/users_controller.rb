@@ -37,7 +37,8 @@ class UsersController < ApplicationController
       @userBal = User.balanceToString(User.find(id))
     end
 
-    @users = @users.sort_by { |u| @sumValueHash[u.id] }.reverse
+    #@users = @users.sort_by { |u| @sumValueHash[u.id] }.reverse
+    @users = @users.sort_by {|u| @countItemsHash[u.id]}.reverse
   end
 
   def market
