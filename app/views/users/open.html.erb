@@ -36,7 +36,7 @@
       </div>
 
       <div class="col button-case-pad">
-        <h2> Price: $<%= @active_case.value %> </h2>
+        <h2> Price: $<%= @price %> </h2>
         <button type="submit" id="button-case" form="case" value="Open Case" class="btn button button-case"> Open Case
         </button>
         <%= form_tag add_path(@user, @active_case.name), :method => "POST", :id => 'case' do %>

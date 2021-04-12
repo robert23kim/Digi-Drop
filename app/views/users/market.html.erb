@@ -26,11 +26,11 @@
             </span>
 
           <div class="card-body">
-            <p class="card-text"> $<%= product.sell_price %>  </p>
+            <p class="card-text"> $<%= '%.2f' % product.sell_price %>  </p>
             <% if product.user_id == @user.id %>
               <%= button_to 'unlist', unlist_path(@user.id, product.asset_id), :class => "button button-close" %>
             <% else %>
-              <%= button_to 'buy', buy_path(@user.id, product.user_id, product.asset_id, product.sell_price), :class => "button button-info" %>
+              <%= button_to 'buy', buy_path(@user.id, product.user_id, product.asset_id, product.sell_price ), :class => "button button-info" %>
             <% end %>
           </div>
 
