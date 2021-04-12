@@ -83,6 +83,10 @@ class UsersController < ApplicationController
                    else
                      Case.find_by name: params[:case_name]
                    end
+    @price = @active_case.value
+    if not @active_case.value.nil?
+      @price = '%.2f' % @active_case.value
+    end
 
     @case_contents = Collectible.select('"collectibles"."id" as id, "collectibles"."url" as url, "collectibles"."name" as name, rarity')
                          .joins('INNER JOIN "contents" ON "collectibles"."id" = "contents"."collectible_id"')
