@@ -46,7 +46,7 @@
         <form action="/sell" class="digiid-secondary-dark">
           <div class="form-group">
             <label for="sell"><h2>Price</h2></label>
-            <input type="number" name="price" step="0.01" required>
+            <input type="number" name="price" step="0.01" min="0.01" required>
             <input type="hidden" name="user_id" id="user_id" , value='<%= @user.id %>'>
             <input type="hidden" name="asset_id" id="asset_id">
           </div>
