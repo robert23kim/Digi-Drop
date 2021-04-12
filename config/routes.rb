@@ -15,7 +15,7 @@ Rottenpotatoes::Application.routes.draw do
   get 'logout', to: 'sessions#destroy', as: 'logout'
   get 'sell(/:user_id)(/:asset_id)(/:price)', to: 'users#sell', as: 'sell'
   post 'unlist(/:user_id)(/:asset_id)', to: 'users#unlist', as: 'unlist'
-  post 'buy(/:buyer_id)(/:seller_id)(/:asset_id)(/:price)', to: 'users#buy', as: 'buy'
+  post 'buy(/:buyer_id)(/:seller_id)(/:asset_id)(/:price)', to: 'users#buy', as: 'buy', :constraints => { :price => /.*/ }
   post 'add(/:user_id)(/:case_name)', to: 'users#add', as: 'add'
   match 'open(/:user_id)(/:case_name)' => 'users#open', via: [:get, :post], as: 'open'
 end
