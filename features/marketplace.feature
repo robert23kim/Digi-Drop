@@ -21,8 +21,8 @@ Background: users have been added to database
 
   And the following assets exist:
   | user_id                | collectible_id    | on_the_market  |
-  | 1                      | 1                 | f              |
-  | 2                      | 4                 | f              |
+  | 1                      | 1                 | 1              |
+  | 2                      | 4                 | 1              |
 
   And the following products exist:
   | user_id    | asset_id    | sell_price    |

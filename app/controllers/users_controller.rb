@@ -203,14 +203,14 @@ class UsersController < ApplicationController
   def sell
     @user = User.find params[:user_id]
     Product.create(:user_id => params[:user_id], :asset_id => params[:asset_id], :sell_price => params[:price])
-    Asset.where(id: params[:asset_id]).update_all(on_the_market: true)
+    Asset.where(id: params[:asset_id]).update_all(on_the_market: 1)
     redirect_to user_path(@user)
   end
 
   def unlist
     @user = User.find params[:user_id]
     Product.where(asset_id: params[:asset_id]).destroy_all
-    Asset.where(id: params[:asset_id]).update_all(on_the_market: false)
+    Asset.where(id: params[:asset_id]).update_all(on_the_market: 0)
     #redirect_to user_path(@user)
     redirect_to(:back)
   end
@@ -222,16 +222,12 @@ class UsersController < ApplicationController
     if buyer_balance < price
       redirect_to :back, notice: "Insufficient Balance"
     else
-      Asset.where(id: params[:asset_id]).update_all(user_id: params[:buyer_id], on_the_market: false)
+      Asset.where(id: params[:asset_id]).update_all(user_id: params[:buyer_id], on_the_market: 0)
       User.where(id: params[:buyer_id]).update_all(balance: (buyer_balance - price))
       User.where(id: params[:seller_id]).update_all(balance: (seller_balance + price))
       Product.where(asset_id: params[:asset_id]).destroy_all
       redirect_to :back, notice: "Your purchase was successful"
     end
-    #@user = User.find params[:user_id]
-    #Product.where(asset_id: params[:asset_id]).destroy_all
-    #Asset.where(id: params[:asset_id]).update_all(on_the_market: false)
-    #redirect_to user_path(@user)
   end
 
   private
