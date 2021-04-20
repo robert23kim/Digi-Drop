@@ -25,7 +25,7 @@
           <div class="card-body">
             <p class="card-text"> <%= collectible.name %>  </p>
             <% if logged_in? && @user.id == current_user.id %>
-              <% if collectible.on_the_market == 'f' %>
+              <% if collectible.on_the_market == 0 %>
                 <button type="button" class="button-sell" data-id="<%= collectible.asset_id %>" data-toggle="modal" data-target="#sellModal">sell</button>
               <% else %>
                 <%= button_to 'unlist', unlist_path(@user.id, collectible.asset_id), :class => "button button-close" %>
